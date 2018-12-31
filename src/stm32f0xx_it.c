@@ -1,9 +1,7 @@
 /**
   ******************************************************************************
-  * @file    GPIO/GPIO_IOToggle/Src/stm32f0xx_it.c
+  * @file    ADC/ADC_Sequencer/Src/stm32f0xx_it.c
   * @author  MCD Application Team
-  * @version V1.6.0
-  * @date    27-May-2016
   * @brief   Main Interrupt Service Routines.
   *          This file provides template for all exceptions handler and
   *          peripherals interrupt service routine.
@@ -45,7 +43,7 @@
   * @{
   */
 
-/** @addtogroup GPIO_IOToggle
+/** @addtogroup ADC_Sequencer
   * @{
   */
 
@@ -53,6 +51,11 @@
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
+extern ADC_HandleTypeDef    AdcHandle;
+
+#if defined(WAVEFORM_VOLTAGE_GENERATION_FOR_TEST)
+extern DAC_HandleTypeDef    DacHandle;
+#endif /* WAVEFORM_VOLTAGE_GENERATION_FOR_TEST */
 
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
@@ -62,7 +65,7 @@
 /******************************************************************************/
 
 /**
-  * @brief  This function handles NMI exception.
+  * @brief   This function handles NMI exception.
   * @param  None
   * @retval None
   */
@@ -121,6 +124,50 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
+  * @brief  This function handles external line 4_15 interrupt request.
+  * @param  None
+  * @retval None
+  */
+void EXTI4_15_IRQHandler(void)
+{
+  HAL_GPIO_EXTI_IRQHandler(USER_BUTTON_PIN);
+}
+
+
+/**
+  * @brief  This function handles ADC interrupt request.
+  * @param  None
+  * @retval None
+  */
+void ADCx_IRQHandler(void)
+{
+  HAL_ADC_IRQHandler(&AdcHandle);
+}
+
+/**
+* @brief  This function handles DMA interrupt request.
+* @param  None
+* @retval None
+*/
+void ADCx_DMA_IRQHandler(void)
+{
+  HAL_DMA_IRQHandler(AdcHandle.DMA_Handle);
+}
+
+
+#if defined(WAVEFORM_VOLTAGE_GENERATION_FOR_TEST)
+/**
+* @brief  This function handles DAC interrupt request.
+* @param  None
+* @retval None
+*/
+void TIM6_DAC_IRQHandler(void)
+{
+  HAL_DAC_IRQHandler(&DacHandle);
+}
+#endif /* WAVEFORM_VOLTAGE_GENERATION_FOR_TEST */
+
+/**
   * @brief  This function handles PPP interrupt request.
   * @param  None
   * @retval None
@@ -128,6 +175,7 @@ void SysTick_Handler(void)
 /*void PPP_IRQHandler(void)
 {
 }*/
+
 
 
 /**

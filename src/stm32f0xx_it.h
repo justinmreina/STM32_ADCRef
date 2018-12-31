@@ -1,9 +1,7 @@
 /**
   ******************************************************************************
-  * @file    GPIO/GPIO_IOToggle/Inc/stm32f0xx_it.h
+  * @file    ADC/ADC_Sequencer/Inc/stm32f0xx_it.h
   * @author  MCD Application Team
-  * @version V1.6.0
-  * @date    27-May-2016
   * @brief   This file contains the headers of the interrupt handlers.
   ******************************************************************************
   * @attention
@@ -54,6 +52,14 @@ void HardFault_Handler(void);
 void SVC_Handler(void);
 void PendSV_Handler(void);
 void SysTick_Handler(void);
+void EXTI4_15_IRQHandler(void);
+
+void ADCx_IRQHandler(void);
+void ADCx_DMA_IRQHandler(void);
+
+#if defined(WAVEFORM_VOLTAGE_GENERATION_FOR_TEST)
+void TIM6_DAC_IRQHandler(void);
+#endif /* WAVEFORM_VOLTAGE_GENERATION_FOR_TEST */
 
 #ifdef __cplusplus
 }

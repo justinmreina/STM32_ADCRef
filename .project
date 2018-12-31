@@ -23,4 +23,11 @@
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_dma.c</name>
+			<type>1</type>
+			<location>C:/Users/justi/STM32Cube/Repository/STM32Cube_FW_F0_V1.9.0/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_dma.c</location>
+		</link>
+	</linkedResources>
 </projectDescription>

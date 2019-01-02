@@ -7,35 +7,11 @@
   *          Channels converted are 1 channel on external pin and 2 internal
   *          channels (VrefInt and temperature sensor).
   *          Moreover, voltage and temperature are then computed.
+  *
+  * @section 	Opens
+  * 	ADC_CHANNEL_13 not working, crashes Nucleo-64 and unsure why
   ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
-  *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-  *
-  ******************************************************************************
-  */
+*/
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
@@ -59,7 +35,7 @@
 #define RANGE_12BITS                   ((uint32_t) 4095)    /* Max digital value with a full range of 12 bits */
 
 /* ADC parameters */
-#define ADCCONVERTEDVALUES_BUFFER_SIZE ((uint32_t)    10)    /* Size of array containing ADC converted values: set to ADC sequencer number of ranks converted, to have a rank in each address */
+#define ADCCONVERTEDVALUES_BUFFER_SIZE ((uint32_t)    NUM_ADC_CHANNELS)    /* Size of array containing ADC converted values: set to ADC sequencer number of ranks converted, to have a rank in each address */
 
 /* Internal temperature sensor: constants data used for indicative values in  */
 /* this example. Refer to device datasheet for min/typ/max values.            */
@@ -89,10 +65,8 @@
   *              TS_CAL1 = TS_ADC_DATA @30degC (calibrated in factory)
   *              TS_CAL2 = TS_ADC_DATA @110degC (calibrated in factory)
   *         Calculation validity conditioned to settings:
-  *          - ADC resolution 12 bits (need to scale conversion value
-  *            if using a different resolution).
-  *          - Power supply of analog voltage set to literal VDDA_APPLI
-  *            (need to scale value if using a different value of analog
+  *          - ADC resolution 12 bits (need to scale conversion value if using a different resolution).
+  *          - Power supply of analog voltage set to literal VDDA_APPLI (need to scale value if using a different value of analog
   *            voltage supply).
   * @param TS_ADC_DATA: Temperature sensor digital value measured by ADC
   * @retval None
@@ -106,20 +80,16 @@
   )
 
 /**
-  * @brief  Computation of temperature (unit: degree Celsius) from the internal
-  *         temperature sensor measurement by ADC.
-  *         Computation is using temperature sensor standard parameters (refer
-  *         to device datasheet).
+  * @brief  Computation of temperature (unit: degree Celsius) from the internal temperature sensor measurement by ADC. Computation
+  * 		is using temperature sensor standard parameters (refer to device datasheet).
   *         Computation formula:
   *         Temperature = (VTS - V30)/Avg_Slope + 30
   *         with VTS = temperature sensor voltage
   *              Avg_Slope = temperature sensor slope (unit: uV/DegCelsius)
   *              V30 = temperature sensor @25degC and Vdda defined at VDDA_TEMP_CAL (unit: mV)
   *         Calculation validity conditioned to settings:
-  *          - ADC resolution 12 bits (need to scale value if using a different
-  *            resolution).
-  *          - Power supply of analog voltage set to literal VDDA_APPLI
-  *            (need to scale value if using a different value of analog
+  *          - ADC resolution 12 bits (need to scale value if using a different resolution).
+  *          - Power supply of analog voltage set to literal VDDA_APPLI (need to scale value if using a different value of analog
   *            voltage supply).
   * @param TS_ADC_DATA: Temperature sensor digital value measured by ADC
   * @retval None
@@ -133,13 +103,10 @@
   )
 
 /**
-  * @brief  Computation of voltage (unit: mV) from ADC measurement digital
-  *         value on range 12 bits.
+  * @brief  Computation of voltage (unit: mV) from ADC measurement digital value on range 12 bits.
   *         Calculation validity conditioned to settings:
-  *          - ADC resolution 12 bits (need to scale value if using a different
-  *            resolution).
-  *          - Power supply of analog voltage Vdda 3.3V (need to scale value
-  *            if using a different analog voltage supply value).
+  *          - ADC resolution 12 bits (need to scale value if using a different resolution).
+  *          - Power supply of analog voltage Vdda 3.3V (need to scale value if using a different analog voltage supply value).
   * @param ADC_DATA: Digital value measured by ADC
   * @retval None
   */
@@ -188,130 +155,109 @@ static void WaveformVoltageGenerationForTest_Update(void);
   * @param  None
   * @retval None
   */
-int main(void)
-{
-  /* STM32F0xx HAL library initialization:
-       - Configure the Flash prefetch
-       - Systick timer is configured by default as source of time base, but user 
-         can eventually implement his proper time base source (a general purpose 
-         timer for example or other time source), keeping in mind that Time base 
-         duration should be kept 1ms since PPP_TIMEOUT_VALUEs are defined and 
-         handled in milliseconds basis.
-       - Low Level Initialization
-     */
-  HAL_Init();
+int main(void) {
 
-  /* Configure the system clock to 48 MHz */
-  SystemClock_Config();
-  
+	//Locals
+	HAL_StatusTypeDef result;
 
-  /*## Configure peripherals #################################################*/
+	/* STM32F0xx HAL library initialization:
+	- Configure the Flash prefetch
+	- Systick timer is configured by default as source of time base, but user  can eventually implement his proper time base
+	source (a general purpose timer for example or other time source), keeping in mind that Time base duration should be kept
+	1ms since PPP_TIMEOUT_VALUEs are defined and handled in milliseconds basis.
+	- Low Level Initialization
+	*/
+	HAL_Init();
 
-  /* Initialize LED on board */
-  BSP_LED_Init(LED2);
+	/* Configure the system clock to 48 MHz */
+	SystemClock_Config();
 
-  /* Configure User push-button in Interrupt mode */
-  BSP_PB_Init(BUTTON_USER, BUTTON_MODE_EXTI);
 
-  /* Configure the ADCx peripheral */
-  ADC_Config();
+	/*## Configure peripherals #################################################*/
 
-  /* Run the ADC calibration */
-  if (HAL_ADCEx_Calibration_Start(&AdcHandle) != HAL_OK)
-  {
-    /* Calibration Error */
-    Error_Handler();
-  }
+	/* Initialize LED on board */
+	BSP_LED_Init(LED2);
+
+	/* Configure User push-button in Interrupt mode */
+	BSP_PB_Init(BUTTON_USER, BUTTON_MODE_EXTI);
+
+	/* Configure the ADCx peripheral */
+	adc_config_init();
+
+	/* Run the ADC calibration */
+	if (HAL_ADCEx_Calibration_Start(&AdcHandle) != HAL_OK) {
+		Error_Handler();													/* Calibration Error 									*/
+	}
 
 
 #if defined(WAVEFORM_VOLTAGE_GENERATION_FOR_TEST)
-  /* Configure the DAC peripheral and generate a constant voltage of Vdda/2.  */
-  WaveformVoltageGenerationForTest_Config();
+	/* Configure the DAC peripheral and generate a constant voltage of Vdda/2.  */
+	WaveformVoltageGenerationForTest_Config();
 #endif /* WAVEFORM_VOLTAGE_GENERATION_FOR_TEST */
 
-  /*## Enable peripherals ####################################################*/
+	/*## Enable peripherals ####################################################*/
 
-  /*## Start ADC conversions #################################################*/
+	/*## Start ADC conversions #################################################*/
 
-  /* Start ADC conversion on regular group with transfer by DMA */
-  if (HAL_ADC_Start_DMA(&AdcHandle,
-                        (uint32_t *)aADCxConvertedValues,
-                        ADCCONVERTEDVALUES_BUFFER_SIZE
-                       ) != HAL_OK)
-  {
-    /* Start Error */
-    Error_Handler();
-  }
+	/* Start ADC conversion on regular group with transfer by DMA */
+	if (HAL_ADC_Start_DMA(&AdcHandle, (uint32_t *)aADCxConvertedValues, ADCCONVERTEDVALUES_BUFFER_SIZE) != HAL_OK) {
+		Error_Handler();													/* Start Error 											*/
+	}
 
+	/* Infinite loop */
+	for(;;) {
 
-  /* Infinite loop */
-  while (1)
-  {
+		/* Wait for event on push button to perform following actions */
+		while ((ubUserButtonClickEvent) == RESET);
 
-    /* Wait for event on push button to perform following actions */
-    while ((ubUserButtonClickEvent) == RESET)
-    {
-    }
-    /* Reset variable for next loop iteration */
-    ubUserButtonClickEvent = RESET;
+		ubUserButtonClickEvent = RESET;										/* Reset variable for next loop iteration 				*/
 
-#if defined(WAVEFORM_VOLTAGE_GENERATION_FOR_TEST)
-    /* Modifies the voltage level incrementally from 0V to Vdda at each call. */
-    /* Circular waveform of ramp: When the maximum level is reaches,          */
-    /* restart from 0V.                                                       */
-    WaveformVoltageGenerationForTest_Update();
-#endif /* WAVEFORM_VOLTAGE_GENERATION_FOR_TEST */
+		#if defined(WAVEFORM_VOLTAGE_GENERATION_FOR_TEST)
+		/* Modifies the voltage level incrementally from 0V to Vdda at each call. Circular waveform of ramp: When the maximum level is 	*/
+		/*reaches, restart from 0V. 																									*/
+		WaveformVoltageGenerationForTest_Update();
+		#endif /* WAVEFORM_VOLTAGE_GENERATION_FOR_TEST */
 
 
-    /* Start ADC conversion */
-    /* Since sequencer is enabled in discontinuous mode, this will perform    */
-    /* the conversion of the next rank in sequencer.                          */
-    /* Note: For this example, conversion is triggered by software start,     */
-    /*       therefore "HAL_ADC_Start()" must be called for each conversion.  */
-    /*       Since DMA transfer has been initiated previously by function     */
-    /*       "HAL_ADC_Start_DMA()", this function will keep DMA transfer      */
-    /*       active.                                                          */
-    if (HAL_ADC_Start(&AdcHandle) != HAL_OK)
-    {
-      Error_Handler();
-    }
+		/* Start ADC conversion */
+		/* Since sequencer is enabled in discontinuous mode, this will perform the conversion of the next rank in sequencer. 		*/
+		/* Note: For this example, conversion is triggered by software start, therefore "HAL_ADC_Start()" must be called for each 	*/
+		/*       conversion. Since DMA transfer has been initiated previously by function "HAL_ADC_Start_DMA()", this function will */
+		/*		 keep DMA transfer active. 																							*/
+		result = HAL_ADC_Start(&AdcHandle);
 
-    /* Wait for conversion completion */
-    /* Note: A fixed wait time of 1ms is used for the purpose of this         */
-    /*       example: ADC conversions are decomposed between each rank        */
-    /*       of the ADC sequencer.                                            */
-    /*       Function "HAL_ADC_PollForConversion(&AdcHandle, 1)" could be     */
-    /*       used, instead of wait time, but with a different configuration   */
-    /*       (this function cannot be used if ADC configured in DMA mode      */
-    /*       and polling for end of each conversion): a possible              */
-    /*       configuration is ADC polling for the entire sequence (ADC init   */
-    /*       parameter "EOCSelection" set to ADC_EOC_SEQ_CONV) (this also     */
-    /*       induces that ADC discontinuous mode must be disabled).           */
-    HAL_Delay(1);
+		if(result != HAL_OK) {
+			Error_Handler();
+		}
 
-    /* Turn-on/off LED2 in function of ADC sequencer status */
-    /* - Turn-off if sequencer has not yet converted all ranks */
-    /* - Turn-on if sequencer has converted all ranks */
-    if (ubSequenceCompleted == RESET)
-    {
-      BSP_LED_Off(LED2);
-    }
-    else
-    {
-      BSP_LED_On(LED2);
+		/* Wait for conversion completion */
+		/* Note: A fixed wait time of 1ms is used for the purpose of this         													*/
+		/*       example: ADC conversions are decomposed between each rank of the ADC sequencer. Function 							*/
+		/*		 "HAL_ADC_PollForConversion(&AdcHandle, 1)" could be used, instead of wait time, but with a different configuration */
+		/*		 (this function cannot be used if ADC configured in DMA mode and polling for end of each conversion): a possible 	*/
+		/*		 configuration is ADC polling for the entire sequence (ADC init parameter "EOCSelection" set to ADC_EOC_SEQ_CONV) 	*/
+		/*		 (this also induces that ADC discontinuous mode must be disabled).           										*/
+		HAL_Delay(1);
 
-      /* Computation of ADC conversions raw data to physical values */
-      /* Note: ADC results are transferred into array "aADCxConvertedValues"  */
-      /*       in the order of their rank in ADC sequencer.                   */
-      uhADCChannelToDAC_mVolt    = COMPUTATION_DIGITAL_12BITS_TO_VOLTAGE(aADCxConvertedValues[0]);
-      uhVrefInt_mVolt            = COMPUTATION_DIGITAL_12BITS_TO_VOLTAGE(aADCxConvertedValues[2]);
-      wTemperature_DegreeCelsius = COMPUTATION_TEMPERATURE_TEMP30_TEMP110(aADCxConvertedValues[1]);
+		/* Turn-on/off LED2 in function of ADC sequencer status 																	*/
+		/* - Turn-off if sequencer has not yet converted all ranks 																	*/
+		/* - Turn-on if sequencer has converted all ranks 																			*/
+		if (ubSequenceCompleted == RESET) {
+			BSP_LED_Off(LED2);
+		} else {
+			BSP_LED_On(LED2);
 
-      /* Reset variable for next loop iteration */
-      ubSequenceCompleted = RESET;
-      memset((uint8_t *)aADCxConvertedValues, 0xFF, sizeof(aADCxConvertedValues));
-    }
-  }
+			/* Computation of ADC conversions raw data to physical values */
+			/* Note: ADC results are transferred into array "aADCxConvertedValues" in the order of their rank in ADC sequencer.		*/
+			uhADCChannelToDAC_mVolt    = COMPUTATION_DIGITAL_12BITS_TO_VOLTAGE(aADCxConvertedValues[0]);
+			uhVrefInt_mVolt            = COMPUTATION_DIGITAL_12BITS_TO_VOLTAGE(aADCxConvertedValues[2]);
+			wTemperature_DegreeCelsius = COMPUTATION_TEMPERATURE_TEMP30_TEMP110(aADCxConvertedValues[1]);
+
+			/* Reset variable for next loop iteration */
+			ubSequenceCompleted = RESET;
+			memset((uint8_t *)aADCxConvertedValues, 0xFF, sizeof(aADCxConvertedValues));
+		}
+	}
 }
 
 
@@ -330,35 +276,35 @@ int main(void)
   * @param  None
   * @retval None
   */
-void SystemClock_Config(void)
-{
-  RCC_ClkInitTypeDef RCC_ClkInitStruct;
-  RCC_OscInitTypeDef RCC_OscInitStruct;
-  
-  /* Select HSI48 Oscillator as PLL source */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI48;
-  RCC_OscInitStruct.HSI48State = RCC_HSI48_ON;
-  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI48;
-  RCC_OscInitStruct.PLL.PREDIV = RCC_PREDIV_DIV2;
-  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL2;
-  if (HAL_RCC_OscConfig(&RCC_OscInitStruct)!= HAL_OK)
-  {
-    /* Initialization Error */
-    while(1);
-  }
+void SystemClock_Config(void) {
 
-  /* Select PLL as system clock source and configure the HCLK and PCLK1 clocks dividers */
-  RCC_ClkInitStruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1);
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1)!= HAL_OK)
-  {
-    /* Initialization Error */
-    while(1);
-  }
+	//Locals
+	RCC_ClkInitTypeDef RCC_ClkInitStruct;
+	RCC_OscInitTypeDef RCC_OscInitStruct;
+
+	/* Select HSI48 Oscillator as PLL source */
+	RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI48;
+	RCC_OscInitStruct.HSI48State = RCC_HSI48_ON;
+	RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+	RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI48;
+	RCC_OscInitStruct.PLL.PREDIV = RCC_PREDIV_DIV2;
+	RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL2;
+	if (HAL_RCC_OscConfig(&RCC_OscInitStruct)!= HAL_OK) {
+		while(1);															/* Initialization Error 								*/
+	}
+
+	/* Select PLL as system clock source and configure the HCLK and PCLK1 clocks dividers */
+	RCC_ClkInitStruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1);
+	RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+	RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+	RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+	if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1)!= HAL_OK) {
+		while(1);																/* Initialization Error 								*/
+	}
+
+	return;
 }
+
 
 #if defined(WAVEFORM_VOLTAGE_GENERATION_FOR_TEST)
 /**

@@ -43,6 +43,10 @@
 #include "stm32f0xx_hal.h"
 #include "stm32f0xx_nucleo.h"
 
+//Project
+#include "adc.h"
+
+
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 

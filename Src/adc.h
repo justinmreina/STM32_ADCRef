@@ -19,13 +19,15 @@
 
 //Toolchain
 #include "stm32f0xx_hal.h"
+#include "stm32f0xx_hal_adc.h"
+#include "stm32f0xx_hal_adc_ex.h"
 
 //Project
 #include "main.h"
 
 
 //Definitions
-#define NUM_ADC_CHANNELS	(10)
+#define NUM_ADC_CHANNELS	(8)
 
 
 //Typedefs
@@ -37,8 +39,11 @@ typedef struct adcChannelConfig {
 
 
 //Globals
-extern void ADC_Config(void);
+extern void adc_config_init(void);
+extern void adc_msp_init(void);
 
+//Locals
+void adc_config_channel(uint32_t channel);
 
 #endif /* __ADC_H */
 

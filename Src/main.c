@@ -42,7 +42,8 @@
 #include "stm32f0xx_hal_adc.h"
 #include "stm32f0xx_hal_adc_ex.h"
 #include "stm32f0xx_hal_dac.h"
-
+#include "adc.h"
+#include <string.h>
 
 /** @addtogroup STM32F0xx_HAL_Examples
   * @{
@@ -174,8 +175,7 @@ uint8_t         ubSequenceCompleted = RESET;     /* Set when all ranks of the se
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-static void Error_Handler(void);
-static void ADC_Config(void);
+void Error_Handler(void);
 #if defined(WAVEFORM_VOLTAGE_GENERATION_FOR_TEST)
 static void WaveformVoltageGenerationForTest_Config(void);
 static void WaveformVoltageGenerationForTest_Update(void);
@@ -228,7 +228,6 @@ int main(void)
   /* Configure the DAC peripheral and generate a constant voltage of Vdda/2.  */
   WaveformVoltageGenerationForTest_Config();
 #endif /* WAVEFORM_VOLTAGE_GENERATION_FOR_TEST */
-
 
   /*## Enable peripherals ####################################################*/
 
@@ -310,7 +309,7 @@ int main(void)
 
       /* Reset variable for next loop iteration */
       ubSequenceCompleted = RESET;
-      memset(aADCxConvertedValues, 0xFF, sizeof(aADCxConvertedValues));
+      memset((uint8_t *)aADCxConvertedValues, 0xFF, sizeof(aADCxConvertedValues));
     }
   }
 }
@@ -358,134 +357,6 @@ void SystemClock_Config(void)
   {
     /* Initialization Error */
     while(1);
-  }
-}
-
-
-/**
-  * @brief  ADC configuration
-  * @param  None
-  * @retval None
-  */
-static void ADC_Config(void)
-{
-  HAL_StatusTypeDef result;
-  ADC_ChannelConfTypeDef   sConfig;
-
-  /* Configuration of AdcHandle init structure: ADC parameters and regular group */
-  AdcHandle.Instance = ADC1;
-
-  if (HAL_ADC_DeInit(&AdcHandle) != HAL_OK)
-  {
-    /* ADC initialization error */
-    Error_Handler();
-  }
-
-  AdcHandle.Init.ClockPrescaler        = ADC_CLOCK_ASYNC_DIV1;
-  AdcHandle.Init.Resolution            = ADC_RESOLUTION_12B;
-  AdcHandle.Init.DataAlign             = ADC_DATAALIGN_RIGHT;
-  AdcHandle.Init.ScanConvMode          = ADC_SCAN_DIRECTION_FORWARD;    /* Sequencer will convert the number of channels configured below, successively from the lowest to the highest channel number */
-  AdcHandle.Init.EOCSelection          = ADC_EOC_SINGLE_CONV;
-  AdcHandle.Init.LowPowerAutoWait      = DISABLE;
-  AdcHandle.Init.LowPowerAutoPowerOff  = DISABLE;
-  AdcHandle.Init.ContinuousConvMode    = DISABLE;                       /* Continuous mode disabled to have only 1 rank converted at each conversion trig, and because discontinuous mode is enabled */
-  AdcHandle.Init.DiscontinuousConvMode = ENABLE;                        /* Sequencer of regular group will convert the sequence in several sub-divided sequences */
-  AdcHandle.Init.ExternalTrigConv      = ADC_SOFTWARE_START;            /* Software start to trig the 1st conversion manually, without external event */
-  AdcHandle.Init.ExternalTrigConvEdge  = ADC_EXTERNALTRIGCONVEDGE_NONE; /* Parameter discarded because trig of conversion by software start (no external event) */
-  AdcHandle.Init.DMAContinuousRequests = ENABLE;                        /* ADC-DMA continuous requests to match with DMA configured in circular mode */
-  AdcHandle.Init.Overrun               = ADC_OVR_DATA_OVERWRITTEN;
-  /* Note: Set long sampling time due to internal channels (VrefInt,          */
-  /*       temperature sensor) constraints. Refer to device datasheet for     */
-  /*       min/typ/max values.                                                */
-  AdcHandle.Init.SamplingTimeCommon    = ADC_SAMPLETIME_239CYCLES_5;
-
-  if (HAL_ADC_Init(&AdcHandle) != HAL_OK)
-  {
-    /* ADC initialization error */
-    Error_Handler();
-  }
-
-  /* Configuration of channel on ADCx regular group on sequencer rank 1 */
-  /* Note: Considering IT occurring after each ADC conversion (IT by DMA end  */
-  /*       of transfer), select sampling time and ADC clock with sufficient   */
-  /*       duration to not create an overhead situation in IRQHandler.        */
-  sConfig.Channel      = ADC_CHANNEL_0;
-  sConfig.Rank         = ADC_RANK_CHANNEL_NUMBER;
-
-  if (HAL_ADC_ConfigChannel(&AdcHandle, &sConfig) != HAL_OK)
-  {
-    /* Channel Configuration Error */
-    Error_Handler();
-  }
-
-  /* Configuration of channel on ADCx regular group on sequencer rank 2 */
-  /* Replicate previous rank settings, change only channel */
-  /* Note: On STM32F0xx, rank is defined by channel number. ADC Channel       */
-  /*       ADC_CHANNEL_TEMPSENSOR is on ADC channel 16, there is 1 other      */
-  /*       channel enabled with lower channel number. Therefore,              */
-  /*       ADC_CHANNEL_TEMPSENSOR will be converted by the sequencer as the   */
-  /*       2nd rank.                                                          */
-  sConfig.Channel      = ADC_CHANNEL_1;
-
-  if (HAL_ADC_ConfigChannel(&AdcHandle, &sConfig) != HAL_OK)
-  {
-    /* Channel Configuration Error */
-    Error_Handler();
-  }
-
-  /* Configuration of channel on ADCx regular group on sequencer rank 3 */
-  /* Replicate previous rank settings, change only channel */
-  /* Note: On STM32F0xx, rank is defined by channel number. ADC Channel       */
-  /*       ADC_CHANNEL_VREFINT is on ADC channel 17, there is are 2 other     */
-  /*       channels enabled with lower channel number. Therefore,             */
-  /*       ADC_CHANNEL_VREFINT will be converted by the sequencer as the      */
-  /*       3rd rank.                                                          */
-  sConfig.Channel      = ADC_CHANNEL_13;
-  result = HAL_ADC_ConfigChannel(&AdcHandle, &sConfig);
-  if (result != HAL_OK) {
-    Error_Handler();					/* Channel Configuration Error 		  */
-  }
-
-  //ADC_IN5
-  sConfig.Channel      = ADC_CHANNEL_5;
-  if (HAL_ADC_ConfigChannel(&AdcHandle, &sConfig) != HAL_OK) {
-    Error_Handler();					/* Channel Configuration Error 		  */
-  }
-
-  //ADC_IN6
-  sConfig.Channel      = ADC_CHANNEL_6;
-  if (HAL_ADC_ConfigChannel(&AdcHandle, &sConfig) != HAL_OK) {
-    Error_Handler();					/* Channel Configuration Error 		  */
-  }
-
-  //ADC_IN7
-  sConfig.Channel      = ADC_CHANNEL_7;
-  if (HAL_ADC_ConfigChannel(&AdcHandle, &sConfig) != HAL_OK) {
-    Error_Handler();					/* Channel Configuration Error 		  */
-  }
-
-  //ADC_IN8
-  sConfig.Channel      = ADC_CHANNEL_8;
-  if (HAL_ADC_ConfigChannel(&AdcHandle, &sConfig) != HAL_OK) {
-    Error_Handler();					/* Channel Configuration Error 		  */
-  }
-
-  //ADC_IN9
-  sConfig.Channel      = ADC_CHANNEL_9;
-  if (HAL_ADC_ConfigChannel(&AdcHandle, &sConfig) != HAL_OK) {
-    Error_Handler();					/* Channel Configuration Error 		  */
-  }
-
-  //ADC_IN14
-  sConfig.Channel      = ADC_CHANNEL_14;
-  if (HAL_ADC_ConfigChannel(&AdcHandle, &sConfig) != HAL_OK) {
-    Error_Handler();					/* Channel Configuration Error 		  */
-  }
-
-  //ADC_IN15
-  sConfig.Channel      = ADC_CHANNEL_15;
-  if (HAL_ADC_ConfigChannel(&AdcHandle, &sConfig) != HAL_OK) {
-    Error_Handler();					/* Channel Configuration Error 		  */
   }
 }
 
@@ -648,7 +519,7 @@ void HAL_ADC_ErrorCallback(ADC_HandleTypeDef *hadc)
   * @param  None
   * @retval None
   */
-static void Error_Handler(void)
+void Error_Handler(void)
 {
   /* User may add here some code to deal with a potential error */
 

@@ -115,6 +115,12 @@
 /* Exported macro ------------------------------------------------------------*/
 
 /* Exported functions ------------------------------------------------------- */
+extern void Error_Handler(void);
+
+
+/* Exported variables ------------------------------------------------------- */
+extern ADC_HandleTypeDef    AdcHandle;
+
 
 #endif /* __MAIN_H */
 

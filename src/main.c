@@ -407,7 +407,7 @@ static void ADC_Config(void)
   /* Note: Considering IT occurring after each ADC conversion (IT by DMA end  */
   /*       of transfer), select sampling time and ADC clock with sufficient   */
   /*       duration to not create an overhead situation in IRQHandler.        */
-  sConfig.Channel      = ADCx_CHANNELa;
+  sConfig.Channel      = ADC_CHANNEL_0;
   sConfig.Rank         = ADC_RANK_CHANNEL_NUMBER;
 
   if (HAL_ADC_ConfigChannel(&AdcHandle, &sConfig) != HAL_OK)
@@ -423,7 +423,7 @@ static void ADC_Config(void)
   /*       channel enabled with lower channel number. Therefore,              */
   /*       ADC_CHANNEL_TEMPSENSOR will be converted by the sequencer as the   */
   /*       2nd rank.                                                          */
-  sConfig.Channel      = ADC_CHANNEL_TEMPSENSOR;
+  sConfig.Channel      = ADC_CHANNEL_1;
 
   if (HAL_ADC_ConfigChannel(&AdcHandle, &sConfig) != HAL_OK)
   {

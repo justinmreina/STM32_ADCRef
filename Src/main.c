@@ -58,7 +58,7 @@
 #define RANGE_12BITS                   ((uint32_t) 4095)    /* Max digital value with a full range of 12 bits */
 
 /* ADC parameters */
-#define ADCCONVERTEDVALUES_BUFFER_SIZE ((uint32_t)    3)    /* Size of array containing ADC converted values: set to ADC sequencer number of ranks converted, to have a rank in each address */
+#define ADCCONVERTEDVALUES_BUFFER_SIZE ((uint32_t)    10)    /* Size of array containing ADC converted values: set to ADC sequencer number of ranks converted, to have a rank in each address */
 
 /* Internal temperature sensor: constants data used for indicative values in  */
 /* this example. Refer to device datasheet for min/typ/max values.            */
@@ -310,6 +310,7 @@ int main(void)
 
       /* Reset variable for next loop iteration */
       ubSequenceCompleted = RESET;
+      memset(aADCxConvertedValues, 0xFF, sizeof(aADCxConvertedValues));
     }
   }
 }
@@ -368,6 +369,7 @@ void SystemClock_Config(void)
   */
 static void ADC_Config(void)
 {
+  HAL_StatusTypeDef result;
   ADC_ChannelConfTypeDef   sConfig;
 
   /* Configuration of AdcHandle init structure: ADC parameters and regular group */
@@ -438,15 +440,53 @@ static void ADC_Config(void)
   /*       channels enabled with lower channel number. Therefore,             */
   /*       ADC_CHANNEL_VREFINT will be converted by the sequencer as the      */
   /*       3rd rank.                                                          */
-  sConfig.Channel      = ADC_CHANNEL_VREFINT;
-
-  if (HAL_ADC_ConfigChannel(&AdcHandle, &sConfig) != HAL_OK)
-  {
-    /* Channel Configuration Error */
-    Error_Handler();
+  sConfig.Channel      = ADC_CHANNEL_13;
+  result = HAL_ADC_ConfigChannel(&AdcHandle, &sConfig);
+  if (result != HAL_OK) {
+    Error_Handler();					/* Channel Configuration Error 		  */
   }
 
+  //ADC_IN5
+  sConfig.Channel      = ADC_CHANNEL_5;
+  if (HAL_ADC_ConfigChannel(&AdcHandle, &sConfig) != HAL_OK) {
+    Error_Handler();					/* Channel Configuration Error 		  */
+  }
 
+  //ADC_IN6
+  sConfig.Channel      = ADC_CHANNEL_6;
+  if (HAL_ADC_ConfigChannel(&AdcHandle, &sConfig) != HAL_OK) {
+    Error_Handler();					/* Channel Configuration Error 		  */
+  }
+
+  //ADC_IN7
+  sConfig.Channel      = ADC_CHANNEL_7;
+  if (HAL_ADC_ConfigChannel(&AdcHandle, &sConfig) != HAL_OK) {
+    Error_Handler();					/* Channel Configuration Error 		  */
+  }
+
+  //ADC_IN8
+  sConfig.Channel      = ADC_CHANNEL_8;
+  if (HAL_ADC_ConfigChannel(&AdcHandle, &sConfig) != HAL_OK) {
+    Error_Handler();					/* Channel Configuration Error 		  */
+  }
+
+  //ADC_IN9
+  sConfig.Channel      = ADC_CHANNEL_9;
+  if (HAL_ADC_ConfigChannel(&AdcHandle, &sConfig) != HAL_OK) {
+    Error_Handler();					/* Channel Configuration Error 		  */
+  }
+
+  //ADC_IN14
+  sConfig.Channel      = ADC_CHANNEL_14;
+  if (HAL_ADC_ConfigChannel(&AdcHandle, &sConfig) != HAL_OK) {
+    Error_Handler();					/* Channel Configuration Error 		  */
+  }
+
+  //ADC_IN15
+  sConfig.Channel      = ADC_CHANNEL_15;
+  if (HAL_ADC_ConfigChannel(&AdcHandle, &sConfig) != HAL_OK) {
+    Error_Handler();					/* Channel Configuration Error 		  */
+  }
 }
 
 #if defined(WAVEFORM_VOLTAGE_GENERATION_FOR_TEST)

@@ -407,7 +407,7 @@ static void ADC_Config(void)
   /* Note: Considering IT occurring after each ADC conversion (IT by DMA end  */
   /*       of transfer), select sampling time and ADC clock with sufficient   */
   /*       duration to not create an overhead situation in IRQHandler.        */
-  sConfig.Channel      = ADC_CHANNEL_4;
+  sConfig.Channel      = ADCx_CHANNELa;
   sConfig.Rank         = ADC_RANK_CHANNEL_NUMBER;
 
   if (HAL_ADC_ConfigChannel(&AdcHandle, &sConfig) != HAL_OK)

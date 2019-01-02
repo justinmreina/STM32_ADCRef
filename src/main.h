@@ -69,12 +69,12 @@
 #define ADCx_RELEASE_RESET()            __HAL_RCC_ADC1_RELEASE_RESET()
 
 /* Definition of ADCx channels */
-#define ADCx_CHANNELa                   ADC_CHANNEL_4
+#define ADCx_CHANNELa                   ADC_CHANNEL_0
 
 /* Definition of ADCx channels pins */
 #define ADCx_CHANNELa_GPIO_CLK_ENABLE() __HAL_RCC_GPIOA_CLK_ENABLE()
 #define ADCx_CHANNELa_GPIO_PORT         GPIOA
-#define ADCx_CHANNELa_PIN               GPIO_PIN_4
+#define ADCx_CHANNELa_PIN               GPIO_PIN_0
 
 /* Definition of ADCx DMA resources */
 #define ADCx_DMA_CLK_ENABLE()           __HAL_RCC_DMA1_CLK_ENABLE()

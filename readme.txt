@@ -31,7 +31,7 @@
 	CubeMX_ADC_Sequencer: STM32Cube_FW_F0_V1.9.0\Projects\
 		STM32F091RC-Nucleo\Examples\ADC\ADC_Sequencer
 
-@section 	Notes
+@section 	Pins Used
 	ADC_IN0: PA0
 	ADC_IN1: PA1
 

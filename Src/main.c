@@ -47,7 +47,6 @@
 #include "main.h"
 
 /* Private includes ----------------------------------------------------------------------------------------------------------------*/
-
 /* USER CODE BEGIN Includes */
 
 #include <string.h>
@@ -79,12 +78,14 @@ UART_HandleTypeDef huart2;
 
 HAL_StatusTypeDef result;
 
-uint32_t val;																/* adc measurement value								*/
+uint32_t vals[2];																/* adc measurement value								*/
 
 /* Variable containing ADC conversions results */
-__IO uint16_t   aADCxConvertedValues[ADCCONVERTEDVALUES_BUFFER_SIZE];
+uint32_t adc_channels[2] = {DEMO_ADC_CHANNEL1, DEMO_ADC_CHANNEL2};
 
-double voltage;																/* adc measurement in units of Volts					*/
+uint32_t adc_vals[2];
+double   volt_vals[2];
+
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -143,7 +144,7 @@ int main(void) {
 	  /*## Start ADC conversions #################################################*/
 
 	/* Start ADC conversion on regular group with transfer by DMA */
-	result = HAL_ADC_Start_DMA(&hadc, (uint32_t *)aADCxConvertedValues, ADCCONVERTEDVALUES_BUFFER_SIZE);
+	result = HAL_ADC_Start_DMA(&hadc, (uint32_t *)adc_vals, ADCCONVERTEDVALUES_BUFFER_SIZE);
 
 	if(result != HAL_OK) {
 		/* Start Error */
@@ -157,43 +158,38 @@ int main(void) {
 	/* USER CODE BEGIN WHILE */
 
 	for(;;) {
-		/* USER CODE END WHILE */
 
-		result = HAL_ADC_Start(&hadc);
+		//For each channel
+		for(int i=0; i<2; i++) {
 
-		if(result != HAL_OK) {
-			Error_Handler();
+			//Sample Channel
+			result = HAL_ADC_Start(&hadc);
+
+			//Safety
+			if(result != HAL_OK) {
+				Error_Handler();
+			}
+
+			_delay(100);
+
+			//Wait for completion
+			result = HAL_ADC_PollForConversion(&hadc, ADC_POLL_TIMEOUT_MS);
+
+			//Safety
+			if(result != HAL_OK) {
+				Error_Handler();
+			}
+
+			_delay(100);
+
+			//Get Value
+			vals[i] = HAL_ADC_GetValue(&hadc);
+
+			_delay(100);
 		}
-
-		_delay(100);
-
-		//Wait for completion
-		result = HAL_ADC_PollForConversion(&hadc, ADC_POLL_TIMEOUT_MS);
-
-		//Safety
-		if(result != HAL_OK) {
-			Error_Handler();
-		}
-
-		_delay(100);
-
-		//Get Value
-		val = HAL_ADC_GetValue(&hadc);
-
 		//Parse Value
-		voltage = adc_getVoltage(val);
+		volt_vals[0] = adc_getVoltage(vals[0]);
 
-		_delay(100);
-
-		result = HAL_ADC_Stop(&hadc);
-
-		if(result != HAL_OK) {
-			Error_Handler();
-		}
-
-		_delay(100);
-
-		/* USER CODE BEGIN 3 */
 	}
 
 	/* USER CODE END 3 */
@@ -283,15 +279,28 @@ static void MX_ADC_Init(void) {
 		Error_Handler();
 	}
 
-	/**Configure for the selected ADC regular channel to be converted. */
-	sConfig.Channel = DEMO_ADC_CHANNEL;
-	sConfig.Rank = ADC_RANK_CHANNEL_NUMBER;
-	sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+	//Setup Sequencer
+	for(int i=0; i<2; i++) {
 
-	result = HAL_ADC_ConfigChannel(&hadc, &sConfig);
+		/**Configure channel #1 for the selected ADC regular channel to be converted. */
+		sConfig.Channel = adc_channels[i];
+		sConfig.Rank = ADC_RANK_CHANNEL_NUMBER;
+		sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
 
+		result = HAL_ADC_ConfigChannel(&hadc, &sConfig);
+
+		if(result != HAL_OK) {
+			Error_Handler();
+		}
+	}
+
+
+	//Calibrate
+	result = HAL_ADCEx_Calibration_Start(&hadc);						/* Run the ADC calibration 								*/
+
+	//Safety
 	if(result != HAL_OK) {
-		Error_Handler();
+	    Error_Handler();	    											/* Calibration Error 									*/
 	}
 
 	return;

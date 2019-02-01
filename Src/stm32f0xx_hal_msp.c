@@ -117,7 +117,7 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc) {
 
 	//Init
 	memset(&GPIO_InitStruct, 0, sizeof(GPIO_InitStruct));
-	config = adc_getChannelConfig(DEMO_ADC_CHANNEL);
+	config = adc_getChannelConfig(adc_channels[0]);
 
 	if(hadc->Instance==ADC1) {
 
@@ -145,8 +145,9 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc) {
 
 		/**ADC GPIO Configuration
 		PA0     ------> ADC_IN0
+		VREF    ------> No GPIO
 		*/
-		GPIO_InitStruct.Pin = config.gpio_pin;									/* GPIO_PIN_0											*/
+		GPIO_InitStruct.Pin = config.gpio_pin;								/* GPIO_PIN_0											*/
 		GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
 		GPIO_InitStruct.Pull = GPIO_NOPULL;
 		HAL_GPIO_Init(config.port, &GPIO_InitStruct);

@@ -3,6 +3,11 @@
 **************************************************************************************************************************************
 * @file           : main.c
 * @brief          : Main program body
+*
+* @section 		Reference
+* 	1.	(Multi-Sequence ADC) C:\Users\justin\STM32Cube\Repository\STM32Cube_FW_F0_V1.9.0\Projects\STM32F091RC-Nucleo\Examples\
+* 							 ADC\ADC_Sequencer
+*
 **************************************************************************************************************************************
 ** This notice applies to any and all portions of this file
 * that are not between comment pairs USER CODE BEGIN and
@@ -42,7 +47,10 @@
 #include "main.h"
 
 /* Private includes ----------------------------------------------------------------------------------------------------------------*/
+
 /* USER CODE BEGIN Includes */
+
+#include <string.h>
 
 /* USER CODE END Includes */
 
@@ -54,7 +62,9 @@
 
 /* Private define ------------------------------------------------------------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+
 #define ADCCONVERTEDVALUES_BUFFER_SIZE ((uint32_t)    3)    /* Size of array containing ADC converted values: set to ADC sequencer number of ranks converted, to have a rank in each address */
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------------------------------------------------------------*/
@@ -191,50 +201,51 @@ int main(void) {
 	return 0;
 }
 
+
 /**
 * @brief System Clock Configuration
 * @retval None
 */
-void SystemClock_Config(void)
-{
-RCC_OscInitTypeDef RCC_OscInitStruct = {0};
-RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
-RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
+void SystemClock_Config(void) {
 
-/**Initializes the CPU, AHB and APB busses clocks
-*/
-RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_HSI14;
-RCC_OscInitStruct.HSIState = RCC_HSI_ON;
-RCC_OscInitStruct.HSI14State = RCC_HSI14_ON;
-RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
-RCC_OscInitStruct.HSI14CalibrationValue = 16;
-RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL12;
-RCC_OscInitStruct.PLL.PREDIV = RCC_PREDIV_DIV2;
-if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
-{
-Error_Handler();
-}
-/**Initializes the CPU, AHB and APB busses clocks
-*/
-RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-|RCC_CLOCKTYPE_PCLK1;
-RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+	RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+	RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+	RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
 
-if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK)
-{
-Error_Handler();
+	/**Initializes the CPU, AHB and APB busses clocks */
+	RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_HSI14;
+	RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+	RCC_OscInitStruct.HSI14State = RCC_HSI14_ON;
+	RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+	RCC_OscInitStruct.HSI14CalibrationValue = 16;
+	RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+	RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
+	RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL12;
+	RCC_OscInitStruct.PLL.PREDIV = RCC_PREDIV_DIV2;
+
+	if(HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
+		Error_Handler();
+	}
+
+	/**Initializes the CPU, AHB and APB busses clocks */
+	RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK|RCC_CLOCKTYPE_PCLK1;
+	RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+	RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+	RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+
+	if(HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK) {
+		Error_Handler();
+	}
+
+	PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART2;
+	PeriphClkInit.Usart2ClockSelection = RCC_USART2CLKSOURCE_PCLK1;
+	if(HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK) {
+		Error_Handler();
+	}
+
+	return;
 }
-PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART2;
-PeriphClkInit.Usart2ClockSelection = RCC_USART2CLKSOURCE_PCLK1;
-if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
-{
-Error_Handler();
-}
-}
+
 
 /**
 * @brief ADC Initialization Function
@@ -243,17 +254,13 @@ Error_Handler();
 */
 static void MX_ADC_Init(void) {
 
-	/* USER CODE BEGIN ADC_Init 0 */
+	//Locals
+	ADC_ChannelConfTypeDef sConfig;
 
-	/* USER CODE END ADC_Init 0 */
+	//Init
+	memset(&sConfig, 0, sizeof(sConfig));
 
-	ADC_ChannelConfTypeDef sConfig = {0};
-
-	/* USER CODE BEGIN ADC_Init 1 */
-
-	/* USER CODE END ADC_Init 1 */
-	/**Configure the global features of the ADC (Clock, Resolution, Data Alignment and number of conversion)
-	*/
+	/**Configure the global features of the ADC (Clock, Resolution, Data Alignment and number of conversion) */
 	hadc.Instance = ADC1;
 	hadc.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV1;
 	hadc.Init.Resolution = ADC_RESOLUTION_12B;
@@ -268,28 +275,24 @@ static void MX_ADC_Init(void) {
 	hadc.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
 	hadc.Init.DMAContinuousRequests = ENABLE;
 	hadc.Init.Overrun = ADC_OVR_DATA_PRESERVED;
-	/* Note: Set long sampling time due to internal channels (VrefInt,          */
-	/*       temperature sensor) constraints. Refer to device datasheet for     */
-	/*       min/typ/max values.                                                */
-	hadc.Init.SamplingTimeCommon    = ADC_SAMPLETIME_239CYCLES_5;
+	hadc.Init.SamplingTimeCommon = ADC_SAMPLETIME_239CYCLES_5;				/* Note: Set long sampling time due to internal channels (VrefInt, temperature sensor) constraints. Refer to device datasheet for min/typ/max values. */
 
-	if (HAL_ADC_Init(&hadc) != HAL_OK) {
+	result = HAL_ADC_Init(&hadc);
+
+	if(result != HAL_OK) {
 		Error_Handler();
 	}
 
-	/**Configure for the selected ADC regular channel to be converted.
-	*/
+	/**Configure for the selected ADC regular channel to be converted. */
 	sConfig.Channel = DEMO_ADC_CHANNEL;
 	sConfig.Rank = ADC_RANK_CHANNEL_NUMBER;
 	sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
 
-	if (HAL_ADC_ConfigChannel(&hadc, &sConfig) != HAL_OK) {
+	result = HAL_ADC_ConfigChannel(&hadc, &sConfig);
+
+	if(result != HAL_OK) {
 		Error_Handler();
 	}
-
-	/* USER CODE BEGIN ADC_Init 2 */
-
-	/* USER CODE END ADC_Init 2 */
 
 	return;
 }

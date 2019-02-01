@@ -31,7 +31,7 @@
 									<listOptionValue builtIn="false" value="HSI48_VALUE=((uint32_t)48000000)"/>
 									<listOptionValue builtIn="false" value="USE_STM32F0XX_NUCLEO"/>
 								</option>
-								<option id="com.atollic.truestudio.as.general.incpath.19394624" name="Include path" superClass="com.atollic.truestudio.as.general.incpath" useByScannerDiscovery="false" valueType="includePath"/>
+								<option id="com.atollic.truestudio.as.general.incpath.19394624" name="Include path" superClass="com.atollic.truestudio.as.general.incpath" useByScannerDiscovery="false"/>
 								<inputType id="com.atollic.truestudio.as.input.2102439356" name="Input" superClass="com.atollic.truestudio.as.input"/>
 							</tool>
 							<tool command="arm-atollic-eabi-gcc -c" commandLinePattern="${COMMAND} ${INPUTS} ${FLAGS} ${OUTPUT_FLAG} ${OUTPUT_PREFIX}${OUTPUT}" errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="com.atollic.truestudio.exe.debug.toolchain.gcc.1548998960" name="C Compiler" superClass="com.atollic.truestudio.exe.debug.toolchain.gcc">
@@ -41,11 +41,11 @@
 									<listOptionValue builtIn="false" value="USE_STM32F0XX_NUCLEO"/>
 								</option>
 								<option id="com.atollic.truestudio.gcc.directories.select.516183649" name="Include path" superClass="com.atollic.truestudio.gcc.directories.select" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Device/ST/STM32F0xx/Include"/>
-									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Include"/>
 									<listOptionValue builtIn="false" value="../Inc"/>
 									<listOptionValue builtIn="false" value="../Drivers/STM32F0xx_HAL_Driver/Inc"/>
 									<listOptionValue builtIn="false" value="../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy"/>
+									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Device/ST/STM32F0xx/Include"/>
+									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Include"/>
 								</option>
 								<option id="com.atollic.truestudio.common_options.target.endianess.1635709753" name="Endianess" superClass="com.atollic.truestudio.common_options.target.endianess"/>
 								<option id="com.atollic.truestudio.common_options.target.mcpu.1895151666" name="Microcontroller" superClass="com.atollic.truestudio.common_options.target.mcpu" value="STM32F091RC" valueType="enumerated"/>

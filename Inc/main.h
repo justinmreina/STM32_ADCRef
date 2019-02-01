@@ -58,6 +58,14 @@ extern "C" {
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
 
+typedef struct adcChannelConfig {
+	uint32_t 	  channel;
+	GPIO_TypeDef *port;
+	uint16_t      pin;														/* e.g. "1" for "PA1"									*/
+	uint32_t      gpio_pin;													/* e.g. "1<<1" for "PA1"								*/
+
+} AdcChannelConfig;
+
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
@@ -72,6 +80,8 @@ extern "C" {
 
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
+
+extern AdcChannelConfig adc_getChannelConfig(uint32_t channel);
 
 /* USER CODE BEGIN EFP */
 
@@ -90,7 +100,14 @@ void Error_Handler(void);
 #define TMS_GPIO_Port GPIOA
 #define TCK_Pin GPIO_PIN_14
 #define TCK_GPIO_Port GPIOA
+
 /* USER CODE BEGIN Private defines */
+
+#define VCC_VOLTS 			(3.30)
+#define ADC_RANGE			(4095)											/* 12-bit ADC resolution								*/
+#define ADC_POLL_TIMEOUT_MS	(1000)
+
+#define DEMO_ADC_CHANNEL	(ADC_CHANNEL_1)
 
 /* USER CODE END Private defines */
 

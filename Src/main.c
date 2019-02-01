@@ -47,6 +47,7 @@
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------------------------------------------------------------*/
+
 /* USER CODE BEGIN PTD */
 
 /* USER CODE END PTD */
@@ -68,6 +69,9 @@ UART_HandleTypeDef huart2;
 
 HAL_StatusTypeDef result;
 
+uint32_t val;																/* adc measurement value								*/
+
+double voltage;																/* adc measurement in units of Volts					*/
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -77,7 +81,11 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_ADC_Init(void);
+
 /* USER CODE BEGIN PFP */
+
+void _delay(uint32_t count);
+double adc_getVoltage(uint32_t adc_val);
 
 /* USER CODE END PFP */
 
@@ -134,15 +142,33 @@ int main(void) {
 			Error_Handler();
 		}
 
-		for(int i=0; i<100; i++) {
-			asm(" nop");
+		_delay(100);
+
+		//Wait for completion
+		result = HAL_ADC_PollForConversion(&hadc, ADC_POLL_TIMEOUT_MS);
+
+		//Safety
+		if(result != HAL_OK) {
+			Error_Handler();
 		}
+
+		_delay(100);
+
+		//Get Value
+		val = HAL_ADC_GetValue(&hadc);
+
+		//Parse Value
+		voltage = adc_getVoltage(val);
+
+		_delay(100);
 
 		result = HAL_ADC_Stop(&hadc);
 
 		if(result != HAL_OK) {
 			Error_Handler();
 		}
+
+		_delay(100);
 
 		/* USER CODE BEGIN 3 */
 	}
@@ -236,7 +262,7 @@ Error_Handler();
 }
 /**Configure for the selected ADC regular channel to be converted.
 */
-sConfig.Channel = ADC_CHANNEL_0;
+sConfig.Channel = DEMO_ADC_CHANNEL;
 sConfig.Rank = ADC_RANK_CHANNEL_NUMBER;
 sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
 if (HAL_ADC_ConfigChannel(&hadc, &sConfig) != HAL_OK)
@@ -321,16 +347,156 @@ HAL_GPIO_Init(LD2_GPIO_Port, &GPIO_InitStruct);
 /* USER CODE END 4 */
 
 /**
-* @brief  This function is executed in case of error occurrence.
-* @retval None
+* @fcn		void Error_Handler(void)
+* @brief  	This function is executed in case of error occurrence.
+* @detail 	User can add his own implementation to report the HAL error return state
+*
+* @return 	None
 */
-void Error_Handler(void)
-{
-/* USER CODE BEGIN Error_Handler_Debug */
-/* User can add his own implementation to report the HAL error return state */
+void Error_Handler(void) {
 
-/* USER CODE END Error_Handler_Debug */
+	/* USER CODE BEGIN Error_Handler_Debug */
+
+	/* USER CODE END Error_Handler_Debug */
+
+	return;
 }
+
+/************************************************************************************************************************************/
+/**
+ * @fcn			void _delay(uint32_t count)
+ * @brief  		small time delay
+ * @detail 		x
+ *
+ * @param 		[in] (uint32_t) count - counts of delay
+ */
+/************************************************************************************************************************************/
+void _delay(uint32_t count) {
+
+	//Delay
+	for(int i=0; i<count; i++) {
+		asm(" nop");
+	}
+
+	return;
+}
+
+
+/************************************************************************************************************************************/
+/**	@fcn		double adc_getVoltage(uint32_t adc_val)
+ *  @brief		convert adc measurement to voltage value
+ *  @details	x
+ *
+ *  @param 		[in] (uint32_t) adc_val - adc measured value
+ *  @return		(double) voltage value of measurement
+ */
+/************************************************************************************************************************************/
+double adc_getVoltage(uint32_t adc_val) {
+
+	//Locals
+	double pin_val;
+
+	//Calc
+	pin_val = (((double)adc_val)*VCC_VOLTS)/(ADC_RANGE);
+
+	return pin_val;
+}
+
+
+/************************************************************************************************************************************/
+/**	@fcn		void adc_getChannelConfig(uint32_t channel)
+ *  @brief		channel for configuration information
+ *  @details	x
+ *
+ *  @param 		[in] (uint32_t) channel - channel for selection
+ *
+ *  @return		(AdcChannelConfig) selected channel configuration
+ */
+/************************************************************************************************************************************/
+AdcChannelConfig adc_getChannelConfig(uint32_t channel) {
+
+	//Locals
+	AdcChannelConfig config;
+
+	//Init State
+	config.channel = channel;												/* store the specified channel value					*/
+
+	//Lookup Port&Pin
+	switch(channel) {
+		case ADC_CHANNEL_0:													/* PA0													*/
+			config.port = GPIOA;
+			config.pin  = 0;
+			break;
+		case ADC_CHANNEL_1:													/* PA1													*/
+			config.port = GPIOA;
+			config.pin  = 1;
+			break;
+		case ADC_CHANNEL_2:													/* PA2													*/
+			config.port = GPIOA;
+			config.pin  = 2;
+			break;
+		case ADC_CHANNEL_3:													/* PA3													*/
+			config.port = GPIOA;
+			config.pin  = 3;
+			break;
+		case ADC_CHANNEL_4:													/* PA4													*/
+			config.port = GPIOA;
+			config.pin  = 4;
+			break;
+		case ADC_CHANNEL_5:													/* PA5													*/
+			config.port = GPIOA;
+			config.pin  = 5;
+			break;
+		case ADC_CHANNEL_6:													/* PA6													*/
+			config.port = GPIOA;
+			config.pin  = 6;
+			break;
+		case ADC_CHANNEL_7:													/* PA7													*/
+			config.port = GPIOA;
+			config.pin  = 7;
+			break;
+		case ADC_CHANNEL_8:													/* PB0													*/
+			config.port = GPIOB;
+			config.pin  = 0;
+			break;
+		case ADC_CHANNEL_9:													/* PB1													*/
+			config.port = GPIOB;
+			config.pin  = 1;
+			break;
+		case ADC_CHANNEL_10:												/* PC0													*/
+			config.port = GPIOC;
+			config.pin  = 0;
+			break;
+		case ADC_CHANNEL_11:												/* PC1													*/
+			config.port = GPIOC;
+			config.pin  = 1;
+			break;
+		case ADC_CHANNEL_12:												/* PC2													*/
+			config.port = GPIOC;
+			config.pin  = 2;
+			break;
+		case ADC_CHANNEL_13:												/* PC3													*/
+			config.port = GPIOC;
+			config.pin  = 3;
+			break;
+		case ADC_CHANNEL_14:												/* PC4													*/
+			config.port = GPIOC;
+			config.pin  = 4;
+			break;
+		case ADC_CHANNEL_15:												/* PC5													*/
+			config.port = GPIOC;
+			config.pin  = 5;
+			break;
+		default:															/* safety catch on error input							*/
+			for(;;);
+	}
+
+	//Store GPIO pin value
+	config.gpio_pin = (1 << config.pin);
+
+	return config;
+}
+
 
 #ifdef  USE_FULL_ASSERT
 /**

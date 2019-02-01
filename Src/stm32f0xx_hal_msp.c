@@ -109,7 +109,7 @@ void HAL_MspInit(void)
 void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc) {
 
 	//Locals
-	AdcChannelConfig config;												/* ADC Channel to use for demo							*/
+	AdcChannelConfig config1, config2;										/* ADC Channel to use for demo							*/
 	GPIO_InitTypeDef GPIO_InitStruct;
 	static DMA_HandleTypeDef  DmaHandle;
 	RCC_OscInitTypeDef        RCC_OscInitStructure;
@@ -117,7 +117,8 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc) {
 
 	//Init
 	memset(&GPIO_InitStruct, 0, sizeof(GPIO_InitStruct));
-	config = adc_getChannelConfig(adc_channels[0]);
+	config1 = adc_getChannelConfig(adc_channels[0]);
+	config2 = adc_getChannelConfig(adc_channels[1]);
 
 	if(hadc->Instance==ADC1) {
 
@@ -147,10 +148,16 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc) {
 		PA0     ------> ADC_IN0
 		VREF    ------> No GPIO
 		*/
-		GPIO_InitStruct.Pin = config.gpio_pin;								/* GPIO_PIN_0											*/
+		GPIO_InitStruct.Pin = config1.gpio_pin;								/* GPIO_PIN_0											*/
 		GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
 		GPIO_InitStruct.Pull = GPIO_NOPULL;
-		HAL_GPIO_Init(config.port, &GPIO_InitStruct);
+		HAL_GPIO_Init(config1.port, &GPIO_InitStruct);
+
+		GPIO_InitStruct.Pin = config2.gpio_pin;								/* GPIO_PIN_1											*/
+		GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+		GPIO_InitStruct.Pull = GPIO_NOPULL;
+		HAL_GPIO_Init(config2.port, &GPIO_InitStruct);
+
 
 		/*##-3- Configure the DMA ##################################################*/
 		/* Configure DMA parameters */

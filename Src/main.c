@@ -185,11 +185,12 @@ int main(void) {
 			//Get Value
 			vals[i] = HAL_ADC_GetValue(&hadc);
 
+			//Parse
+			volt_vals[i] = adc_getVoltage(vals[i]);
+
 			_delay(100);
 		}
-		//Parse Value
-		volt_vals[0] = adc_getVoltage(vals[0]);
-
+		_nop();																/* dev breakpoint loc									*/
 	}
 
 	/* USER CODE END 3 */
@@ -523,7 +524,7 @@ AdcChannelConfig adc_getChannelConfig(uint32_t channel) {
 	}
 
 	//Store GPIO pin value
-	config.gpio_pin = (1 << config.pin);
+	config.gpio_pin = (1 << config.pin);									/* e.g. 0x01 for "GPIO_PIN_0"							*/
 
 	return config;
 }

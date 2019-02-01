@@ -113,8 +113,9 @@ extern uint32_t adc_channels[2];
 #define ADC_POLL_TIMEOUT_MS		(1000)
 
 #define DEMO_ADC_CHANNEL1		(ADC_CHANNEL_0)
-#define DEMO_ADC_CHANNEL2		(ADC_CHANNEL_VREFINT)
-#define DEMO_ADC_CHANNEL2_TEMP	(ADC_CHANNEL_0)								/* for HAL init not to crash using VREF to apply GPIO	*/
+#define DEMO_ADC_CHANNEL2		(ADC_CHANNEL_1)
+
+#define _nop()					asm(" nop");
 
 /* USER CODE END Private defines */
 

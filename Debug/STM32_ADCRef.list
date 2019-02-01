@@ -5,37 +5,37 @@ Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
   0 .isr_vector   000000bc  08000000  08000000  00010000  2**0
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  1 .text         00004268  080000bc  080000bc  000100bc  2**2
+  1 .text         000042b4  080000bc  080000bc  000100bc  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata       000000f8  08004324  08004324  00014324  2**2
+  2 .rodata       000000f8  08004370  08004370  00014370  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .init_array   00000004  0800441c  0800441c  0001441c  2**2
+  3 .init_array   00000004  08004468  08004468  00014468  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  4 .fini_array   00000004  08004420  08004420  00014420  2**2
+  4 .fini_array   00000004  0800446c  0800446c  0001446c  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  5 .data         0000000c  20000000  08004424  00020000  2**2
+  5 .data         0000000c  20000000  08004470  00020000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  6 .bss          00000148  20000010  08004430  00020010  2**3
+  6 .bss          00000148  20000010  0800447c  00020010  2**3
                   ALLOC
-  7 ._user_heap_stack 00000600  20000158  08004430  00020158  2**0
+  7 ._user_heap_stack 00000600  20000158  0800447c  00020158  2**0
                   ALLOC
   8 .ARM.attributes 00000028  00000000  00000000  0002000c  2**0
                   CONTENTS, READONLY
-  9 .debug_info   0000d52b  00000000  00000000  00020034  2**0
+  9 .debug_info   0000d53b  00000000  00000000  00020034  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_abbrev 00001d88  00000000  00000000  0002d55f  2**0
+ 10 .debug_abbrev 00001d97  00000000  00000000  0002d56f  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_aranges 00000780  00000000  00000000  0002f2e8  2**3
+ 11 .debug_aranges 00000780  00000000  00000000  0002f308  2**3
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 000006a8  00000000  00000000  0002fa68  2**3
+ 12 .debug_ranges 000006a8  00000000  00000000  0002fa88  2**3
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_line   00003fe0  00000000  00000000  00030110  2**0
+ 13 .debug_line   00003fea  00000000  00000000  00030130  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_str    00002798  00000000  00000000  000340f0  2**0
+ 14 .debug_str    000027a8  00000000  00000000  0003411a  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .comment      0000007c  00000000  00000000  00036888  2**0
+ 15 .comment      0000007c  00000000  00000000  000368c2  2**0
                   CONTENTS, READONLY
- 16 .debug_frame  000019b4  00000000  00000000  00036904  2**2
+ 16 .debug_frame  000019b4  00000000  00000000  00036940  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -57,7 +57,7 @@ Disassembly of section .text:
  80000d6:	bd10      	pop	{r4, pc}
  80000d8:	20000010 	.word	0x20000010
  80000dc:	00000000 	.word	0x00000000
- 80000e0:	0800430c 	.word	0x0800430c
+ 80000e0:	08004358 	.word	0x08004358
 
 080000e4 <frame_dummy>:
  80000e4:	4b04      	ldr	r3, [pc, #16]	; (80000f8 <frame_dummy+0x14>)
@@ -72,7 +72,7 @@ Disassembly of section .text:
  80000f6:	46c0      	nop			; (mov r8, r8)
  80000f8:	00000000 	.word	0x00000000
  80000fc:	20000014 	.word	0x20000014
- 8000100:	0800430c 	.word	0x0800430c
+ 8000100:	08004358 	.word	0x08004358
 
 08000104 <__udivsi3>:
  8000104:	2200      	movs	r2, #0
@@ -462,7 +462,7 @@ Disassembly of section .text:
  80003fe:	e7db      	b.n	80003b8 <__aeabi_ddiv+0x19c>
  8000400:	000007ff 	.word	0x000007ff
  8000404:	fffffc01 	.word	0xfffffc01
- 8000408:	08004344 	.word	0x08004344
+ 8000408:	08004390 	.word	0x08004390
  800040c:	fffffc0d 	.word	0xfffffc0d
  8000410:	800fffff 	.word	0x800fffff
  8000414:	45d9      	cmp	r9, fp
@@ -1259,7 +1259,7 @@ Disassembly of section .text:
  8000a5e:	46c0      	nop			; (mov r8, r8)
  8000a60:	000007ff 	.word	0x000007ff
  8000a64:	fffffc01 	.word	0xfffffc01
- 8000a68:	08004384 	.word	0x08004384
+ 8000a68:	080043d0 	.word	0x080043d0
  8000a6c:	800fffff 	.word	0x800fffff
  8000a70:	fffffc0d 	.word	0xfffffc0d
  8000a74:	464a      	mov	r2, r9
@@ -1757,7 +1757,7 @@ HAL_StatusTypeDef HAL_Init(void)
 
   /* Init the low level hardware */
   HAL_MspInit();
- 8000e46:	f003 f867 	bl	8003f18 <HAL_MspInit>
+ 8000e46:	f003 f86d 	bl	8003f24 <HAL_MspInit>
 
   /* Return function status */
   return HAL_OK;
@@ -1907,7 +1907,7 @@ HAL_StatusTypeDef HAL_ADC_Init(ADC_HandleTypeDef* hadc)
     HAL_ADC_MspInit(hadc);
  8000ef0:	687b      	ldr	r3, [r7, #4]
  8000ef2:	0018      	movs	r0, r3
- 8000ef4:	f003 f834 	bl	8003f60 <HAL_ADC_MspInit>
+ 8000ef4:	f003 f83a 	bl	8003f6c <HAL_ADC_MspInit>
   /* Configuration of ADC parameters if previous preliminary actions are      */ 
   /* correctly completed.                                                     */
   /* and if there is no conversion on going on regular group (ADC can be      */ 
@@ -7661,7 +7661,7 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, ui
  8002cbc:	40021000 	.word	0x40021000
  8002cc0:	00001388 	.word	0x00001388
  8002cc4:	fffff8ff 	.word	0xfffff8ff
- 8002cc8:	08004404 	.word	0x08004404
+ 8002cc8:	08004450 	.word	0x08004450
  8002ccc:	20000008 	.word	0x20000008
 
 08002cd0 <HAL_RCC_GetSysClockFreq>:
@@ -7846,8 +7846,8 @@ uint32_t HAL_RCC_GetSysClockFreq(void)
  8002db2:	b00f      	add	sp, #60	; 0x3c
  8002db4:	bd90      	pop	{r4, r7, pc}
  8002db6:	46c0      	nop			; (mov r8, r8)
- 8002db8:	08004324 	.word	0x08004324
- 8002dbc:	08004334 	.word	0x08004334
+ 8002db8:	08004370 	.word	0x08004370
+ 8002dbc:	08004380 	.word	0x08004380
  8002dc0:	40021000 	.word	0x40021000
  8002dc4:	007a1200 	.word	0x007a1200
  8002dc8:	02dc6c00 	.word	0x02dc6c00
@@ -7899,7 +7899,7 @@ uint32_t HAL_RCC_GetPCLK1Freq(void)
  8002e00:	bd80      	pop	{r7, pc}
  8002e02:	46c0      	nop			; (mov r8, r8)
  8002e04:	40021000 	.word	0x40021000
- 8002e08:	08004414 	.word	0x08004414
+ 8002e08:	08004460 	.word	0x08004460
 
 08002e0c <HAL_RCC_GetOscConfig>:
   * @param  RCC_OscInitStruct pointer to an RCC_OscInitTypeDef structure that 
@@ -8606,7 +8606,7 @@ HAL_StatusTypeDef HAL_UART_Init(UART_HandleTypeDef *huart)
     HAL_UART_MspInit(huart);
  8003186:	687b      	ldr	r3, [r7, #4]
  8003188:	0018      	movs	r0, r3
- 800318a:	f000 ff9f 	bl	80040cc <HAL_UART_MspInit>
+ 800318a:	f000 ffc5 	bl	8004118 <HAL_UART_MspInit>
   }
 
   huart->gState = HAL_UART_STATE_BUSY;
@@ -9821,42 +9821,42 @@ int main(void) {
 
 	/* Configure the system clock */
 	SystemClock_Config();
- 8003902:	f000 f865 	bl	80039d0 <SystemClock_Config>
+ 8003902:	f000 f86b 	bl	80039dc <SystemClock_Config>
 	/* USER CODE BEGIN SysInit */
 
 	/* USER CODE END SysInit */
 
 	/* Initialize all configured peripherals */
 	MX_GPIO_Init();
- 8003906:	f000 f991 	bl	8003c2c <MX_GPIO_Init>
+ 8003906:	f000 f997 	bl	8003c38 <MX_GPIO_Init>
 	MX_USART2_UART_Init();
- 800390a:	f000 f95f 	bl	8003bcc <MX_USART2_UART_Init>
+ 800390a:	f000 f965 	bl	8003bd8 <MX_USART2_UART_Init>
 	MX_ADC_Init();
- 800390e:	f000 f8d5 	bl	8003abc <MX_ADC_Init>
+ 800390e:	f000 f8db 	bl	8003ac8 <MX_ADC_Init>
 	/* USER CODE BEGIN 2 */
 
 	  /*## Start ADC conversions #################################################*/
 
 	/* Start ADC conversion on regular group with transfer by DMA */
 	result = HAL_ADC_Start_DMA(&hadc, (uint32_t *)adc_vals, ADCCONVERTEDVALUES_BUFFER_SIZE);
- 8003912:	492a      	ldr	r1, [pc, #168]	; (80039bc <main+0xc4>)
- 8003914:	4b2a      	ldr	r3, [pc, #168]	; (80039c0 <main+0xc8>)
+ 8003912:	492d      	ldr	r1, [pc, #180]	; (80039c8 <main+0xd0>)
+ 8003914:	4b2d      	ldr	r3, [pc, #180]	; (80039cc <main+0xd4>)
  8003916:	2203      	movs	r2, #3
  8003918:	0018      	movs	r0, r3
  800391a:	f7fd fcf1 	bl	8001300 <HAL_ADC_Start_DMA>
  800391e:	0003      	movs	r3, r0
  8003920:	001a      	movs	r2, r3
- 8003922:	4b28      	ldr	r3, [pc, #160]	; (80039c4 <main+0xcc>)
+ 8003922:	4b2b      	ldr	r3, [pc, #172]	; (80039d0 <main+0xd8>)
  8003924:	701a      	strb	r2, [r3, #0]
 
 	if(result != HAL_OK) {
- 8003926:	4b27      	ldr	r3, [pc, #156]	; (80039c4 <main+0xcc>)
+ 8003926:	4b2a      	ldr	r3, [pc, #168]	; (80039d0 <main+0xd8>)
  8003928:	781b      	ldrb	r3, [r3, #0]
  800392a:	2b00      	cmp	r3, #0
  800392c:	d001      	beq.n	8003932 <main+0x3a>
 		/* Start Error */
 		Error_Handler();
- 800392e:	f000 f9ef 	bl	8003d10 <Error_Handler>
+ 800392e:	f000 f9f5 	bl	8003d1c <Error_Handler>
 	/* USER CODE BEGIN WHILE */
 
 	for(;;) {
@@ -9865,1875 +9865,1920 @@ int main(void) {
 		for(int i=0; i<2; i++) {
  8003932:	2300      	movs	r3, #0
  8003934:	607b      	str	r3, [r7, #4]
- 8003936:	e033      	b.n	80039a0 <main+0xa8>
+ 8003936:	e042      	b.n	80039be <main+0xc6>
 
 			//Sample Channel
 			result = HAL_ADC_Start(&hadc);
- 8003938:	4b21      	ldr	r3, [pc, #132]	; (80039c0 <main+0xc8>)
+ 8003938:	4b24      	ldr	r3, [pc, #144]	; (80039cc <main+0xd4>)
  800393a:	0018      	movs	r0, r3
  800393c:	f7fd fbfc 	bl	8001138 <HAL_ADC_Start>
  8003940:	0003      	movs	r3, r0
  8003942:	001a      	movs	r2, r3
- 8003944:	4b1f      	ldr	r3, [pc, #124]	; (80039c4 <main+0xcc>)
+ 8003944:	4b22      	ldr	r3, [pc, #136]	; (80039d0 <main+0xd8>)
  8003946:	701a      	strb	r2, [r3, #0]
 
 			//Safety
 			if(result != HAL_OK) {
- 8003948:	4b1e      	ldr	r3, [pc, #120]	; (80039c4 <main+0xcc>)
+ 8003948:	4b21      	ldr	r3, [pc, #132]	; (80039d0 <main+0xd8>)
  800394a:	781b      	ldrb	r3, [r3, #0]
  800394c:	2b00      	cmp	r3, #0
  800394e:	d001      	beq.n	8003954 <main+0x5c>
 				Error_Handler();
- 8003950:	f000 f9de 	bl	8003d10 <Error_Handler>
+ 8003950:	f000 f9e4 	bl	8003d1c <Error_Handler>
 			}
 
 			_delay(100);
  8003954:	2064      	movs	r0, #100	; 0x64
- 8003956:	f000 f9e0 	bl	8003d1a <_delay>
+ 8003956:	f000 f9e6 	bl	8003d26 <_delay>
 
 			//Wait for completion
 			result = HAL_ADC_PollForConversion(&hadc, ADC_POLL_TIMEOUT_MS);
  800395a:	23fa      	movs	r3, #250	; 0xfa
  800395c:	009a      	lsls	r2, r3, #2
- 800395e:	4b18      	ldr	r3, [pc, #96]	; (80039c0 <main+0xc8>)
+ 800395e:	4b1b      	ldr	r3, [pc, #108]	; (80039cc <main+0xd4>)
  8003960:	0011      	movs	r1, r2
  8003962:	0018      	movs	r0, r3
  8003964:	f7fd fc3c 	bl	80011e0 <HAL_ADC_PollForConversion>
  8003968:	0003      	movs	r3, r0
  800396a:	001a      	movs	r2, r3
- 800396c:	4b15      	ldr	r3, [pc, #84]	; (80039c4 <main+0xcc>)
+ 800396c:	4b18      	ldr	r3, [pc, #96]	; (80039d0 <main+0xd8>)
  800396e:	701a      	strb	r2, [r3, #0]
 
 			//Safety
 			if(result != HAL_OK) {
- 8003970:	4b14      	ldr	r3, [pc, #80]	; (80039c4 <main+0xcc>)
+ 8003970:	4b17      	ldr	r3, [pc, #92]	; (80039d0 <main+0xd8>)
  8003972:	781b      	ldrb	r3, [r3, #0]
  8003974:	2b00      	cmp	r3, #0
  8003976:	d001      	beq.n	800397c <main+0x84>
 				Error_Handler();
- 8003978:	f000 f9ca 	bl	8003d10 <Error_Handler>
+ 8003978:	f000 f9d0 	bl	8003d1c <Error_Handler>
 			}
 
 			_delay(100);
  800397c:	2064      	movs	r0, #100	; 0x64
- 800397e:	f000 f9cc 	bl	8003d1a <_delay>
+ 800397e:	f000 f9d2 	bl	8003d26 <_delay>
 
 			//Get Value
 			vals[i] = HAL_ADC_GetValue(&hadc);
- 8003982:	4b0f      	ldr	r3, [pc, #60]	; (80039c0 <main+0xc8>)
+ 8003982:	4b12      	ldr	r3, [pc, #72]	; (80039cc <main+0xd4>)
  8003984:	0018      	movs	r0, r3
  8003986:	f7fd fd3d 	bl	8001404 <HAL_ADC_GetValue>
  800398a:	0001      	movs	r1, r0
- 800398c:	4b0e      	ldr	r3, [pc, #56]	; (80039c8 <main+0xd0>)
+ 800398c:	4b11      	ldr	r3, [pc, #68]	; (80039d4 <main+0xdc>)
  800398e:	687a      	ldr	r2, [r7, #4]
  8003990:	0092      	lsls	r2, r2, #2
  8003992:	50d1      	str	r1, [r2, r3]
 
-			_delay(100);
- 8003994:	2064      	movs	r0, #100	; 0x64
- 8003996:	f000 f9c0 	bl	8003d1a <_delay>
-		for(int i=0; i<2; i++) {
- 800399a:	687b      	ldr	r3, [r7, #4]
- 800399c:	3301      	adds	r3, #1
- 800399e:	607b      	str	r3, [r7, #4]
- 80039a0:	687b      	ldr	r3, [r7, #4]
- 80039a2:	2b01      	cmp	r3, #1
- 80039a4:	ddc8      	ble.n	8003938 <main+0x40>
-		}
-		//Parse Value
-		volt_vals[0] = adc_getVoltage(vals[0]);
- 80039a6:	4b08      	ldr	r3, [pc, #32]	; (80039c8 <main+0xd0>)
- 80039a8:	681b      	ldr	r3, [r3, #0]
- 80039aa:	0018      	movs	r0, r3
- 80039ac:	f000 f9c8 	bl	8003d40 <adc_getVoltage>
- 80039b0:	0003      	movs	r3, r0
- 80039b2:	000c      	movs	r4, r1
- 80039b4:	4a05      	ldr	r2, [pc, #20]	; (80039cc <main+0xd4>)
- 80039b6:	6013      	str	r3, [r2, #0]
- 80039b8:	6054      	str	r4, [r2, #4]
-		for(int i=0; i<2; i++) {
- 80039ba:	e7ba      	b.n	8003932 <main+0x3a>
- 80039bc:	20000090 	.word	0x20000090
- 80039c0:	2000010c 	.word	0x2000010c
- 80039c4:	20000098 	.word	0x20000098
- 80039c8:	20000088 	.word	0x20000088
- 80039cc:	20000078 	.word	0x20000078
+			//Parse
+			volt_vals[i] = adc_getVoltage(vals[i]);
+ 8003994:	4b0f      	ldr	r3, [pc, #60]	; (80039d4 <main+0xdc>)
+ 8003996:	687a      	ldr	r2, [r7, #4]
+ 8003998:	0092      	lsls	r2, r2, #2
+ 800399a:	58d3      	ldr	r3, [r2, r3]
+ 800399c:	0018      	movs	r0, r3
+ 800399e:	f000 f9d5 	bl	8003d4c <adc_getVoltage>
+ 80039a2:	0003      	movs	r3, r0
+ 80039a4:	000c      	movs	r4, r1
+ 80039a6:	490c      	ldr	r1, [pc, #48]	; (80039d8 <main+0xe0>)
+ 80039a8:	687a      	ldr	r2, [r7, #4]
+ 80039aa:	00d2      	lsls	r2, r2, #3
+ 80039ac:	188a      	adds	r2, r1, r2
+ 80039ae:	6013      	str	r3, [r2, #0]
+ 80039b0:	6054      	str	r4, [r2, #4]
 
-080039d0 <SystemClock_Config>:
+			_delay(100);
+ 80039b2:	2064      	movs	r0, #100	; 0x64
+ 80039b4:	f000 f9b7 	bl	8003d26 <_delay>
+		for(int i=0; i<2; i++) {
+ 80039b8:	687b      	ldr	r3, [r7, #4]
+ 80039ba:	3301      	adds	r3, #1
+ 80039bc:	607b      	str	r3, [r7, #4]
+ 80039be:	687b      	ldr	r3, [r7, #4]
+ 80039c0:	2b01      	cmp	r3, #1
+ 80039c2:	ddb9      	ble.n	8003938 <main+0x40>
+		}
+		_nop();																/* dev breakpoint loc									*/
+ 80039c4:	46c0      	nop			; (mov r8, r8)
+		for(int i=0; i<2; i++) {
+ 80039c6:	e7b4      	b.n	8003932 <main+0x3a>
+ 80039c8:	20000090 	.word	0x20000090
+ 80039cc:	2000010c 	.word	0x2000010c
+ 80039d0:	20000098 	.word	0x20000098
+ 80039d4:	20000088 	.word	0x20000088
+ 80039d8:	20000078 	.word	0x20000078
+
+080039dc <SystemClock_Config>:
 
 /**
 * @brief System Clock Configuration
 * @retval None
 */
 void SystemClock_Config(void) {
- 80039d0:	b580      	push	{r7, lr}
- 80039d2:	b098      	sub	sp, #96	; 0x60
- 80039d4:	af00      	add	r7, sp, #0
+ 80039dc:	b580      	push	{r7, lr}
+ 80039de:	b098      	sub	sp, #96	; 0x60
+ 80039e0:	af00      	add	r7, sp, #0
 
 	RCC_OscInitTypeDef RCC_OscInitStruct = {0};
- 80039d6:	232c      	movs	r3, #44	; 0x2c
- 80039d8:	18fb      	adds	r3, r7, r3
- 80039da:	0018      	movs	r0, r3
- 80039dc:	2334      	movs	r3, #52	; 0x34
- 80039de:	001a      	movs	r2, r3
- 80039e0:	2100      	movs	r1, #0
- 80039e2:	f000 fc8b 	bl	80042fc <memset>
+ 80039e2:	232c      	movs	r3, #44	; 0x2c
+ 80039e4:	18fb      	adds	r3, r7, r3
+ 80039e6:	0018      	movs	r0, r3
+ 80039e8:	2334      	movs	r3, #52	; 0x34
+ 80039ea:	001a      	movs	r2, r3
+ 80039ec:	2100      	movs	r1, #0
+ 80039ee:	f000 fcab 	bl	8004348 <memset>
 	RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
- 80039e6:	231c      	movs	r3, #28
- 80039e8:	18fb      	adds	r3, r7, r3
- 80039ea:	0018      	movs	r0, r3
- 80039ec:	2310      	movs	r3, #16
- 80039ee:	001a      	movs	r2, r3
- 80039f0:	2100      	movs	r1, #0
- 80039f2:	f000 fc83 	bl	80042fc <memset>
+ 80039f2:	231c      	movs	r3, #28
+ 80039f4:	18fb      	adds	r3, r7, r3
+ 80039f6:	0018      	movs	r0, r3
+ 80039f8:	2310      	movs	r3, #16
+ 80039fa:	001a      	movs	r2, r3
+ 80039fc:	2100      	movs	r1, #0
+ 80039fe:	f000 fca3 	bl	8004348 <memset>
 	RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
- 80039f6:	003b      	movs	r3, r7
- 80039f8:	0018      	movs	r0, r3
- 80039fa:	231c      	movs	r3, #28
- 80039fc:	001a      	movs	r2, r3
- 80039fe:	2100      	movs	r1, #0
- 8003a00:	f000 fc7c 	bl	80042fc <memset>
+ 8003a02:	003b      	movs	r3, r7
+ 8003a04:	0018      	movs	r0, r3
+ 8003a06:	231c      	movs	r3, #28
+ 8003a08:	001a      	movs	r2, r3
+ 8003a0a:	2100      	movs	r1, #0
+ 8003a0c:	f000 fc9c 	bl	8004348 <memset>
 
 	/**Initializes the CPU, AHB and APB busses clocks */
 	RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_HSI14;
- 8003a04:	232c      	movs	r3, #44	; 0x2c
- 8003a06:	18fb      	adds	r3, r7, r3
- 8003a08:	2212      	movs	r2, #18
- 8003a0a:	601a      	str	r2, [r3, #0]
+ 8003a10:	232c      	movs	r3, #44	; 0x2c
+ 8003a12:	18fb      	adds	r3, r7, r3
+ 8003a14:	2212      	movs	r2, #18
+ 8003a16:	601a      	str	r2, [r3, #0]
 	RCC_OscInitStruct.HSIState = RCC_HSI_ON;
- 8003a0c:	232c      	movs	r3, #44	; 0x2c
- 8003a0e:	18fb      	adds	r3, r7, r3
- 8003a10:	2201      	movs	r2, #1
- 8003a12:	60da      	str	r2, [r3, #12]
+ 8003a18:	232c      	movs	r3, #44	; 0x2c
+ 8003a1a:	18fb      	adds	r3, r7, r3
+ 8003a1c:	2201      	movs	r2, #1
+ 8003a1e:	60da      	str	r2, [r3, #12]
 	RCC_OscInitStruct.HSI14State = RCC_HSI14_ON;
- 8003a14:	232c      	movs	r3, #44	; 0x2c
- 8003a16:	18fb      	adds	r3, r7, r3
- 8003a18:	2201      	movs	r2, #1
- 8003a1a:	615a      	str	r2, [r3, #20]
+ 8003a20:	232c      	movs	r3, #44	; 0x2c
+ 8003a22:	18fb      	adds	r3, r7, r3
+ 8003a24:	2201      	movs	r2, #1
+ 8003a26:	615a      	str	r2, [r3, #20]
 	RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
- 8003a1c:	232c      	movs	r3, #44	; 0x2c
- 8003a1e:	18fb      	adds	r3, r7, r3
- 8003a20:	2210      	movs	r2, #16
- 8003a22:	611a      	str	r2, [r3, #16]
+ 8003a28:	232c      	movs	r3, #44	; 0x2c
+ 8003a2a:	18fb      	adds	r3, r7, r3
+ 8003a2c:	2210      	movs	r2, #16
+ 8003a2e:	611a      	str	r2, [r3, #16]
 	RCC_OscInitStruct.HSI14CalibrationValue = 16;
- 8003a24:	232c      	movs	r3, #44	; 0x2c
- 8003a26:	18fb      	adds	r3, r7, r3
- 8003a28:	2210      	movs	r2, #16
- 8003a2a:	619a      	str	r2, [r3, #24]
+ 8003a30:	232c      	movs	r3, #44	; 0x2c
+ 8003a32:	18fb      	adds	r3, r7, r3
+ 8003a34:	2210      	movs	r2, #16
+ 8003a36:	619a      	str	r2, [r3, #24]
 	RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
- 8003a2c:	232c      	movs	r3, #44	; 0x2c
- 8003a2e:	18fb      	adds	r3, r7, r3
- 8003a30:	2202      	movs	r2, #2
- 8003a32:	625a      	str	r2, [r3, #36]	; 0x24
+ 8003a38:	232c      	movs	r3, #44	; 0x2c
+ 8003a3a:	18fb      	adds	r3, r7, r3
+ 8003a3c:	2202      	movs	r2, #2
+ 8003a3e:	625a      	str	r2, [r3, #36]	; 0x24
 	RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
- 8003a34:	232c      	movs	r3, #44	; 0x2c
- 8003a36:	18fb      	adds	r3, r7, r3
- 8003a38:	2280      	movs	r2, #128	; 0x80
- 8003a3a:	0212      	lsls	r2, r2, #8
- 8003a3c:	629a      	str	r2, [r3, #40]	; 0x28
+ 8003a40:	232c      	movs	r3, #44	; 0x2c
+ 8003a42:	18fb      	adds	r3, r7, r3
+ 8003a44:	2280      	movs	r2, #128	; 0x80
+ 8003a46:	0212      	lsls	r2, r2, #8
+ 8003a48:	629a      	str	r2, [r3, #40]	; 0x28
 	RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL12;
- 8003a3e:	232c      	movs	r3, #44	; 0x2c
- 8003a40:	18fb      	adds	r3, r7, r3
- 8003a42:	22a0      	movs	r2, #160	; 0xa0
- 8003a44:	0392      	lsls	r2, r2, #14
- 8003a46:	62da      	str	r2, [r3, #44]	; 0x2c
+ 8003a4a:	232c      	movs	r3, #44	; 0x2c
+ 8003a4c:	18fb      	adds	r3, r7, r3
+ 8003a4e:	22a0      	movs	r2, #160	; 0xa0
+ 8003a50:	0392      	lsls	r2, r2, #14
+ 8003a52:	62da      	str	r2, [r3, #44]	; 0x2c
 	RCC_OscInitStruct.PLL.PREDIV = RCC_PREDIV_DIV2;
- 8003a48:	232c      	movs	r3, #44	; 0x2c
- 8003a4a:	18fb      	adds	r3, r7, r3
- 8003a4c:	2201      	movs	r2, #1
- 8003a4e:	631a      	str	r2, [r3, #48]	; 0x30
+ 8003a54:	232c      	movs	r3, #44	; 0x2c
+ 8003a56:	18fb      	adds	r3, r7, r3
+ 8003a58:	2201      	movs	r2, #1
+ 8003a5a:	631a      	str	r2, [r3, #48]	; 0x30
 
 	if(HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
- 8003a50:	232c      	movs	r3, #44	; 0x2c
- 8003a52:	18fb      	adds	r3, r7, r3
- 8003a54:	0018      	movs	r0, r3
- 8003a56:	f7fe fcd5 	bl	8002404 <HAL_RCC_OscConfig>
- 8003a5a:	1e03      	subs	r3, r0, #0
- 8003a5c:	d001      	beq.n	8003a62 <SystemClock_Config+0x92>
+ 8003a5c:	232c      	movs	r3, #44	; 0x2c
+ 8003a5e:	18fb      	adds	r3, r7, r3
+ 8003a60:	0018      	movs	r0, r3
+ 8003a62:	f7fe fccf 	bl	8002404 <HAL_RCC_OscConfig>
+ 8003a66:	1e03      	subs	r3, r0, #0
+ 8003a68:	d001      	beq.n	8003a6e <SystemClock_Config+0x92>
 		Error_Handler();
- 8003a5e:	f000 f957 	bl	8003d10 <Error_Handler>
+ 8003a6a:	f000 f957 	bl	8003d1c <Error_Handler>
 	}
 
 	/**Initializes the CPU, AHB and APB busses clocks */
 	RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK|RCC_CLOCKTYPE_PCLK1;
- 8003a62:	231c      	movs	r3, #28
- 8003a64:	18fb      	adds	r3, r7, r3
- 8003a66:	2207      	movs	r2, #7
- 8003a68:	601a      	str	r2, [r3, #0]
+ 8003a6e:	231c      	movs	r3, #28
+ 8003a70:	18fb      	adds	r3, r7, r3
+ 8003a72:	2207      	movs	r2, #7
+ 8003a74:	601a      	str	r2, [r3, #0]
 	RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
- 8003a6a:	231c      	movs	r3, #28
- 8003a6c:	18fb      	adds	r3, r7, r3
- 8003a6e:	2202      	movs	r2, #2
- 8003a70:	605a      	str	r2, [r3, #4]
+ 8003a76:	231c      	movs	r3, #28
+ 8003a78:	18fb      	adds	r3, r7, r3
+ 8003a7a:	2202      	movs	r2, #2
+ 8003a7c:	605a      	str	r2, [r3, #4]
 	RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
- 8003a72:	231c      	movs	r3, #28
- 8003a74:	18fb      	adds	r3, r7, r3
- 8003a76:	2200      	movs	r2, #0
- 8003a78:	609a      	str	r2, [r3, #8]
+ 8003a7e:	231c      	movs	r3, #28
+ 8003a80:	18fb      	adds	r3, r7, r3
+ 8003a82:	2200      	movs	r2, #0
+ 8003a84:	609a      	str	r2, [r3, #8]
 	RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
- 8003a7a:	231c      	movs	r3, #28
- 8003a7c:	18fb      	adds	r3, r7, r3
- 8003a7e:	2200      	movs	r2, #0
- 8003a80:	60da      	str	r2, [r3, #12]
+ 8003a86:	231c      	movs	r3, #28
+ 8003a88:	18fb      	adds	r3, r7, r3
+ 8003a8a:	2200      	movs	r2, #0
+ 8003a8c:	60da      	str	r2, [r3, #12]
 
 	if(HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK) {
- 8003a82:	231c      	movs	r3, #28
- 8003a84:	18fb      	adds	r3, r7, r3
- 8003a86:	2101      	movs	r1, #1
- 8003a88:	0018      	movs	r0, r3
- 8003a8a:	f7ff f819 	bl	8002ac0 <HAL_RCC_ClockConfig>
- 8003a8e:	1e03      	subs	r3, r0, #0
- 8003a90:	d001      	beq.n	8003a96 <SystemClock_Config+0xc6>
+ 8003a8e:	231c      	movs	r3, #28
+ 8003a90:	18fb      	adds	r3, r7, r3
+ 8003a92:	2101      	movs	r1, #1
+ 8003a94:	0018      	movs	r0, r3
+ 8003a96:	f7ff f813 	bl	8002ac0 <HAL_RCC_ClockConfig>
+ 8003a9a:	1e03      	subs	r3, r0, #0
+ 8003a9c:	d001      	beq.n	8003aa2 <SystemClock_Config+0xc6>
 		Error_Handler();
- 8003a92:	f000 f93d 	bl	8003d10 <Error_Handler>
+ 8003a9e:	f000 f93d 	bl	8003d1c <Error_Handler>
 	}
 
 	PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART2;
- 8003a96:	003b      	movs	r3, r7
- 8003a98:	2202      	movs	r2, #2
- 8003a9a:	601a      	str	r2, [r3, #0]
-	PeriphClkInit.Usart2ClockSelection = RCC_USART2CLKSOURCE_PCLK1;
- 8003a9c:	003b      	movs	r3, r7
- 8003a9e:	2200      	movs	r2, #0
- 8003aa0:	60da      	str	r2, [r3, #12]
-	if(HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK) {
  8003aa2:	003b      	movs	r3, r7
- 8003aa4:	0018      	movs	r0, r3
- 8003aa6:	f7ff fa5d 	bl	8002f64 <HAL_RCCEx_PeriphCLKConfig>
- 8003aaa:	1e03      	subs	r3, r0, #0
- 8003aac:	d002      	beq.n	8003ab4 <SystemClock_Config+0xe4>
+ 8003aa4:	2202      	movs	r2, #2
+ 8003aa6:	601a      	str	r2, [r3, #0]
+	PeriphClkInit.Usart2ClockSelection = RCC_USART2CLKSOURCE_PCLK1;
+ 8003aa8:	003b      	movs	r3, r7
+ 8003aaa:	2200      	movs	r2, #0
+ 8003aac:	60da      	str	r2, [r3, #12]
+	if(HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK) {
+ 8003aae:	003b      	movs	r3, r7
+ 8003ab0:	0018      	movs	r0, r3
+ 8003ab2:	f7ff fa57 	bl	8002f64 <HAL_RCCEx_PeriphCLKConfig>
+ 8003ab6:	1e03      	subs	r3, r0, #0
+ 8003ab8:	d002      	beq.n	8003ac0 <SystemClock_Config+0xe4>
 		Error_Handler();
- 8003aae:	f000 f92f 	bl	8003d10 <Error_Handler>
+ 8003aba:	f000 f92f 	bl	8003d1c <Error_Handler>
 	}
 
 	return;
- 8003ab2:	46c0      	nop			; (mov r8, r8)
- 8003ab4:	46c0      	nop			; (mov r8, r8)
+ 8003abe:	46c0      	nop			; (mov r8, r8)
+ 8003ac0:	46c0      	nop			; (mov r8, r8)
 }
- 8003ab6:	46bd      	mov	sp, r7
- 8003ab8:	b018      	add	sp, #96	; 0x60
- 8003aba:	bd80      	pop	{r7, pc}
+ 8003ac2:	46bd      	mov	sp, r7
+ 8003ac4:	b018      	add	sp, #96	; 0x60
+ 8003ac6:	bd80      	pop	{r7, pc}
 
-08003abc <MX_ADC_Init>:
+08003ac8 <MX_ADC_Init>:
 /**
 * @brief ADC Initialization Function
 * @param None
 * @retval None
 */
 static void MX_ADC_Init(void) {
- 8003abc:	b580      	push	{r7, lr}
- 8003abe:	b084      	sub	sp, #16
- 8003ac0:	af00      	add	r7, sp, #0
+ 8003ac8:	b580      	push	{r7, lr}
+ 8003aca:	b084      	sub	sp, #16
+ 8003acc:	af00      	add	r7, sp, #0
 
 	//Locals
 	ADC_ChannelConfTypeDef sConfig;
 
 	//Init
 	memset(&sConfig, 0, sizeof(sConfig));
- 8003ac2:	003b      	movs	r3, r7
- 8003ac4:	220c      	movs	r2, #12
- 8003ac6:	2100      	movs	r1, #0
- 8003ac8:	0018      	movs	r0, r3
- 8003aca:	f000 fc17 	bl	80042fc <memset>
+ 8003ace:	003b      	movs	r3, r7
+ 8003ad0:	220c      	movs	r2, #12
+ 8003ad2:	2100      	movs	r1, #0
+ 8003ad4:	0018      	movs	r0, r3
+ 8003ad6:	f000 fc37 	bl	8004348 <memset>
 
 	/**Configure the global features of the ADC (Clock, Resolution, Data Alignment and number of conversion) */
 	hadc.Instance = ADC1;
- 8003ace:	4b3b      	ldr	r3, [pc, #236]	; (8003bbc <MX_ADC_Init+0x100>)
- 8003ad0:	4a3b      	ldr	r2, [pc, #236]	; (8003bc0 <MX_ADC_Init+0x104>)
- 8003ad2:	601a      	str	r2, [r3, #0]
+ 8003ada:	4b3b      	ldr	r3, [pc, #236]	; (8003bc8 <MX_ADC_Init+0x100>)
+ 8003adc:	4a3b      	ldr	r2, [pc, #236]	; (8003bcc <MX_ADC_Init+0x104>)
+ 8003ade:	601a      	str	r2, [r3, #0]
 	hadc.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV1;
- 8003ad4:	4b39      	ldr	r3, [pc, #228]	; (8003bbc <MX_ADC_Init+0x100>)
- 8003ad6:	2200      	movs	r2, #0
- 8003ad8:	605a      	str	r2, [r3, #4]
-	hadc.Init.Resolution = ADC_RESOLUTION_12B;
- 8003ada:	4b38      	ldr	r3, [pc, #224]	; (8003bbc <MX_ADC_Init+0x100>)
- 8003adc:	2200      	movs	r2, #0
- 8003ade:	609a      	str	r2, [r3, #8]
-	hadc.Init.DataAlign = ADC_DATAALIGN_RIGHT;
- 8003ae0:	4b36      	ldr	r3, [pc, #216]	; (8003bbc <MX_ADC_Init+0x100>)
+ 8003ae0:	4b39      	ldr	r3, [pc, #228]	; (8003bc8 <MX_ADC_Init+0x100>)
  8003ae2:	2200      	movs	r2, #0
- 8003ae4:	60da      	str	r2, [r3, #12]
+ 8003ae4:	605a      	str	r2, [r3, #4]
+	hadc.Init.Resolution = ADC_RESOLUTION_12B;
+ 8003ae6:	4b38      	ldr	r3, [pc, #224]	; (8003bc8 <MX_ADC_Init+0x100>)
+ 8003ae8:	2200      	movs	r2, #0
+ 8003aea:	609a      	str	r2, [r3, #8]
+	hadc.Init.DataAlign = ADC_DATAALIGN_RIGHT;
+ 8003aec:	4b36      	ldr	r3, [pc, #216]	; (8003bc8 <MX_ADC_Init+0x100>)
+ 8003aee:	2200      	movs	r2, #0
+ 8003af0:	60da      	str	r2, [r3, #12]
 	hadc.Init.ScanConvMode = ADC_SCAN_DIRECTION_FORWARD;
- 8003ae6:	4b35      	ldr	r3, [pc, #212]	; (8003bbc <MX_ADC_Init+0x100>)
- 8003ae8:	2201      	movs	r2, #1
- 8003aea:	611a      	str	r2, [r3, #16]
+ 8003af2:	4b35      	ldr	r3, [pc, #212]	; (8003bc8 <MX_ADC_Init+0x100>)
+ 8003af4:	2201      	movs	r2, #1
+ 8003af6:	611a      	str	r2, [r3, #16]
 	hadc.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
- 8003aec:	4b33      	ldr	r3, [pc, #204]	; (8003bbc <MX_ADC_Init+0x100>)
- 8003aee:	2204      	movs	r2, #4
- 8003af0:	615a      	str	r2, [r3, #20]
+ 8003af8:	4b33      	ldr	r3, [pc, #204]	; (8003bc8 <MX_ADC_Init+0x100>)
+ 8003afa:	2204      	movs	r2, #4
+ 8003afc:	615a      	str	r2, [r3, #20]
 	hadc.Init.LowPowerAutoWait = DISABLE;
- 8003af2:	4b32      	ldr	r3, [pc, #200]	; (8003bbc <MX_ADC_Init+0x100>)
- 8003af4:	2200      	movs	r2, #0
- 8003af6:	619a      	str	r2, [r3, #24]
-	hadc.Init.LowPowerAutoPowerOff = DISABLE;
- 8003af8:	4b30      	ldr	r3, [pc, #192]	; (8003bbc <MX_ADC_Init+0x100>)
- 8003afa:	2200      	movs	r2, #0
- 8003afc:	61da      	str	r2, [r3, #28]
-	hadc.Init.ContinuousConvMode = DISABLE;
- 8003afe:	4b2f      	ldr	r3, [pc, #188]	; (8003bbc <MX_ADC_Init+0x100>)
+ 8003afe:	4b32      	ldr	r3, [pc, #200]	; (8003bc8 <MX_ADC_Init+0x100>)
  8003b00:	2200      	movs	r2, #0
- 8003b02:	621a      	str	r2, [r3, #32]
+ 8003b02:	619a      	str	r2, [r3, #24]
+	hadc.Init.LowPowerAutoPowerOff = DISABLE;
+ 8003b04:	4b30      	ldr	r3, [pc, #192]	; (8003bc8 <MX_ADC_Init+0x100>)
+ 8003b06:	2200      	movs	r2, #0
+ 8003b08:	61da      	str	r2, [r3, #28]
+	hadc.Init.ContinuousConvMode = DISABLE;
+ 8003b0a:	4b2f      	ldr	r3, [pc, #188]	; (8003bc8 <MX_ADC_Init+0x100>)
+ 8003b0c:	2200      	movs	r2, #0
+ 8003b0e:	621a      	str	r2, [r3, #32]
 	hadc.Init.DiscontinuousConvMode = ENABLE;
- 8003b04:	4b2d      	ldr	r3, [pc, #180]	; (8003bbc <MX_ADC_Init+0x100>)
- 8003b06:	2201      	movs	r2, #1
- 8003b08:	625a      	str	r2, [r3, #36]	; 0x24
+ 8003b10:	4b2d      	ldr	r3, [pc, #180]	; (8003bc8 <MX_ADC_Init+0x100>)
+ 8003b12:	2201      	movs	r2, #1
+ 8003b14:	625a      	str	r2, [r3, #36]	; 0x24
 	hadc.Init.ExternalTrigConv = ADC_SOFTWARE_START;
- 8003b0a:	4b2c      	ldr	r3, [pc, #176]	; (8003bbc <MX_ADC_Init+0x100>)
- 8003b0c:	22c2      	movs	r2, #194	; 0xc2
- 8003b0e:	32ff      	adds	r2, #255	; 0xff
- 8003b10:	629a      	str	r2, [r3, #40]	; 0x28
+ 8003b16:	4b2c      	ldr	r3, [pc, #176]	; (8003bc8 <MX_ADC_Init+0x100>)
+ 8003b18:	22c2      	movs	r2, #194	; 0xc2
+ 8003b1a:	32ff      	adds	r2, #255	; 0xff
+ 8003b1c:	629a      	str	r2, [r3, #40]	; 0x28
 	hadc.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
- 8003b12:	4b2a      	ldr	r3, [pc, #168]	; (8003bbc <MX_ADC_Init+0x100>)
- 8003b14:	2200      	movs	r2, #0
- 8003b16:	62da      	str	r2, [r3, #44]	; 0x2c
+ 8003b1e:	4b2a      	ldr	r3, [pc, #168]	; (8003bc8 <MX_ADC_Init+0x100>)
+ 8003b20:	2200      	movs	r2, #0
+ 8003b22:	62da      	str	r2, [r3, #44]	; 0x2c
 	hadc.Init.DMAContinuousRequests = ENABLE;
- 8003b18:	4b28      	ldr	r3, [pc, #160]	; (8003bbc <MX_ADC_Init+0x100>)
- 8003b1a:	2201      	movs	r2, #1
- 8003b1c:	631a      	str	r2, [r3, #48]	; 0x30
+ 8003b24:	4b28      	ldr	r3, [pc, #160]	; (8003bc8 <MX_ADC_Init+0x100>)
+ 8003b26:	2201      	movs	r2, #1
+ 8003b28:	631a      	str	r2, [r3, #48]	; 0x30
 	hadc.Init.Overrun = ADC_OVR_DATA_PRESERVED;
- 8003b1e:	4b27      	ldr	r3, [pc, #156]	; (8003bbc <MX_ADC_Init+0x100>)
- 8003b20:	2201      	movs	r2, #1
- 8003b22:	635a      	str	r2, [r3, #52]	; 0x34
+ 8003b2a:	4b27      	ldr	r3, [pc, #156]	; (8003bc8 <MX_ADC_Init+0x100>)
+ 8003b2c:	2201      	movs	r2, #1
+ 8003b2e:	635a      	str	r2, [r3, #52]	; 0x34
 	hadc.Init.SamplingTimeCommon = ADC_SAMPLETIME_239CYCLES_5;				/* Note: Set long sampling time due to internal channels (VrefInt, temperature sensor) constraints. Refer to device datasheet for min/typ/max values. */
- 8003b24:	4b25      	ldr	r3, [pc, #148]	; (8003bbc <MX_ADC_Init+0x100>)
- 8003b26:	2207      	movs	r2, #7
- 8003b28:	639a      	str	r2, [r3, #56]	; 0x38
+ 8003b30:	4b25      	ldr	r3, [pc, #148]	; (8003bc8 <MX_ADC_Init+0x100>)
+ 8003b32:	2207      	movs	r2, #7
+ 8003b34:	639a      	str	r2, [r3, #56]	; 0x38
 
 	result = HAL_ADC_Init(&hadc);
- 8003b2a:	4b24      	ldr	r3, [pc, #144]	; (8003bbc <MX_ADC_Init+0x100>)
- 8003b2c:	0018      	movs	r0, r3
- 8003b2e:	f7fd f9c5 	bl	8000ebc <HAL_ADC_Init>
- 8003b32:	0003      	movs	r3, r0
- 8003b34:	001a      	movs	r2, r3
- 8003b36:	4b23      	ldr	r3, [pc, #140]	; (8003bc4 <MX_ADC_Init+0x108>)
- 8003b38:	701a      	strb	r2, [r3, #0]
+ 8003b36:	4b24      	ldr	r3, [pc, #144]	; (8003bc8 <MX_ADC_Init+0x100>)
+ 8003b38:	0018      	movs	r0, r3
+ 8003b3a:	f7fd f9bf 	bl	8000ebc <HAL_ADC_Init>
+ 8003b3e:	0003      	movs	r3, r0
+ 8003b40:	001a      	movs	r2, r3
+ 8003b42:	4b23      	ldr	r3, [pc, #140]	; (8003bd0 <MX_ADC_Init+0x108>)
+ 8003b44:	701a      	strb	r2, [r3, #0]
 
 	if(result != HAL_OK) {
- 8003b3a:	4b22      	ldr	r3, [pc, #136]	; (8003bc4 <MX_ADC_Init+0x108>)
- 8003b3c:	781b      	ldrb	r3, [r3, #0]
- 8003b3e:	2b00      	cmp	r3, #0
- 8003b40:	d001      	beq.n	8003b46 <MX_ADC_Init+0x8a>
+ 8003b46:	4b22      	ldr	r3, [pc, #136]	; (8003bd0 <MX_ADC_Init+0x108>)
+ 8003b48:	781b      	ldrb	r3, [r3, #0]
+ 8003b4a:	2b00      	cmp	r3, #0
+ 8003b4c:	d001      	beq.n	8003b52 <MX_ADC_Init+0x8a>
 		Error_Handler();
- 8003b42:	f000 f8e5 	bl	8003d10 <Error_Handler>
+ 8003b4e:	f000 f8e5 	bl	8003d1c <Error_Handler>
 	}
 
 	//Setup Sequencer
 	for(int i=0; i<2; i++) {
- 8003b46:	2300      	movs	r3, #0
- 8003b48:	60fb      	str	r3, [r7, #12]
- 8003b4a:	e020      	b.n	8003b8e <MX_ADC_Init+0xd2>
+ 8003b52:	2300      	movs	r3, #0
+ 8003b54:	60fb      	str	r3, [r7, #12]
+ 8003b56:	e020      	b.n	8003b9a <MX_ADC_Init+0xd2>
 
 		/**Configure channel #1 for the selected ADC regular channel to be converted. */
 		sConfig.Channel = adc_channels[i];
- 8003b4c:	4b1e      	ldr	r3, [pc, #120]	; (8003bc8 <MX_ADC_Init+0x10c>)
- 8003b4e:	68fa      	ldr	r2, [r7, #12]
- 8003b50:	0092      	lsls	r2, r2, #2
- 8003b52:	58d2      	ldr	r2, [r2, r3]
- 8003b54:	003b      	movs	r3, r7
- 8003b56:	601a      	str	r2, [r3, #0]
-		sConfig.Rank = ADC_RANK_CHANNEL_NUMBER;
- 8003b58:	003b      	movs	r3, r7
- 8003b5a:	2280      	movs	r2, #128	; 0x80
- 8003b5c:	0152      	lsls	r2, r2, #5
- 8003b5e:	605a      	str	r2, [r3, #4]
-		sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+ 8003b58:	4b1e      	ldr	r3, [pc, #120]	; (8003bd4 <MX_ADC_Init+0x10c>)
+ 8003b5a:	68fa      	ldr	r2, [r7, #12]
+ 8003b5c:	0092      	lsls	r2, r2, #2
+ 8003b5e:	58d2      	ldr	r2, [r2, r3]
  8003b60:	003b      	movs	r3, r7
- 8003b62:	2280      	movs	r2, #128	; 0x80
- 8003b64:	0552      	lsls	r2, r2, #21
- 8003b66:	609a      	str	r2, [r3, #8]
+ 8003b62:	601a      	str	r2, [r3, #0]
+		sConfig.Rank = ADC_RANK_CHANNEL_NUMBER;
+ 8003b64:	003b      	movs	r3, r7
+ 8003b66:	2280      	movs	r2, #128	; 0x80
+ 8003b68:	0152      	lsls	r2, r2, #5
+ 8003b6a:	605a      	str	r2, [r3, #4]
+		sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+ 8003b6c:	003b      	movs	r3, r7
+ 8003b6e:	2280      	movs	r2, #128	; 0x80
+ 8003b70:	0552      	lsls	r2, r2, #21
+ 8003b72:	609a      	str	r2, [r3, #8]
 
 		result = HAL_ADC_ConfigChannel(&hadc, &sConfig);
- 8003b68:	003a      	movs	r2, r7
- 8003b6a:	4b14      	ldr	r3, [pc, #80]	; (8003bbc <MX_ADC_Init+0x100>)
- 8003b6c:	0011      	movs	r1, r2
- 8003b6e:	0018      	movs	r0, r3
- 8003b70:	f7fd fd2a 	bl	80015c8 <HAL_ADC_ConfigChannel>
- 8003b74:	0003      	movs	r3, r0
- 8003b76:	001a      	movs	r2, r3
- 8003b78:	4b12      	ldr	r3, [pc, #72]	; (8003bc4 <MX_ADC_Init+0x108>)
- 8003b7a:	701a      	strb	r2, [r3, #0]
+ 8003b74:	003a      	movs	r2, r7
+ 8003b76:	4b14      	ldr	r3, [pc, #80]	; (8003bc8 <MX_ADC_Init+0x100>)
+ 8003b78:	0011      	movs	r1, r2
+ 8003b7a:	0018      	movs	r0, r3
+ 8003b7c:	f7fd fd24 	bl	80015c8 <HAL_ADC_ConfigChannel>
+ 8003b80:	0003      	movs	r3, r0
+ 8003b82:	001a      	movs	r2, r3
+ 8003b84:	4b12      	ldr	r3, [pc, #72]	; (8003bd0 <MX_ADC_Init+0x108>)
+ 8003b86:	701a      	strb	r2, [r3, #0]
 
 		if(result != HAL_OK) {
- 8003b7c:	4b11      	ldr	r3, [pc, #68]	; (8003bc4 <MX_ADC_Init+0x108>)
- 8003b7e:	781b      	ldrb	r3, [r3, #0]
- 8003b80:	2b00      	cmp	r3, #0
- 8003b82:	d001      	beq.n	8003b88 <MX_ADC_Init+0xcc>
+ 8003b88:	4b11      	ldr	r3, [pc, #68]	; (8003bd0 <MX_ADC_Init+0x108>)
+ 8003b8a:	781b      	ldrb	r3, [r3, #0]
+ 8003b8c:	2b00      	cmp	r3, #0
+ 8003b8e:	d001      	beq.n	8003b94 <MX_ADC_Init+0xcc>
 			Error_Handler();
- 8003b84:	f000 f8c4 	bl	8003d10 <Error_Handler>
+ 8003b90:	f000 f8c4 	bl	8003d1c <Error_Handler>
 	for(int i=0; i<2; i++) {
- 8003b88:	68fb      	ldr	r3, [r7, #12]
- 8003b8a:	3301      	adds	r3, #1
- 8003b8c:	60fb      	str	r3, [r7, #12]
- 8003b8e:	68fb      	ldr	r3, [r7, #12]
- 8003b90:	2b01      	cmp	r3, #1
- 8003b92:	dddb      	ble.n	8003b4c <MX_ADC_Init+0x90>
+ 8003b94:	68fb      	ldr	r3, [r7, #12]
+ 8003b96:	3301      	adds	r3, #1
+ 8003b98:	60fb      	str	r3, [r7, #12]
+ 8003b9a:	68fb      	ldr	r3, [r7, #12]
+ 8003b9c:	2b01      	cmp	r3, #1
+ 8003b9e:	dddb      	ble.n	8003b58 <MX_ADC_Init+0x90>
 		}
 	}
 
 
 	//Calibrate
 	result = HAL_ADCEx_Calibration_Start(&hadc);						/* Run the ADC calibration 								*/
- 8003b94:	4b09      	ldr	r3, [pc, #36]	; (8003bbc <MX_ADC_Init+0x100>)
- 8003b96:	0018      	movs	r0, r3
- 8003b98:	f7fd ff24 	bl	80019e4 <HAL_ADCEx_Calibration_Start>
- 8003b9c:	0003      	movs	r3, r0
- 8003b9e:	001a      	movs	r2, r3
- 8003ba0:	4b08      	ldr	r3, [pc, #32]	; (8003bc4 <MX_ADC_Init+0x108>)
- 8003ba2:	701a      	strb	r2, [r3, #0]
+ 8003ba0:	4b09      	ldr	r3, [pc, #36]	; (8003bc8 <MX_ADC_Init+0x100>)
+ 8003ba2:	0018      	movs	r0, r3
+ 8003ba4:	f7fd ff1e 	bl	80019e4 <HAL_ADCEx_Calibration_Start>
+ 8003ba8:	0003      	movs	r3, r0
+ 8003baa:	001a      	movs	r2, r3
+ 8003bac:	4b08      	ldr	r3, [pc, #32]	; (8003bd0 <MX_ADC_Init+0x108>)
+ 8003bae:	701a      	strb	r2, [r3, #0]
 
 	//Safety
 	if(result != HAL_OK) {
- 8003ba4:	4b07      	ldr	r3, [pc, #28]	; (8003bc4 <MX_ADC_Init+0x108>)
- 8003ba6:	781b      	ldrb	r3, [r3, #0]
- 8003ba8:	2b00      	cmp	r3, #0
- 8003baa:	d002      	beq.n	8003bb2 <MX_ADC_Init+0xf6>
+ 8003bb0:	4b07      	ldr	r3, [pc, #28]	; (8003bd0 <MX_ADC_Init+0x108>)
+ 8003bb2:	781b      	ldrb	r3, [r3, #0]
+ 8003bb4:	2b00      	cmp	r3, #0
+ 8003bb6:	d002      	beq.n	8003bbe <MX_ADC_Init+0xf6>
 	    Error_Handler();	    											/* Calibration Error 									*/
- 8003bac:	f000 f8b0 	bl	8003d10 <Error_Handler>
+ 8003bb8:	f000 f8b0 	bl	8003d1c <Error_Handler>
 	}
 
 	return;
- 8003bb0:	46c0      	nop			; (mov r8, r8)
- 8003bb2:	46c0      	nop			; (mov r8, r8)
+ 8003bbc:	46c0      	nop			; (mov r8, r8)
+ 8003bbe:	46c0      	nop			; (mov r8, r8)
 }
- 8003bb4:	46bd      	mov	sp, r7
- 8003bb6:	b004      	add	sp, #16
- 8003bb8:	bd80      	pop	{r7, pc}
- 8003bba:	46c0      	nop			; (mov r8, r8)
- 8003bbc:	2000010c 	.word	0x2000010c
- 8003bc0:	40012400 	.word	0x40012400
- 8003bc4:	20000098 	.word	0x20000098
- 8003bc8:	20000000 	.word	0x20000000
+ 8003bc0:	46bd      	mov	sp, r7
+ 8003bc2:	b004      	add	sp, #16
+ 8003bc4:	bd80      	pop	{r7, pc}
+ 8003bc6:	46c0      	nop			; (mov r8, r8)
+ 8003bc8:	2000010c 	.word	0x2000010c
+ 8003bcc:	40012400 	.word	0x40012400
+ 8003bd0:	20000098 	.word	0x20000098
+ 8003bd4:	20000000 	.word	0x20000000
 
-08003bcc <MX_USART2_UART_Init>:
+08003bd8 <MX_USART2_UART_Init>:
 * @brief USART2 Initialization Function
 * @param None
 * @retval None
 */
 static void MX_USART2_UART_Init(void)
 {
- 8003bcc:	b580      	push	{r7, lr}
- 8003bce:	af00      	add	r7, sp, #0
+ 8003bd8:	b580      	push	{r7, lr}
+ 8003bda:	af00      	add	r7, sp, #0
 /* USER CODE END USART2_Init 0 */
 
 /* USER CODE BEGIN USART2_Init 1 */
 
 /* USER CODE END USART2_Init 1 */
 huart2.Instance = USART2;
- 8003bd0:	4b14      	ldr	r3, [pc, #80]	; (8003c24 <MX_USART2_UART_Init+0x58>)
- 8003bd2:	4a15      	ldr	r2, [pc, #84]	; (8003c28 <MX_USART2_UART_Init+0x5c>)
- 8003bd4:	601a      	str	r2, [r3, #0]
+ 8003bdc:	4b14      	ldr	r3, [pc, #80]	; (8003c30 <MX_USART2_UART_Init+0x58>)
+ 8003bde:	4a15      	ldr	r2, [pc, #84]	; (8003c34 <MX_USART2_UART_Init+0x5c>)
+ 8003be0:	601a      	str	r2, [r3, #0]
 huart2.Init.BaudRate = 115200;
- 8003bd6:	4b13      	ldr	r3, [pc, #76]	; (8003c24 <MX_USART2_UART_Init+0x58>)
- 8003bd8:	22e1      	movs	r2, #225	; 0xe1
- 8003bda:	0252      	lsls	r2, r2, #9
- 8003bdc:	605a      	str	r2, [r3, #4]
+ 8003be2:	4b13      	ldr	r3, [pc, #76]	; (8003c30 <MX_USART2_UART_Init+0x58>)
+ 8003be4:	22e1      	movs	r2, #225	; 0xe1
+ 8003be6:	0252      	lsls	r2, r2, #9
+ 8003be8:	605a      	str	r2, [r3, #4]
 huart2.Init.WordLength = UART_WORDLENGTH_8B;
- 8003bde:	4b11      	ldr	r3, [pc, #68]	; (8003c24 <MX_USART2_UART_Init+0x58>)
- 8003be0:	2200      	movs	r2, #0
- 8003be2:	609a      	str	r2, [r3, #8]
-huart2.Init.StopBits = UART_STOPBITS_1;
- 8003be4:	4b0f      	ldr	r3, [pc, #60]	; (8003c24 <MX_USART2_UART_Init+0x58>)
- 8003be6:	2200      	movs	r2, #0
- 8003be8:	60da      	str	r2, [r3, #12]
-huart2.Init.Parity = UART_PARITY_NONE;
- 8003bea:	4b0e      	ldr	r3, [pc, #56]	; (8003c24 <MX_USART2_UART_Init+0x58>)
+ 8003bea:	4b11      	ldr	r3, [pc, #68]	; (8003c30 <MX_USART2_UART_Init+0x58>)
  8003bec:	2200      	movs	r2, #0
- 8003bee:	611a      	str	r2, [r3, #16]
-huart2.Init.Mode = UART_MODE_TX_RX;
- 8003bf0:	4b0c      	ldr	r3, [pc, #48]	; (8003c24 <MX_USART2_UART_Init+0x58>)
- 8003bf2:	220c      	movs	r2, #12
- 8003bf4:	615a      	str	r2, [r3, #20]
-huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
- 8003bf6:	4b0b      	ldr	r3, [pc, #44]	; (8003c24 <MX_USART2_UART_Init+0x58>)
+ 8003bee:	609a      	str	r2, [r3, #8]
+huart2.Init.StopBits = UART_STOPBITS_1;
+ 8003bf0:	4b0f      	ldr	r3, [pc, #60]	; (8003c30 <MX_USART2_UART_Init+0x58>)
+ 8003bf2:	2200      	movs	r2, #0
+ 8003bf4:	60da      	str	r2, [r3, #12]
+huart2.Init.Parity = UART_PARITY_NONE;
+ 8003bf6:	4b0e      	ldr	r3, [pc, #56]	; (8003c30 <MX_USART2_UART_Init+0x58>)
  8003bf8:	2200      	movs	r2, #0
- 8003bfa:	619a      	str	r2, [r3, #24]
-huart2.Init.OverSampling = UART_OVERSAMPLING_16;
- 8003bfc:	4b09      	ldr	r3, [pc, #36]	; (8003c24 <MX_USART2_UART_Init+0x58>)
- 8003bfe:	2200      	movs	r2, #0
- 8003c00:	61da      	str	r2, [r3, #28]
-huart2.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
- 8003c02:	4b08      	ldr	r3, [pc, #32]	; (8003c24 <MX_USART2_UART_Init+0x58>)
+ 8003bfa:	611a      	str	r2, [r3, #16]
+huart2.Init.Mode = UART_MODE_TX_RX;
+ 8003bfc:	4b0c      	ldr	r3, [pc, #48]	; (8003c30 <MX_USART2_UART_Init+0x58>)
+ 8003bfe:	220c      	movs	r2, #12
+ 8003c00:	615a      	str	r2, [r3, #20]
+huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+ 8003c02:	4b0b      	ldr	r3, [pc, #44]	; (8003c30 <MX_USART2_UART_Init+0x58>)
  8003c04:	2200      	movs	r2, #0
- 8003c06:	621a      	str	r2, [r3, #32]
-huart2.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
- 8003c08:	4b06      	ldr	r3, [pc, #24]	; (8003c24 <MX_USART2_UART_Init+0x58>)
+ 8003c06:	619a      	str	r2, [r3, #24]
+huart2.Init.OverSampling = UART_OVERSAMPLING_16;
+ 8003c08:	4b09      	ldr	r3, [pc, #36]	; (8003c30 <MX_USART2_UART_Init+0x58>)
  8003c0a:	2200      	movs	r2, #0
- 8003c0c:	625a      	str	r2, [r3, #36]	; 0x24
+ 8003c0c:	61da      	str	r2, [r3, #28]
+huart2.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+ 8003c0e:	4b08      	ldr	r3, [pc, #32]	; (8003c30 <MX_USART2_UART_Init+0x58>)
+ 8003c10:	2200      	movs	r2, #0
+ 8003c12:	621a      	str	r2, [r3, #32]
+huart2.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+ 8003c14:	4b06      	ldr	r3, [pc, #24]	; (8003c30 <MX_USART2_UART_Init+0x58>)
+ 8003c16:	2200      	movs	r2, #0
+ 8003c18:	625a      	str	r2, [r3, #36]	; 0x24
 if (HAL_UART_Init(&huart2) != HAL_OK)
- 8003c0e:	4b05      	ldr	r3, [pc, #20]	; (8003c24 <MX_USART2_UART_Init+0x58>)
- 8003c10:	0018      	movs	r0, r3
- 8003c12:	f7ff faa5 	bl	8003160 <HAL_UART_Init>
- 8003c16:	1e03      	subs	r3, r0, #0
- 8003c18:	d001      	beq.n	8003c1e <MX_USART2_UART_Init+0x52>
+ 8003c1a:	4b05      	ldr	r3, [pc, #20]	; (8003c30 <MX_USART2_UART_Init+0x58>)
+ 8003c1c:	0018      	movs	r0, r3
+ 8003c1e:	f7ff fa9f 	bl	8003160 <HAL_UART_Init>
+ 8003c22:	1e03      	subs	r3, r0, #0
+ 8003c24:	d001      	beq.n	8003c2a <MX_USART2_UART_Init+0x52>
 {
 Error_Handler();
- 8003c1a:	f000 f879 	bl	8003d10 <Error_Handler>
+ 8003c26:	f000 f879 	bl	8003d1c <Error_Handler>
 }
 /* USER CODE BEGIN USART2_Init 2 */
 
 /* USER CODE END USART2_Init 2 */
 
 }
- 8003c1e:	46c0      	nop			; (mov r8, r8)
- 8003c20:	46bd      	mov	sp, r7
- 8003c22:	bd80      	pop	{r7, pc}
- 8003c24:	2000009c 	.word	0x2000009c
- 8003c28:	40004400 	.word	0x40004400
+ 8003c2a:	46c0      	nop			; (mov r8, r8)
+ 8003c2c:	46bd      	mov	sp, r7
+ 8003c2e:	bd80      	pop	{r7, pc}
+ 8003c30:	2000009c 	.word	0x2000009c
+ 8003c34:	40004400 	.word	0x40004400
 
-08003c2c <MX_GPIO_Init>:
+08003c38 <MX_GPIO_Init>:
 * @brief GPIO Initialization Function
 * @param None
 * @retval None
 */
 static void MX_GPIO_Init(void)
 {
- 8003c2c:	b580      	push	{r7, lr}
- 8003c2e:	b088      	sub	sp, #32
- 8003c30:	af00      	add	r7, sp, #0
+ 8003c38:	b580      	push	{r7, lr}
+ 8003c3a:	b088      	sub	sp, #32
+ 8003c3c:	af00      	add	r7, sp, #0
 GPIO_InitTypeDef GPIO_InitStruct = {0};
- 8003c32:	230c      	movs	r3, #12
- 8003c34:	18fb      	adds	r3, r7, r3
- 8003c36:	0018      	movs	r0, r3
- 8003c38:	2314      	movs	r3, #20
- 8003c3a:	001a      	movs	r2, r3
- 8003c3c:	2100      	movs	r1, #0
- 8003c3e:	f000 fb5d 	bl	80042fc <memset>
+ 8003c3e:	230c      	movs	r3, #12
+ 8003c40:	18fb      	adds	r3, r7, r3
+ 8003c42:	0018      	movs	r0, r3
+ 8003c44:	2314      	movs	r3, #20
+ 8003c46:	001a      	movs	r2, r3
+ 8003c48:	2100      	movs	r1, #0
+ 8003c4a:	f000 fb7d 	bl	8004348 <memset>
 
 /* GPIO Ports Clock Enable */
 __HAL_RCC_GPIOC_CLK_ENABLE();
- 8003c42:	4b30      	ldr	r3, [pc, #192]	; (8003d04 <MX_GPIO_Init+0xd8>)
- 8003c44:	4a2f      	ldr	r2, [pc, #188]	; (8003d04 <MX_GPIO_Init+0xd8>)
- 8003c46:	6952      	ldr	r2, [r2, #20]
- 8003c48:	2180      	movs	r1, #128	; 0x80
- 8003c4a:	0309      	lsls	r1, r1, #12
- 8003c4c:	430a      	orrs	r2, r1
- 8003c4e:	615a      	str	r2, [r3, #20]
- 8003c50:	4b2c      	ldr	r3, [pc, #176]	; (8003d04 <MX_GPIO_Init+0xd8>)
- 8003c52:	695a      	ldr	r2, [r3, #20]
- 8003c54:	2380      	movs	r3, #128	; 0x80
- 8003c56:	031b      	lsls	r3, r3, #12
- 8003c58:	4013      	ands	r3, r2
- 8003c5a:	60bb      	str	r3, [r7, #8]
- 8003c5c:	68bb      	ldr	r3, [r7, #8]
+ 8003c4e:	4b30      	ldr	r3, [pc, #192]	; (8003d10 <MX_GPIO_Init+0xd8>)
+ 8003c50:	4a2f      	ldr	r2, [pc, #188]	; (8003d10 <MX_GPIO_Init+0xd8>)
+ 8003c52:	6952      	ldr	r2, [r2, #20]
+ 8003c54:	2180      	movs	r1, #128	; 0x80
+ 8003c56:	0309      	lsls	r1, r1, #12
+ 8003c58:	430a      	orrs	r2, r1
+ 8003c5a:	615a      	str	r2, [r3, #20]
+ 8003c5c:	4b2c      	ldr	r3, [pc, #176]	; (8003d10 <MX_GPIO_Init+0xd8>)
+ 8003c5e:	695a      	ldr	r2, [r3, #20]
+ 8003c60:	2380      	movs	r3, #128	; 0x80
+ 8003c62:	031b      	lsls	r3, r3, #12
+ 8003c64:	4013      	ands	r3, r2
+ 8003c66:	60bb      	str	r3, [r7, #8]
+ 8003c68:	68bb      	ldr	r3, [r7, #8]
 __HAL_RCC_GPIOF_CLK_ENABLE();
- 8003c5e:	4b29      	ldr	r3, [pc, #164]	; (8003d04 <MX_GPIO_Init+0xd8>)
- 8003c60:	4a28      	ldr	r2, [pc, #160]	; (8003d04 <MX_GPIO_Init+0xd8>)
- 8003c62:	6952      	ldr	r2, [r2, #20]
- 8003c64:	2180      	movs	r1, #128	; 0x80
- 8003c66:	03c9      	lsls	r1, r1, #15
- 8003c68:	430a      	orrs	r2, r1
- 8003c6a:	615a      	str	r2, [r3, #20]
- 8003c6c:	4b25      	ldr	r3, [pc, #148]	; (8003d04 <MX_GPIO_Init+0xd8>)
- 8003c6e:	695a      	ldr	r2, [r3, #20]
- 8003c70:	2380      	movs	r3, #128	; 0x80
- 8003c72:	03db      	lsls	r3, r3, #15
- 8003c74:	4013      	ands	r3, r2
- 8003c76:	607b      	str	r3, [r7, #4]
- 8003c78:	687b      	ldr	r3, [r7, #4]
+ 8003c6a:	4b29      	ldr	r3, [pc, #164]	; (8003d10 <MX_GPIO_Init+0xd8>)
+ 8003c6c:	4a28      	ldr	r2, [pc, #160]	; (8003d10 <MX_GPIO_Init+0xd8>)
+ 8003c6e:	6952      	ldr	r2, [r2, #20]
+ 8003c70:	2180      	movs	r1, #128	; 0x80
+ 8003c72:	03c9      	lsls	r1, r1, #15
+ 8003c74:	430a      	orrs	r2, r1
+ 8003c76:	615a      	str	r2, [r3, #20]
+ 8003c78:	4b25      	ldr	r3, [pc, #148]	; (8003d10 <MX_GPIO_Init+0xd8>)
+ 8003c7a:	695a      	ldr	r2, [r3, #20]
+ 8003c7c:	2380      	movs	r3, #128	; 0x80
+ 8003c7e:	03db      	lsls	r3, r3, #15
+ 8003c80:	4013      	ands	r3, r2
+ 8003c82:	607b      	str	r3, [r7, #4]
+ 8003c84:	687b      	ldr	r3, [r7, #4]
 __HAL_RCC_GPIOA_CLK_ENABLE();
- 8003c7a:	4b22      	ldr	r3, [pc, #136]	; (8003d04 <MX_GPIO_Init+0xd8>)
- 8003c7c:	4a21      	ldr	r2, [pc, #132]	; (8003d04 <MX_GPIO_Init+0xd8>)
- 8003c7e:	6952      	ldr	r2, [r2, #20]
- 8003c80:	2180      	movs	r1, #128	; 0x80
- 8003c82:	0289      	lsls	r1, r1, #10
- 8003c84:	430a      	orrs	r2, r1
- 8003c86:	615a      	str	r2, [r3, #20]
- 8003c88:	4b1e      	ldr	r3, [pc, #120]	; (8003d04 <MX_GPIO_Init+0xd8>)
- 8003c8a:	695a      	ldr	r2, [r3, #20]
- 8003c8c:	2380      	movs	r3, #128	; 0x80
- 8003c8e:	029b      	lsls	r3, r3, #10
- 8003c90:	4013      	ands	r3, r2
- 8003c92:	603b      	str	r3, [r7, #0]
- 8003c94:	683b      	ldr	r3, [r7, #0]
+ 8003c86:	4b22      	ldr	r3, [pc, #136]	; (8003d10 <MX_GPIO_Init+0xd8>)
+ 8003c88:	4a21      	ldr	r2, [pc, #132]	; (8003d10 <MX_GPIO_Init+0xd8>)
+ 8003c8a:	6952      	ldr	r2, [r2, #20]
+ 8003c8c:	2180      	movs	r1, #128	; 0x80
+ 8003c8e:	0289      	lsls	r1, r1, #10
+ 8003c90:	430a      	orrs	r2, r1
+ 8003c92:	615a      	str	r2, [r3, #20]
+ 8003c94:	4b1e      	ldr	r3, [pc, #120]	; (8003d10 <MX_GPIO_Init+0xd8>)
+ 8003c96:	695a      	ldr	r2, [r3, #20]
+ 8003c98:	2380      	movs	r3, #128	; 0x80
+ 8003c9a:	029b      	lsls	r3, r3, #10
+ 8003c9c:	4013      	ands	r3, r2
+ 8003c9e:	603b      	str	r3, [r7, #0]
+ 8003ca0:	683b      	ldr	r3, [r7, #0]
 
 /*Configure GPIO pin Output Level */
 HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
- 8003c96:	2390      	movs	r3, #144	; 0x90
- 8003c98:	05db      	lsls	r3, r3, #23
- 8003c9a:	2200      	movs	r2, #0
- 8003c9c:	2120      	movs	r1, #32
- 8003c9e:	0018      	movs	r0, r3
- 8003ca0:	f7fe fb92 	bl	80023c8 <HAL_GPIO_WritePin>
+ 8003ca2:	2390      	movs	r3, #144	; 0x90
+ 8003ca4:	05db      	lsls	r3, r3, #23
+ 8003ca6:	2200      	movs	r2, #0
+ 8003ca8:	2120      	movs	r1, #32
+ 8003caa:	0018      	movs	r0, r3
+ 8003cac:	f7fe fb8c 	bl	80023c8 <HAL_GPIO_WritePin>
 
 /*Configure GPIO pin : B1_Pin */
 GPIO_InitStruct.Pin = B1_Pin;
- 8003ca4:	230c      	movs	r3, #12
- 8003ca6:	18fb      	adds	r3, r7, r3
- 8003ca8:	2280      	movs	r2, #128	; 0x80
- 8003caa:	0192      	lsls	r2, r2, #6
- 8003cac:	601a      	str	r2, [r3, #0]
+ 8003cb0:	230c      	movs	r3, #12
+ 8003cb2:	18fb      	adds	r3, r7, r3
+ 8003cb4:	2280      	movs	r2, #128	; 0x80
+ 8003cb6:	0192      	lsls	r2, r2, #6
+ 8003cb8:	601a      	str	r2, [r3, #0]
 GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
- 8003cae:	230c      	movs	r3, #12
- 8003cb0:	18fb      	adds	r3, r7, r3
- 8003cb2:	4a15      	ldr	r2, [pc, #84]	; (8003d08 <MX_GPIO_Init+0xdc>)
- 8003cb4:	605a      	str	r2, [r3, #4]
+ 8003cba:	230c      	movs	r3, #12
+ 8003cbc:	18fb      	adds	r3, r7, r3
+ 8003cbe:	4a15      	ldr	r2, [pc, #84]	; (8003d14 <MX_GPIO_Init+0xdc>)
+ 8003cc0:	605a      	str	r2, [r3, #4]
 GPIO_InitStruct.Pull = GPIO_NOPULL;
- 8003cb6:	230c      	movs	r3, #12
- 8003cb8:	18fb      	adds	r3, r7, r3
- 8003cba:	2200      	movs	r2, #0
- 8003cbc:	609a      	str	r2, [r3, #8]
+ 8003cc2:	230c      	movs	r3, #12
+ 8003cc4:	18fb      	adds	r3, r7, r3
+ 8003cc6:	2200      	movs	r2, #0
+ 8003cc8:	609a      	str	r2, [r3, #8]
 HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
- 8003cbe:	230c      	movs	r3, #12
- 8003cc0:	18fb      	adds	r3, r7, r3
- 8003cc2:	4a12      	ldr	r2, [pc, #72]	; (8003d0c <MX_GPIO_Init+0xe0>)
- 8003cc4:	0019      	movs	r1, r3
- 8003cc6:	0010      	movs	r0, r2
- 8003cc8:	f7fe fa02 	bl	80020d0 <HAL_GPIO_Init>
+ 8003cca:	230c      	movs	r3, #12
+ 8003ccc:	18fb      	adds	r3, r7, r3
+ 8003cce:	4a12      	ldr	r2, [pc, #72]	; (8003d18 <MX_GPIO_Init+0xe0>)
+ 8003cd0:	0019      	movs	r1, r3
+ 8003cd2:	0010      	movs	r0, r2
+ 8003cd4:	f7fe f9fc 	bl	80020d0 <HAL_GPIO_Init>
 
 /*Configure GPIO pin : LD2_Pin */
 GPIO_InitStruct.Pin = LD2_Pin;
- 8003ccc:	230c      	movs	r3, #12
- 8003cce:	18fb      	adds	r3, r7, r3
- 8003cd0:	2220      	movs	r2, #32
- 8003cd2:	601a      	str	r2, [r3, #0]
+ 8003cd8:	230c      	movs	r3, #12
+ 8003cda:	18fb      	adds	r3, r7, r3
+ 8003cdc:	2220      	movs	r2, #32
+ 8003cde:	601a      	str	r2, [r3, #0]
 GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
- 8003cd4:	230c      	movs	r3, #12
- 8003cd6:	18fb      	adds	r3, r7, r3
- 8003cd8:	2201      	movs	r2, #1
- 8003cda:	605a      	str	r2, [r3, #4]
+ 8003ce0:	230c      	movs	r3, #12
+ 8003ce2:	18fb      	adds	r3, r7, r3
+ 8003ce4:	2201      	movs	r2, #1
+ 8003ce6:	605a      	str	r2, [r3, #4]
 GPIO_InitStruct.Pull = GPIO_NOPULL;
- 8003cdc:	230c      	movs	r3, #12
- 8003cde:	18fb      	adds	r3, r7, r3
- 8003ce0:	2200      	movs	r2, #0
- 8003ce2:	609a      	str	r2, [r3, #8]
+ 8003ce8:	230c      	movs	r3, #12
+ 8003cea:	18fb      	adds	r3, r7, r3
+ 8003cec:	2200      	movs	r2, #0
+ 8003cee:	609a      	str	r2, [r3, #8]
 GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
- 8003ce4:	230c      	movs	r3, #12
- 8003ce6:	18fb      	adds	r3, r7, r3
- 8003ce8:	2200      	movs	r2, #0
- 8003cea:	60da      	str	r2, [r3, #12]
+ 8003cf0:	230c      	movs	r3, #12
+ 8003cf2:	18fb      	adds	r3, r7, r3
+ 8003cf4:	2200      	movs	r2, #0
+ 8003cf6:	60da      	str	r2, [r3, #12]
 HAL_GPIO_Init(LD2_GPIO_Port, &GPIO_InitStruct);
- 8003cec:	230c      	movs	r3, #12
- 8003cee:	18fa      	adds	r2, r7, r3
- 8003cf0:	2390      	movs	r3, #144	; 0x90
- 8003cf2:	05db      	lsls	r3, r3, #23
- 8003cf4:	0011      	movs	r1, r2
- 8003cf6:	0018      	movs	r0, r3
- 8003cf8:	f7fe f9ea 	bl	80020d0 <HAL_GPIO_Init>
+ 8003cf8:	230c      	movs	r3, #12
+ 8003cfa:	18fa      	adds	r2, r7, r3
+ 8003cfc:	2390      	movs	r3, #144	; 0x90
+ 8003cfe:	05db      	lsls	r3, r3, #23
+ 8003d00:	0011      	movs	r1, r2
+ 8003d02:	0018      	movs	r0, r3
+ 8003d04:	f7fe f9e4 	bl	80020d0 <HAL_GPIO_Init>
 
 }
- 8003cfc:	46c0      	nop			; (mov r8, r8)
- 8003cfe:	46bd      	mov	sp, r7
- 8003d00:	b008      	add	sp, #32
- 8003d02:	bd80      	pop	{r7, pc}
- 8003d04:	40021000 	.word	0x40021000
- 8003d08:	10210000 	.word	0x10210000
- 8003d0c:	48000800 	.word	0x48000800
+ 8003d08:	46c0      	nop			; (mov r8, r8)
+ 8003d0a:	46bd      	mov	sp, r7
+ 8003d0c:	b008      	add	sp, #32
+ 8003d0e:	bd80      	pop	{r7, pc}
+ 8003d10:	40021000 	.word	0x40021000
+ 8003d14:	10210000 	.word	0x10210000
+ 8003d18:	48000800 	.word	0x48000800
 
-08003d10 <Error_Handler>:
+08003d1c <Error_Handler>:
 * @brief  	This function is executed in case of error occurrence.
 * @detail 	User can add his own implementation to report the HAL error return state
 *
 * @return 	None
 */
 void Error_Handler(void) {
- 8003d10:	b580      	push	{r7, lr}
- 8003d12:	af00      	add	r7, sp, #0
+ 8003d1c:	b580      	push	{r7, lr}
+ 8003d1e:	af00      	add	r7, sp, #0
 
 	/* USER CODE BEGIN Error_Handler_Debug */
 
 	/* USER CODE END Error_Handler_Debug */
 
 	return;
- 8003d14:	46c0      	nop			; (mov r8, r8)
+ 8003d20:	46c0      	nop			; (mov r8, r8)
 }
- 8003d16:	46bd      	mov	sp, r7
- 8003d18:	bd80      	pop	{r7, pc}
+ 8003d22:	46bd      	mov	sp, r7
+ 8003d24:	bd80      	pop	{r7, pc}
 
-08003d1a <_delay>:
+08003d26 <_delay>:
  * @detail 		x
  *
  * @param 		[in] (uint32_t) count - counts of delay
  */
 /************************************************************************************************************************************/
 void _delay(uint32_t count) {
- 8003d1a:	b580      	push	{r7, lr}
- 8003d1c:	b084      	sub	sp, #16
- 8003d1e:	af00      	add	r7, sp, #0
- 8003d20:	6078      	str	r0, [r7, #4]
+ 8003d26:	b580      	push	{r7, lr}
+ 8003d28:	b084      	sub	sp, #16
+ 8003d2a:	af00      	add	r7, sp, #0
+ 8003d2c:	6078      	str	r0, [r7, #4]
 
 	//Delay
 	for(int i=0; i<count; i++) {
- 8003d22:	2300      	movs	r3, #0
- 8003d24:	60fb      	str	r3, [r7, #12]
- 8003d26:	e003      	b.n	8003d30 <_delay+0x16>
+ 8003d2e:	2300      	movs	r3, #0
+ 8003d30:	60fb      	str	r3, [r7, #12]
+ 8003d32:	e003      	b.n	8003d3c <_delay+0x16>
 		asm(" nop");
- 8003d28:	46c0      	nop			; (mov r8, r8)
+ 8003d34:	46c0      	nop			; (mov r8, r8)
 	for(int i=0; i<count; i++) {
- 8003d2a:	68fb      	ldr	r3, [r7, #12]
- 8003d2c:	3301      	adds	r3, #1
- 8003d2e:	60fb      	str	r3, [r7, #12]
- 8003d30:	68fa      	ldr	r2, [r7, #12]
- 8003d32:	687b      	ldr	r3, [r7, #4]
- 8003d34:	429a      	cmp	r2, r3
- 8003d36:	d3f7      	bcc.n	8003d28 <_delay+0xe>
+ 8003d36:	68fb      	ldr	r3, [r7, #12]
+ 8003d38:	3301      	adds	r3, #1
+ 8003d3a:	60fb      	str	r3, [r7, #12]
+ 8003d3c:	68fa      	ldr	r2, [r7, #12]
+ 8003d3e:	687b      	ldr	r3, [r7, #4]
+ 8003d40:	429a      	cmp	r2, r3
+ 8003d42:	d3f7      	bcc.n	8003d34 <_delay+0xe>
 	}
 
 	return;
- 8003d38:	46c0      	nop			; (mov r8, r8)
+ 8003d44:	46c0      	nop			; (mov r8, r8)
 }
- 8003d3a:	46bd      	mov	sp, r7
- 8003d3c:	b004      	add	sp, #16
- 8003d3e:	bd80      	pop	{r7, pc}
+ 8003d46:	46bd      	mov	sp, r7
+ 8003d48:	b004      	add	sp, #16
+ 8003d4a:	bd80      	pop	{r7, pc}
 
-08003d40 <adc_getVoltage>:
+08003d4c <adc_getVoltage>:
  *
  *  @param 		[in] (uint32_t) adc_val - adc measured value
  *  @return		(double) voltage value of measurement
  */
 /************************************************************************************************************************************/
 double adc_getVoltage(uint32_t adc_val) {
- 8003d40:	b590      	push	{r4, r7, lr}
- 8003d42:	b085      	sub	sp, #20
- 8003d44:	af00      	add	r7, sp, #0
- 8003d46:	6078      	str	r0, [r7, #4]
+ 8003d4c:	b590      	push	{r4, r7, lr}
+ 8003d4e:	b085      	sub	sp, #20
+ 8003d50:	af00      	add	r7, sp, #0
+ 8003d52:	6078      	str	r0, [r7, #4]
 
 	//Locals
 	double pin_val;
 
 	//Calc
 	pin_val = (((double)adc_val)*VCC_VOLTS)/(ADC_RANGE);
- 8003d48:	6878      	ldr	r0, [r7, #4]
- 8003d4a:	f7fd f81b 	bl	8000d84 <__aeabi_ui2d>
- 8003d4e:	4a0b      	ldr	r2, [pc, #44]	; (8003d7c <adc_getVoltage+0x3c>)
- 8003d50:	4b0b      	ldr	r3, [pc, #44]	; (8003d80 <adc_getVoltage+0x40>)
- 8003d52:	f7fc fd97 	bl	8000884 <__aeabi_dmul>
- 8003d56:	0003      	movs	r3, r0
- 8003d58:	000c      	movs	r4, r1
- 8003d5a:	0018      	movs	r0, r3
- 8003d5c:	0021      	movs	r1, r4
- 8003d5e:	2200      	movs	r2, #0
- 8003d60:	4b08      	ldr	r3, [pc, #32]	; (8003d84 <adc_getVoltage+0x44>)
- 8003d62:	f7fc fa5b 	bl	800021c <__aeabi_ddiv>
- 8003d66:	0003      	movs	r3, r0
- 8003d68:	000c      	movs	r4, r1
- 8003d6a:	60bb      	str	r3, [r7, #8]
- 8003d6c:	60fc      	str	r4, [r7, #12]
+ 8003d54:	6878      	ldr	r0, [r7, #4]
+ 8003d56:	f7fd f815 	bl	8000d84 <__aeabi_ui2d>
+ 8003d5a:	4a0b      	ldr	r2, [pc, #44]	; (8003d88 <adc_getVoltage+0x3c>)
+ 8003d5c:	4b0b      	ldr	r3, [pc, #44]	; (8003d8c <adc_getVoltage+0x40>)
+ 8003d5e:	f7fc fd91 	bl	8000884 <__aeabi_dmul>
+ 8003d62:	0003      	movs	r3, r0
+ 8003d64:	000c      	movs	r4, r1
+ 8003d66:	0018      	movs	r0, r3
+ 8003d68:	0021      	movs	r1, r4
+ 8003d6a:	2200      	movs	r2, #0
+ 8003d6c:	4b08      	ldr	r3, [pc, #32]	; (8003d90 <adc_getVoltage+0x44>)
+ 8003d6e:	f7fc fa55 	bl	800021c <__aeabi_ddiv>
+ 8003d72:	0003      	movs	r3, r0
+ 8003d74:	000c      	movs	r4, r1
+ 8003d76:	60bb      	str	r3, [r7, #8]
+ 8003d78:	60fc      	str	r4, [r7, #12]
 
 	return pin_val;
- 8003d6e:	68bb      	ldr	r3, [r7, #8]
- 8003d70:	68fc      	ldr	r4, [r7, #12]
+ 8003d7a:	68bb      	ldr	r3, [r7, #8]
+ 8003d7c:	68fc      	ldr	r4, [r7, #12]
 }
- 8003d72:	0018      	movs	r0, r3
- 8003d74:	0021      	movs	r1, r4
- 8003d76:	46bd      	mov	sp, r7
- 8003d78:	b005      	add	sp, #20
- 8003d7a:	bd90      	pop	{r4, r7, pc}
- 8003d7c:	66666666 	.word	0x66666666
- 8003d80:	400a6666 	.word	0x400a6666
- 8003d84:	40affe00 	.word	0x40affe00
+ 8003d7e:	0018      	movs	r0, r3
+ 8003d80:	0021      	movs	r1, r4
+ 8003d82:	46bd      	mov	sp, r7
+ 8003d84:	b005      	add	sp, #20
+ 8003d86:	bd90      	pop	{r4, r7, pc}
+ 8003d88:	66666666 	.word	0x66666666
+ 8003d8c:	400a6666 	.word	0x400a6666
+ 8003d90:	40affe00 	.word	0x40affe00
 
-08003d88 <adc_getChannelConfig>:
+08003d94 <adc_getChannelConfig>:
  *  @param 		[in] (uint32_t) channel - channel for selection
  *
  *  @return		(AdcChannelConfig) selected channel configuration
  */
 /************************************************************************************************************************************/
 AdcChannelConfig adc_getChannelConfig(uint32_t channel) {
- 8003d88:	b590      	push	{r4, r7, lr}
- 8003d8a:	b087      	sub	sp, #28
- 8003d8c:	af00      	add	r7, sp, #0
- 8003d8e:	6078      	str	r0, [r7, #4]
- 8003d90:	6039      	str	r1, [r7, #0]
+ 8003d94:	b590      	push	{r4, r7, lr}
+ 8003d96:	b087      	sub	sp, #28
+ 8003d98:	af00      	add	r7, sp, #0
+ 8003d9a:	6078      	str	r0, [r7, #4]
+ 8003d9c:	6039      	str	r1, [r7, #0]
 
 	//Locals
 	AdcChannelConfig config;
 
 	//Init State
 	config.channel = channel;												/* store the specified channel value					*/
- 8003d92:	2308      	movs	r3, #8
- 8003d94:	18fb      	adds	r3, r7, r3
- 8003d96:	683a      	ldr	r2, [r7, #0]
- 8003d98:	601a      	str	r2, [r3, #0]
+ 8003d9e:	2308      	movs	r3, #8
+ 8003da0:	18fb      	adds	r3, r7, r3
+ 8003da2:	683a      	ldr	r2, [r7, #0]
+ 8003da4:	601a      	str	r2, [r3, #0]
 
 	//Lookup Port&Pin
 	switch(channel) {
- 8003d9a:	683b      	ldr	r3, [r7, #0]
- 8003d9c:	2b0f      	cmp	r3, #15
- 8003d9e:	d900      	bls.n	8003da2 <adc_getChannelConfig+0x1a>
- 8003da0:	e09d      	b.n	8003ede <adc_getChannelConfig+0x156>
- 8003da2:	683b      	ldr	r3, [r7, #0]
- 8003da4:	009a      	lsls	r2, r3, #2
- 8003da6:	4b59      	ldr	r3, [pc, #356]	; (8003f0c <adc_getChannelConfig+0x184>)
- 8003da8:	18d3      	adds	r3, r2, r3
- 8003daa:	681b      	ldr	r3, [r3, #0]
- 8003dac:	469f      	mov	pc, r3
+ 8003da6:	683b      	ldr	r3, [r7, #0]
+ 8003da8:	2b0f      	cmp	r3, #15
+ 8003daa:	d900      	bls.n	8003dae <adc_getChannelConfig+0x1a>
+ 8003dac:	e09d      	b.n	8003eea <adc_getChannelConfig+0x156>
+ 8003dae:	683b      	ldr	r3, [r7, #0]
+ 8003db0:	009a      	lsls	r2, r3, #2
+ 8003db2:	4b59      	ldr	r3, [pc, #356]	; (8003f18 <adc_getChannelConfig+0x184>)
+ 8003db4:	18d3      	adds	r3, r2, r3
+ 8003db6:	681b      	ldr	r3, [r3, #0]
+ 8003db8:	469f      	mov	pc, r3
 		case ADC_CHANNEL_0:													/* PA0													*/
 			config.port = GPIOA;
- 8003dae:	2308      	movs	r3, #8
- 8003db0:	18fb      	adds	r3, r7, r3
- 8003db2:	2290      	movs	r2, #144	; 0x90
- 8003db4:	05d2      	lsls	r2, r2, #23
- 8003db6:	605a      	str	r2, [r3, #4]
+ 8003dba:	2308      	movs	r3, #8
+ 8003dbc:	18fb      	adds	r3, r7, r3
+ 8003dbe:	2290      	movs	r2, #144	; 0x90
+ 8003dc0:	05d2      	lsls	r2, r2, #23
+ 8003dc2:	605a      	str	r2, [r3, #4]
 			config.pin  = 0;
- 8003db8:	2308      	movs	r3, #8
- 8003dba:	18fb      	adds	r3, r7, r3
- 8003dbc:	2200      	movs	r2, #0
- 8003dbe:	811a      	strh	r2, [r3, #8]
+ 8003dc4:	2308      	movs	r3, #8
+ 8003dc6:	18fb      	adds	r3, r7, r3
+ 8003dc8:	2200      	movs	r2, #0
+ 8003dca:	811a      	strh	r2, [r3, #8]
 			break;
- 8003dc0:	e08e      	b.n	8003ee0 <adc_getChannelConfig+0x158>
+ 8003dcc:	e08e      	b.n	8003eec <adc_getChannelConfig+0x158>
 		case ADC_CHANNEL_1:													/* PA1													*/
 			config.port = GPIOA;
- 8003dc2:	2308      	movs	r3, #8
- 8003dc4:	18fb      	adds	r3, r7, r3
- 8003dc6:	2290      	movs	r2, #144	; 0x90
- 8003dc8:	05d2      	lsls	r2, r2, #23
- 8003dca:	605a      	str	r2, [r3, #4]
+ 8003dce:	2308      	movs	r3, #8
+ 8003dd0:	18fb      	adds	r3, r7, r3
+ 8003dd2:	2290      	movs	r2, #144	; 0x90
+ 8003dd4:	05d2      	lsls	r2, r2, #23
+ 8003dd6:	605a      	str	r2, [r3, #4]
 			config.pin  = 1;
- 8003dcc:	2308      	movs	r3, #8
- 8003dce:	18fb      	adds	r3, r7, r3
- 8003dd0:	2201      	movs	r2, #1
- 8003dd2:	811a      	strh	r2, [r3, #8]
+ 8003dd8:	2308      	movs	r3, #8
+ 8003dda:	18fb      	adds	r3, r7, r3
+ 8003ddc:	2201      	movs	r2, #1
+ 8003dde:	811a      	strh	r2, [r3, #8]
 			break;
- 8003dd4:	e084      	b.n	8003ee0 <adc_getChannelConfig+0x158>
+ 8003de0:	e084      	b.n	8003eec <adc_getChannelConfig+0x158>
 		case ADC_CHANNEL_2:													/* PA2													*/
 			config.port = GPIOA;
- 8003dd6:	2308      	movs	r3, #8
- 8003dd8:	18fb      	adds	r3, r7, r3
- 8003dda:	2290      	movs	r2, #144	; 0x90
- 8003ddc:	05d2      	lsls	r2, r2, #23
- 8003dde:	605a      	str	r2, [r3, #4]
+ 8003de2:	2308      	movs	r3, #8
+ 8003de4:	18fb      	adds	r3, r7, r3
+ 8003de6:	2290      	movs	r2, #144	; 0x90
+ 8003de8:	05d2      	lsls	r2, r2, #23
+ 8003dea:	605a      	str	r2, [r3, #4]
 			config.pin  = 2;
- 8003de0:	2308      	movs	r3, #8
- 8003de2:	18fb      	adds	r3, r7, r3
- 8003de4:	2202      	movs	r2, #2
- 8003de6:	811a      	strh	r2, [r3, #8]
+ 8003dec:	2308      	movs	r3, #8
+ 8003dee:	18fb      	adds	r3, r7, r3
+ 8003df0:	2202      	movs	r2, #2
+ 8003df2:	811a      	strh	r2, [r3, #8]
 			break;
- 8003de8:	e07a      	b.n	8003ee0 <adc_getChannelConfig+0x158>
+ 8003df4:	e07a      	b.n	8003eec <adc_getChannelConfig+0x158>
 		case ADC_CHANNEL_3:													/* PA3													*/
 			config.port = GPIOA;
- 8003dea:	2308      	movs	r3, #8
- 8003dec:	18fb      	adds	r3, r7, r3
- 8003dee:	2290      	movs	r2, #144	; 0x90
- 8003df0:	05d2      	lsls	r2, r2, #23
- 8003df2:	605a      	str	r2, [r3, #4]
+ 8003df6:	2308      	movs	r3, #8
+ 8003df8:	18fb      	adds	r3, r7, r3
+ 8003dfa:	2290      	movs	r2, #144	; 0x90
+ 8003dfc:	05d2      	lsls	r2, r2, #23
+ 8003dfe:	605a      	str	r2, [r3, #4]
 			config.pin  = 3;
- 8003df4:	2308      	movs	r3, #8
- 8003df6:	18fb      	adds	r3, r7, r3
- 8003df8:	2203      	movs	r2, #3
- 8003dfa:	811a      	strh	r2, [r3, #8]
+ 8003e00:	2308      	movs	r3, #8
+ 8003e02:	18fb      	adds	r3, r7, r3
+ 8003e04:	2203      	movs	r2, #3
+ 8003e06:	811a      	strh	r2, [r3, #8]
 			break;
- 8003dfc:	e070      	b.n	8003ee0 <adc_getChannelConfig+0x158>
+ 8003e08:	e070      	b.n	8003eec <adc_getChannelConfig+0x158>
 		case ADC_CHANNEL_4:													/* PA4													*/
 			config.port = GPIOA;
- 8003dfe:	2308      	movs	r3, #8
- 8003e00:	18fb      	adds	r3, r7, r3
- 8003e02:	2290      	movs	r2, #144	; 0x90
- 8003e04:	05d2      	lsls	r2, r2, #23
- 8003e06:	605a      	str	r2, [r3, #4]
+ 8003e0a:	2308      	movs	r3, #8
+ 8003e0c:	18fb      	adds	r3, r7, r3
+ 8003e0e:	2290      	movs	r2, #144	; 0x90
+ 8003e10:	05d2      	lsls	r2, r2, #23
+ 8003e12:	605a      	str	r2, [r3, #4]
 			config.pin  = 4;
- 8003e08:	2308      	movs	r3, #8
- 8003e0a:	18fb      	adds	r3, r7, r3
- 8003e0c:	2204      	movs	r2, #4
- 8003e0e:	811a      	strh	r2, [r3, #8]
+ 8003e14:	2308      	movs	r3, #8
+ 8003e16:	18fb      	adds	r3, r7, r3
+ 8003e18:	2204      	movs	r2, #4
+ 8003e1a:	811a      	strh	r2, [r3, #8]
 			break;
- 8003e10:	e066      	b.n	8003ee0 <adc_getChannelConfig+0x158>
+ 8003e1c:	e066      	b.n	8003eec <adc_getChannelConfig+0x158>
 		case ADC_CHANNEL_5:													/* PA5													*/
 			config.port = GPIOA;
- 8003e12:	2308      	movs	r3, #8
- 8003e14:	18fb      	adds	r3, r7, r3
- 8003e16:	2290      	movs	r2, #144	; 0x90
- 8003e18:	05d2      	lsls	r2, r2, #23
- 8003e1a:	605a      	str	r2, [r3, #4]
+ 8003e1e:	2308      	movs	r3, #8
+ 8003e20:	18fb      	adds	r3, r7, r3
+ 8003e22:	2290      	movs	r2, #144	; 0x90
+ 8003e24:	05d2      	lsls	r2, r2, #23
+ 8003e26:	605a      	str	r2, [r3, #4]
 			config.pin  = 5;
- 8003e1c:	2308      	movs	r3, #8
- 8003e1e:	18fb      	adds	r3, r7, r3
- 8003e20:	2205      	movs	r2, #5
- 8003e22:	811a      	strh	r2, [r3, #8]
+ 8003e28:	2308      	movs	r3, #8
+ 8003e2a:	18fb      	adds	r3, r7, r3
+ 8003e2c:	2205      	movs	r2, #5
+ 8003e2e:	811a      	strh	r2, [r3, #8]
 			break;
- 8003e24:	e05c      	b.n	8003ee0 <adc_getChannelConfig+0x158>
+ 8003e30:	e05c      	b.n	8003eec <adc_getChannelConfig+0x158>
 		case ADC_CHANNEL_6:													/* PA6													*/
 			config.port = GPIOA;
- 8003e26:	2308      	movs	r3, #8
- 8003e28:	18fb      	adds	r3, r7, r3
- 8003e2a:	2290      	movs	r2, #144	; 0x90
- 8003e2c:	05d2      	lsls	r2, r2, #23
- 8003e2e:	605a      	str	r2, [r3, #4]
+ 8003e32:	2308      	movs	r3, #8
+ 8003e34:	18fb      	adds	r3, r7, r3
+ 8003e36:	2290      	movs	r2, #144	; 0x90
+ 8003e38:	05d2      	lsls	r2, r2, #23
+ 8003e3a:	605a      	str	r2, [r3, #4]
 			config.pin  = 6;
- 8003e30:	2308      	movs	r3, #8
- 8003e32:	18fb      	adds	r3, r7, r3
- 8003e34:	2206      	movs	r2, #6
- 8003e36:	811a      	strh	r2, [r3, #8]
+ 8003e3c:	2308      	movs	r3, #8
+ 8003e3e:	18fb      	adds	r3, r7, r3
+ 8003e40:	2206      	movs	r2, #6
+ 8003e42:	811a      	strh	r2, [r3, #8]
 			break;
- 8003e38:	e052      	b.n	8003ee0 <adc_getChannelConfig+0x158>
+ 8003e44:	e052      	b.n	8003eec <adc_getChannelConfig+0x158>
 		case ADC_CHANNEL_7:													/* PA7													*/
 			config.port = GPIOA;
- 8003e3a:	2308      	movs	r3, #8
- 8003e3c:	18fb      	adds	r3, r7, r3
- 8003e3e:	2290      	movs	r2, #144	; 0x90
- 8003e40:	05d2      	lsls	r2, r2, #23
- 8003e42:	605a      	str	r2, [r3, #4]
+ 8003e46:	2308      	movs	r3, #8
+ 8003e48:	18fb      	adds	r3, r7, r3
+ 8003e4a:	2290      	movs	r2, #144	; 0x90
+ 8003e4c:	05d2      	lsls	r2, r2, #23
+ 8003e4e:	605a      	str	r2, [r3, #4]
 			config.pin  = 7;
- 8003e44:	2308      	movs	r3, #8
- 8003e46:	18fb      	adds	r3, r7, r3
- 8003e48:	2207      	movs	r2, #7
- 8003e4a:	811a      	strh	r2, [r3, #8]
+ 8003e50:	2308      	movs	r3, #8
+ 8003e52:	18fb      	adds	r3, r7, r3
+ 8003e54:	2207      	movs	r2, #7
+ 8003e56:	811a      	strh	r2, [r3, #8]
 			break;
- 8003e4c:	e048      	b.n	8003ee0 <adc_getChannelConfig+0x158>
+ 8003e58:	e048      	b.n	8003eec <adc_getChannelConfig+0x158>
 		case ADC_CHANNEL_8:													/* PB0													*/
 			config.port = GPIOB;
- 8003e4e:	2308      	movs	r3, #8
- 8003e50:	18fb      	adds	r3, r7, r3
- 8003e52:	4a2f      	ldr	r2, [pc, #188]	; (8003f10 <adc_getChannelConfig+0x188>)
- 8003e54:	605a      	str	r2, [r3, #4]
+ 8003e5a:	2308      	movs	r3, #8
+ 8003e5c:	18fb      	adds	r3, r7, r3
+ 8003e5e:	4a2f      	ldr	r2, [pc, #188]	; (8003f1c <adc_getChannelConfig+0x188>)
+ 8003e60:	605a      	str	r2, [r3, #4]
 			config.pin  = 0;
- 8003e56:	2308      	movs	r3, #8
- 8003e58:	18fb      	adds	r3, r7, r3
- 8003e5a:	2200      	movs	r2, #0
- 8003e5c:	811a      	strh	r2, [r3, #8]
+ 8003e62:	2308      	movs	r3, #8
+ 8003e64:	18fb      	adds	r3, r7, r3
+ 8003e66:	2200      	movs	r2, #0
+ 8003e68:	811a      	strh	r2, [r3, #8]
 			break;
- 8003e5e:	e03f      	b.n	8003ee0 <adc_getChannelConfig+0x158>
+ 8003e6a:	e03f      	b.n	8003eec <adc_getChannelConfig+0x158>
 		case ADC_CHANNEL_9:													/* PB1													*/
 			config.port = GPIOB;
- 8003e60:	2308      	movs	r3, #8
- 8003e62:	18fb      	adds	r3, r7, r3
- 8003e64:	4a2a      	ldr	r2, [pc, #168]	; (8003f10 <adc_getChannelConfig+0x188>)
- 8003e66:	605a      	str	r2, [r3, #4]
+ 8003e6c:	2308      	movs	r3, #8
+ 8003e6e:	18fb      	adds	r3, r7, r3
+ 8003e70:	4a2a      	ldr	r2, [pc, #168]	; (8003f1c <adc_getChannelConfig+0x188>)
+ 8003e72:	605a      	str	r2, [r3, #4]
 			config.pin  = 1;
- 8003e68:	2308      	movs	r3, #8
- 8003e6a:	18fb      	adds	r3, r7, r3
- 8003e6c:	2201      	movs	r2, #1
- 8003e6e:	811a      	strh	r2, [r3, #8]
+ 8003e74:	2308      	movs	r3, #8
+ 8003e76:	18fb      	adds	r3, r7, r3
+ 8003e78:	2201      	movs	r2, #1
+ 8003e7a:	811a      	strh	r2, [r3, #8]
 			break;
- 8003e70:	e036      	b.n	8003ee0 <adc_getChannelConfig+0x158>
+ 8003e7c:	e036      	b.n	8003eec <adc_getChannelConfig+0x158>
 		case ADC_CHANNEL_10:												/* PC0													*/
 			config.port = GPIOC;
- 8003e72:	2308      	movs	r3, #8
- 8003e74:	18fb      	adds	r3, r7, r3
- 8003e76:	4a27      	ldr	r2, [pc, #156]	; (8003f14 <adc_getChannelConfig+0x18c>)
- 8003e78:	605a      	str	r2, [r3, #4]
+ 8003e7e:	2308      	movs	r3, #8
+ 8003e80:	18fb      	adds	r3, r7, r3
+ 8003e82:	4a27      	ldr	r2, [pc, #156]	; (8003f20 <adc_getChannelConfig+0x18c>)
+ 8003e84:	605a      	str	r2, [r3, #4]
 			config.pin  = 0;
- 8003e7a:	2308      	movs	r3, #8
- 8003e7c:	18fb      	adds	r3, r7, r3
- 8003e7e:	2200      	movs	r2, #0
- 8003e80:	811a      	strh	r2, [r3, #8]
+ 8003e86:	2308      	movs	r3, #8
+ 8003e88:	18fb      	adds	r3, r7, r3
+ 8003e8a:	2200      	movs	r2, #0
+ 8003e8c:	811a      	strh	r2, [r3, #8]
 			break;
- 8003e82:	e02d      	b.n	8003ee0 <adc_getChannelConfig+0x158>
+ 8003e8e:	e02d      	b.n	8003eec <adc_getChannelConfig+0x158>
 		case ADC_CHANNEL_11:												/* PC1													*/
 			config.port = GPIOC;
- 8003e84:	2308      	movs	r3, #8
- 8003e86:	18fb      	adds	r3, r7, r3
- 8003e88:	4a22      	ldr	r2, [pc, #136]	; (8003f14 <adc_getChannelConfig+0x18c>)
- 8003e8a:	605a      	str	r2, [r3, #4]
+ 8003e90:	2308      	movs	r3, #8
+ 8003e92:	18fb      	adds	r3, r7, r3
+ 8003e94:	4a22      	ldr	r2, [pc, #136]	; (8003f20 <adc_getChannelConfig+0x18c>)
+ 8003e96:	605a      	str	r2, [r3, #4]
 			config.pin  = 1;
- 8003e8c:	2308      	movs	r3, #8
- 8003e8e:	18fb      	adds	r3, r7, r3
- 8003e90:	2201      	movs	r2, #1
- 8003e92:	811a      	strh	r2, [r3, #8]
+ 8003e98:	2308      	movs	r3, #8
+ 8003e9a:	18fb      	adds	r3, r7, r3
+ 8003e9c:	2201      	movs	r2, #1
+ 8003e9e:	811a      	strh	r2, [r3, #8]
 			break;
- 8003e94:	e024      	b.n	8003ee0 <adc_getChannelConfig+0x158>
+ 8003ea0:	e024      	b.n	8003eec <adc_getChannelConfig+0x158>
 		case ADC_CHANNEL_12:												/* PC2													*/
 			config.port = GPIOC;
- 8003e96:	2308      	movs	r3, #8
- 8003e98:	18fb      	adds	r3, r7, r3
- 8003e9a:	4a1e      	ldr	r2, [pc, #120]	; (8003f14 <adc_getChannelConfig+0x18c>)
- 8003e9c:	605a      	str	r2, [r3, #4]
+ 8003ea2:	2308      	movs	r3, #8
+ 8003ea4:	18fb      	adds	r3, r7, r3
+ 8003ea6:	4a1e      	ldr	r2, [pc, #120]	; (8003f20 <adc_getChannelConfig+0x18c>)
+ 8003ea8:	605a      	str	r2, [r3, #4]
 			config.pin  = 2;
- 8003e9e:	2308      	movs	r3, #8
- 8003ea0:	18fb      	adds	r3, r7, r3
- 8003ea2:	2202      	movs	r2, #2
- 8003ea4:	811a      	strh	r2, [r3, #8]
+ 8003eaa:	2308      	movs	r3, #8
+ 8003eac:	18fb      	adds	r3, r7, r3
+ 8003eae:	2202      	movs	r2, #2
+ 8003eb0:	811a      	strh	r2, [r3, #8]
 			break;
- 8003ea6:	e01b      	b.n	8003ee0 <adc_getChannelConfig+0x158>
+ 8003eb2:	e01b      	b.n	8003eec <adc_getChannelConfig+0x158>
 		case ADC_CHANNEL_13:												/* PC3													*/
 			config.port = GPIOC;
- 8003ea8:	2308      	movs	r3, #8
- 8003eaa:	18fb      	adds	r3, r7, r3
- 8003eac:	4a19      	ldr	r2, [pc, #100]	; (8003f14 <adc_getChannelConfig+0x18c>)
- 8003eae:	605a      	str	r2, [r3, #4]
+ 8003eb4:	2308      	movs	r3, #8
+ 8003eb6:	18fb      	adds	r3, r7, r3
+ 8003eb8:	4a19      	ldr	r2, [pc, #100]	; (8003f20 <adc_getChannelConfig+0x18c>)
+ 8003eba:	605a      	str	r2, [r3, #4]
 			config.pin  = 3;
- 8003eb0:	2308      	movs	r3, #8
- 8003eb2:	18fb      	adds	r3, r7, r3
- 8003eb4:	2203      	movs	r2, #3
- 8003eb6:	811a      	strh	r2, [r3, #8]
+ 8003ebc:	2308      	movs	r3, #8
+ 8003ebe:	18fb      	adds	r3, r7, r3
+ 8003ec0:	2203      	movs	r2, #3
+ 8003ec2:	811a      	strh	r2, [r3, #8]
 			break;
- 8003eb8:	e012      	b.n	8003ee0 <adc_getChannelConfig+0x158>
+ 8003ec4:	e012      	b.n	8003eec <adc_getChannelConfig+0x158>
 		case ADC_CHANNEL_14:												/* PC4													*/
 			config.port = GPIOC;
- 8003eba:	2308      	movs	r3, #8
- 8003ebc:	18fb      	adds	r3, r7, r3
- 8003ebe:	4a15      	ldr	r2, [pc, #84]	; (8003f14 <adc_getChannelConfig+0x18c>)
- 8003ec0:	605a      	str	r2, [r3, #4]
+ 8003ec6:	2308      	movs	r3, #8
+ 8003ec8:	18fb      	adds	r3, r7, r3
+ 8003eca:	4a15      	ldr	r2, [pc, #84]	; (8003f20 <adc_getChannelConfig+0x18c>)
+ 8003ecc:	605a      	str	r2, [r3, #4]
 			config.pin  = 4;
- 8003ec2:	2308      	movs	r3, #8
- 8003ec4:	18fb      	adds	r3, r7, r3
- 8003ec6:	2204      	movs	r2, #4
- 8003ec8:	811a      	strh	r2, [r3, #8]
+ 8003ece:	2308      	movs	r3, #8
+ 8003ed0:	18fb      	adds	r3, r7, r3
+ 8003ed2:	2204      	movs	r2, #4
+ 8003ed4:	811a      	strh	r2, [r3, #8]
 			break;
- 8003eca:	e009      	b.n	8003ee0 <adc_getChannelConfig+0x158>
+ 8003ed6:	e009      	b.n	8003eec <adc_getChannelConfig+0x158>
 		case ADC_CHANNEL_15:												/* PC5													*/
 			config.port = GPIOC;
- 8003ecc:	2308      	movs	r3, #8
- 8003ece:	18fb      	adds	r3, r7, r3
- 8003ed0:	4a10      	ldr	r2, [pc, #64]	; (8003f14 <adc_getChannelConfig+0x18c>)
- 8003ed2:	605a      	str	r2, [r3, #4]
+ 8003ed8:	2308      	movs	r3, #8
+ 8003eda:	18fb      	adds	r3, r7, r3
+ 8003edc:	4a10      	ldr	r2, [pc, #64]	; (8003f20 <adc_getChannelConfig+0x18c>)
+ 8003ede:	605a      	str	r2, [r3, #4]
 			config.pin  = 5;
- 8003ed4:	2308      	movs	r3, #8
- 8003ed6:	18fb      	adds	r3, r7, r3
- 8003ed8:	2205      	movs	r2, #5
- 8003eda:	811a      	strh	r2, [r3, #8]
+ 8003ee0:	2308      	movs	r3, #8
+ 8003ee2:	18fb      	adds	r3, r7, r3
+ 8003ee4:	2205      	movs	r2, #5
+ 8003ee6:	811a      	strh	r2, [r3, #8]
 			break;
- 8003edc:	e000      	b.n	8003ee0 <adc_getChannelConfig+0x158>
+ 8003ee8:	e000      	b.n	8003eec <adc_getChannelConfig+0x158>
 		default:															/* safety catch on error input							*/
 			for(;;);
- 8003ede:	e7fe      	b.n	8003ede <adc_getChannelConfig+0x156>
+ 8003eea:	e7fe      	b.n	8003eea <adc_getChannelConfig+0x156>
 	}
 
 	//Store GPIO pin value
-	config.gpio_pin = (1 << config.pin);
- 8003ee0:	2308      	movs	r3, #8
- 8003ee2:	18fb      	adds	r3, r7, r3
- 8003ee4:	891b      	ldrh	r3, [r3, #8]
- 8003ee6:	001a      	movs	r2, r3
- 8003ee8:	2301      	movs	r3, #1
- 8003eea:	4093      	lsls	r3, r2
- 8003eec:	001a      	movs	r2, r3
- 8003eee:	2308      	movs	r3, #8
- 8003ef0:	18fb      	adds	r3, r7, r3
- 8003ef2:	60da      	str	r2, [r3, #12]
+	config.gpio_pin = (1 << config.pin);									/* e.g. 0x01 for "GPIO_PIN_0"							*/
+ 8003eec:	2308      	movs	r3, #8
+ 8003eee:	18fb      	adds	r3, r7, r3
+ 8003ef0:	891b      	ldrh	r3, [r3, #8]
+ 8003ef2:	001a      	movs	r2, r3
+ 8003ef4:	2301      	movs	r3, #1
+ 8003ef6:	4093      	lsls	r3, r2
+ 8003ef8:	001a      	movs	r2, r3
+ 8003efa:	2308      	movs	r3, #8
+ 8003efc:	18fb      	adds	r3, r7, r3
+ 8003efe:	60da      	str	r2, [r3, #12]
 
 	return config;
- 8003ef4:	687b      	ldr	r3, [r7, #4]
- 8003ef6:	2208      	movs	r2, #8
- 8003ef8:	18ba      	adds	r2, r7, r2
- 8003efa:	ca13      	ldmia	r2!, {r0, r1, r4}
- 8003efc:	c313      	stmia	r3!, {r0, r1, r4}
- 8003efe:	6812      	ldr	r2, [r2, #0]
- 8003f00:	601a      	str	r2, [r3, #0]
+ 8003f00:	687b      	ldr	r3, [r7, #4]
+ 8003f02:	2208      	movs	r2, #8
+ 8003f04:	18ba      	adds	r2, r7, r2
+ 8003f06:	ca13      	ldmia	r2!, {r0, r1, r4}
+ 8003f08:	c313      	stmia	r3!, {r0, r1, r4}
+ 8003f0a:	6812      	ldr	r2, [r2, #0]
+ 8003f0c:	601a      	str	r2, [r3, #0]
 }
- 8003f02:	6878      	ldr	r0, [r7, #4]
- 8003f04:	46bd      	mov	sp, r7
- 8003f06:	b007      	add	sp, #28
- 8003f08:	bd90      	pop	{r4, r7, pc}
- 8003f0a:	46c0      	nop			; (mov r8, r8)
- 8003f0c:	080043c4 	.word	0x080043c4
- 8003f10:	48000400 	.word	0x48000400
- 8003f14:	48000800 	.word	0x48000800
+ 8003f0e:	6878      	ldr	r0, [r7, #4]
+ 8003f10:	46bd      	mov	sp, r7
+ 8003f12:	b007      	add	sp, #28
+ 8003f14:	bd90      	pop	{r4, r7, pc}
+ 8003f16:	46c0      	nop			; (mov r8, r8)
+ 8003f18:	08004410 	.word	0x08004410
+ 8003f1c:	48000400 	.word	0x48000400
+ 8003f20:	48000800 	.word	0x48000800
 
-08003f18 <HAL_MspInit>:
+08003f24 <HAL_MspInit>:
 /* USER CODE END 0 */
 /**
   * Initializes the Global MSP.
   */
 void HAL_MspInit(void)
 {
- 8003f18:	b580      	push	{r7, lr}
- 8003f1a:	b082      	sub	sp, #8
- 8003f1c:	af00      	add	r7, sp, #0
+ 8003f24:	b580      	push	{r7, lr}
+ 8003f26:	b082      	sub	sp, #8
+ 8003f28:	af00      	add	r7, sp, #0
   /* USER CODE BEGIN MspInit 0 */
 
   /* USER CODE END MspInit 0 */
 
   __HAL_RCC_SYSCFG_CLK_ENABLE();
- 8003f1e:	4b0f      	ldr	r3, [pc, #60]	; (8003f5c <HAL_MspInit+0x44>)
- 8003f20:	4a0e      	ldr	r2, [pc, #56]	; (8003f5c <HAL_MspInit+0x44>)
- 8003f22:	6992      	ldr	r2, [r2, #24]
- 8003f24:	2101      	movs	r1, #1
- 8003f26:	430a      	orrs	r2, r1
- 8003f28:	619a      	str	r2, [r3, #24]
- 8003f2a:	4b0c      	ldr	r3, [pc, #48]	; (8003f5c <HAL_MspInit+0x44>)
- 8003f2c:	699b      	ldr	r3, [r3, #24]
- 8003f2e:	2201      	movs	r2, #1
- 8003f30:	4013      	ands	r3, r2
- 8003f32:	607b      	str	r3, [r7, #4]
- 8003f34:	687b      	ldr	r3, [r7, #4]
+ 8003f2a:	4b0f      	ldr	r3, [pc, #60]	; (8003f68 <HAL_MspInit+0x44>)
+ 8003f2c:	4a0e      	ldr	r2, [pc, #56]	; (8003f68 <HAL_MspInit+0x44>)
+ 8003f2e:	6992      	ldr	r2, [r2, #24]
+ 8003f30:	2101      	movs	r1, #1
+ 8003f32:	430a      	orrs	r2, r1
+ 8003f34:	619a      	str	r2, [r3, #24]
+ 8003f36:	4b0c      	ldr	r3, [pc, #48]	; (8003f68 <HAL_MspInit+0x44>)
+ 8003f38:	699b      	ldr	r3, [r3, #24]
+ 8003f3a:	2201      	movs	r2, #1
+ 8003f3c:	4013      	ands	r3, r2
+ 8003f3e:	607b      	str	r3, [r7, #4]
+ 8003f40:	687b      	ldr	r3, [r7, #4]
   __HAL_RCC_PWR_CLK_ENABLE();
- 8003f36:	4b09      	ldr	r3, [pc, #36]	; (8003f5c <HAL_MspInit+0x44>)
- 8003f38:	4a08      	ldr	r2, [pc, #32]	; (8003f5c <HAL_MspInit+0x44>)
- 8003f3a:	69d2      	ldr	r2, [r2, #28]
- 8003f3c:	2180      	movs	r1, #128	; 0x80
- 8003f3e:	0549      	lsls	r1, r1, #21
- 8003f40:	430a      	orrs	r2, r1
- 8003f42:	61da      	str	r2, [r3, #28]
- 8003f44:	4b05      	ldr	r3, [pc, #20]	; (8003f5c <HAL_MspInit+0x44>)
- 8003f46:	69da      	ldr	r2, [r3, #28]
- 8003f48:	2380      	movs	r3, #128	; 0x80
- 8003f4a:	055b      	lsls	r3, r3, #21
- 8003f4c:	4013      	ands	r3, r2
- 8003f4e:	603b      	str	r3, [r7, #0]
- 8003f50:	683b      	ldr	r3, [r7, #0]
+ 8003f42:	4b09      	ldr	r3, [pc, #36]	; (8003f68 <HAL_MspInit+0x44>)
+ 8003f44:	4a08      	ldr	r2, [pc, #32]	; (8003f68 <HAL_MspInit+0x44>)
+ 8003f46:	69d2      	ldr	r2, [r2, #28]
+ 8003f48:	2180      	movs	r1, #128	; 0x80
+ 8003f4a:	0549      	lsls	r1, r1, #21
+ 8003f4c:	430a      	orrs	r2, r1
+ 8003f4e:	61da      	str	r2, [r3, #28]
+ 8003f50:	4b05      	ldr	r3, [pc, #20]	; (8003f68 <HAL_MspInit+0x44>)
+ 8003f52:	69da      	ldr	r2, [r3, #28]
+ 8003f54:	2380      	movs	r3, #128	; 0x80
+ 8003f56:	055b      	lsls	r3, r3, #21
+ 8003f58:	4013      	ands	r3, r2
+ 8003f5a:	603b      	str	r3, [r7, #0]
+ 8003f5c:	683b      	ldr	r3, [r7, #0]
   /* System interrupt init*/
 
   /* USER CODE BEGIN MspInit 1 */
 
   /* USER CODE END MspInit 1 */
 }
- 8003f52:	46c0      	nop			; (mov r8, r8)
- 8003f54:	46bd      	mov	sp, r7
- 8003f56:	b002      	add	sp, #8
- 8003f58:	bd80      	pop	{r7, pc}
- 8003f5a:	46c0      	nop			; (mov r8, r8)
- 8003f5c:	40021000 	.word	0x40021000
+ 8003f5e:	46c0      	nop			; (mov r8, r8)
+ 8003f60:	46bd      	mov	sp, r7
+ 8003f62:	b002      	add	sp, #8
+ 8003f64:	bd80      	pop	{r7, pc}
+ 8003f66:	46c0      	nop			; (mov r8, r8)
+ 8003f68:	40021000 	.word	0x40021000
 
-08003f60 <HAL_ADC_MspInit>:
+08003f6c <HAL_ADC_MspInit>:
 * @brief ADC MSP Initialization
 * This function configures the hardware resources used in this example
 * @param hadc: ADC handle pointer
 * @retval None
 */
 void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc) {
- 8003f60:	b580      	push	{r7, lr}
- 8003f62:	b09c      	sub	sp, #112	; 0x70
- 8003f64:	af00      	add	r7, sp, #0
- 8003f66:	6078      	str	r0, [r7, #4]
+ 8003f6c:	b580      	push	{r7, lr}
+ 8003f6e:	b0a0      	sub	sp, #128	; 0x80
+ 8003f70:	af00      	add	r7, sp, #0
+ 8003f72:	6078      	str	r0, [r7, #4]
 	static DMA_HandleTypeDef  DmaHandle;
 	RCC_OscInitTypeDef        RCC_OscInitStructure;
 
 
 	//Init
 	memset(&GPIO_InitStruct, 0, sizeof(GPIO_InitStruct));
- 8003f68:	234c      	movs	r3, #76	; 0x4c
- 8003f6a:	18fb      	adds	r3, r7, r3
- 8003f6c:	2214      	movs	r2, #20
- 8003f6e:	2100      	movs	r1, #0
- 8003f70:	0018      	movs	r0, r3
- 8003f72:	f000 f9c3 	bl	80042fc <memset>
-	config = adc_getChannelConfig(adc_channels[0]);
- 8003f76:	4b50      	ldr	r3, [pc, #320]	; (80040b8 <HAL_ADC_MspInit+0x158>)
- 8003f78:	681a      	ldr	r2, [r3, #0]
- 8003f7a:	2360      	movs	r3, #96	; 0x60
- 8003f7c:	18fb      	adds	r3, r7, r3
- 8003f7e:	0011      	movs	r1, r2
- 8003f80:	0018      	movs	r0, r3
- 8003f82:	f7ff ff01 	bl	8003d88 <adc_getChannelConfig>
+ 8003f74:	234c      	movs	r3, #76	; 0x4c
+ 8003f76:	18fb      	adds	r3, r7, r3
+ 8003f78:	2214      	movs	r2, #20
+ 8003f7a:	2100      	movs	r1, #0
+ 8003f7c:	0018      	movs	r0, r3
+ 8003f7e:	f000 f9e3 	bl	8004348 <memset>
+	config1 = adc_getChannelConfig(adc_channels[0]);
+ 8003f82:	4b60      	ldr	r3, [pc, #384]	; (8004104 <HAL_ADC_MspInit+0x198>)
+ 8003f84:	681a      	ldr	r2, [r3, #0]
+ 8003f86:	2370      	movs	r3, #112	; 0x70
+ 8003f88:	18fb      	adds	r3, r7, r3
+ 8003f8a:	0011      	movs	r1, r2
+ 8003f8c:	0018      	movs	r0, r3
+ 8003f8e:	f7ff ff01 	bl	8003d94 <adc_getChannelConfig>
+	config2 = adc_getChannelConfig(adc_channels[1]);
+ 8003f92:	4b5c      	ldr	r3, [pc, #368]	; (8004104 <HAL_ADC_MspInit+0x198>)
+ 8003f94:	685a      	ldr	r2, [r3, #4]
+ 8003f96:	2360      	movs	r3, #96	; 0x60
+ 8003f98:	18fb      	adds	r3, r7, r3
+ 8003f9a:	0011      	movs	r1, r2
+ 8003f9c:	0018      	movs	r0, r3
+ 8003f9e:	f7ff fef9 	bl	8003d94 <adc_getChannelConfig>
 
 	if(hadc->Instance==ADC1) {
- 8003f86:	687b      	ldr	r3, [r7, #4]
- 8003f88:	681b      	ldr	r3, [r3, #0]
- 8003f8a:	4a4c      	ldr	r2, [pc, #304]	; (80040bc <HAL_ADC_MspInit+0x15c>)
- 8003f8c:	4293      	cmp	r3, r2
- 8003f8e:	d000      	beq.n	8003f92 <HAL_ADC_MspInit+0x32>
- 8003f90:	e08e      	b.n	80040b0 <HAL_ADC_MspInit+0x150>
+ 8003fa2:	687b      	ldr	r3, [r7, #4]
+ 8003fa4:	681b      	ldr	r3, [r3, #0]
+ 8003fa6:	4a58      	ldr	r2, [pc, #352]	; (8004108 <HAL_ADC_MspInit+0x19c>)
+ 8003fa8:	4293      	cmp	r3, r2
+ 8003faa:	d000      	beq.n	8003fae <HAL_ADC_MspInit+0x42>
+ 8003fac:	e0a5      	b.n	80040fa <HAL_ADC_MspInit+0x18e>
 
 		/* Peripheral clock enable */
 		__HAL_RCC_ADC1_CLK_ENABLE();
- 8003f92:	4b4b      	ldr	r3, [pc, #300]	; (80040c0 <HAL_ADC_MspInit+0x160>)
- 8003f94:	4a4a      	ldr	r2, [pc, #296]	; (80040c0 <HAL_ADC_MspInit+0x160>)
- 8003f96:	6992      	ldr	r2, [r2, #24]
- 8003f98:	2180      	movs	r1, #128	; 0x80
- 8003f9a:	0089      	lsls	r1, r1, #2
- 8003f9c:	430a      	orrs	r2, r1
- 8003f9e:	619a      	str	r2, [r3, #24]
- 8003fa0:	4b47      	ldr	r3, [pc, #284]	; (80040c0 <HAL_ADC_MspInit+0x160>)
- 8003fa2:	699a      	ldr	r2, [r3, #24]
- 8003fa4:	2380      	movs	r3, #128	; 0x80
- 8003fa6:	009b      	lsls	r3, r3, #2
- 8003fa8:	4013      	ands	r3, r2
- 8003faa:	617b      	str	r3, [r7, #20]
- 8003fac:	697b      	ldr	r3, [r7, #20]
-		__HAL_RCC_GPIOA_CLK_ENABLE();											/* @todo 	all gpio clocks for adc						*/
- 8003fae:	4b44      	ldr	r3, [pc, #272]	; (80040c0 <HAL_ADC_MspInit+0x160>)
- 8003fb0:	4a43      	ldr	r2, [pc, #268]	; (80040c0 <HAL_ADC_MspInit+0x160>)
- 8003fb2:	6952      	ldr	r2, [r2, #20]
+ 8003fae:	4b57      	ldr	r3, [pc, #348]	; (800410c <HAL_ADC_MspInit+0x1a0>)
+ 8003fb0:	4a56      	ldr	r2, [pc, #344]	; (800410c <HAL_ADC_MspInit+0x1a0>)
+ 8003fb2:	6992      	ldr	r2, [r2, #24]
  8003fb4:	2180      	movs	r1, #128	; 0x80
- 8003fb6:	0289      	lsls	r1, r1, #10
+ 8003fb6:	0089      	lsls	r1, r1, #2
  8003fb8:	430a      	orrs	r2, r1
- 8003fba:	615a      	str	r2, [r3, #20]
- 8003fbc:	4b40      	ldr	r3, [pc, #256]	; (80040c0 <HAL_ADC_MspInit+0x160>)
- 8003fbe:	695a      	ldr	r2, [r3, #20]
+ 8003fba:	619a      	str	r2, [r3, #24]
+ 8003fbc:	4b53      	ldr	r3, [pc, #332]	; (800410c <HAL_ADC_MspInit+0x1a0>)
+ 8003fbe:	699a      	ldr	r2, [r3, #24]
  8003fc0:	2380      	movs	r3, #128	; 0x80
- 8003fc2:	029b      	lsls	r3, r3, #10
+ 8003fc2:	009b      	lsls	r3, r3, #2
  8003fc4:	4013      	ands	r3, r2
- 8003fc6:	613b      	str	r3, [r7, #16]
- 8003fc8:	693b      	ldr	r3, [r7, #16]
+ 8003fc6:	617b      	str	r3, [r7, #20]
+ 8003fc8:	697b      	ldr	r3, [r7, #20]
+		__HAL_RCC_GPIOA_CLK_ENABLE();											/* @todo 	all gpio clocks for adc						*/
+ 8003fca:	4b50      	ldr	r3, [pc, #320]	; (800410c <HAL_ADC_MspInit+0x1a0>)
+ 8003fcc:	4a4f      	ldr	r2, [pc, #316]	; (800410c <HAL_ADC_MspInit+0x1a0>)
+ 8003fce:	6952      	ldr	r2, [r2, #20]
+ 8003fd0:	2180      	movs	r1, #128	; 0x80
+ 8003fd2:	0289      	lsls	r1, r1, #10
+ 8003fd4:	430a      	orrs	r2, r1
+ 8003fd6:	615a      	str	r2, [r3, #20]
+ 8003fd8:	4b4c      	ldr	r3, [pc, #304]	; (800410c <HAL_ADC_MspInit+0x1a0>)
+ 8003fda:	695a      	ldr	r2, [r3, #20]
+ 8003fdc:	2380      	movs	r3, #128	; 0x80
+ 8003fde:	029b      	lsls	r3, r3, #10
+ 8003fe0:	4013      	ands	r3, r2
+ 8003fe2:	613b      	str	r3, [r7, #16]
+ 8003fe4:	693b      	ldr	r3, [r7, #16]
 		/*       the clock source has to be enabled at RCC top level using function */
 		/*       "HAL_RCC_OscConfig()" (see comments in stm32f0_hal_adc.c header)   */
 
 		/* Enable asynchronous clock source of ADCx */
 		/* (place oscillator HSI14 under control of the ADC) */
 		HAL_RCC_GetOscConfig(&RCC_OscInitStructure);
- 8003fca:	2318      	movs	r3, #24
- 8003fcc:	18fb      	adds	r3, r7, r3
- 8003fce:	0018      	movs	r0, r3
- 8003fd0:	f7fe ff1c 	bl	8002e0c <HAL_RCC_GetOscConfig>
+ 8003fe6:	2318      	movs	r3, #24
+ 8003fe8:	18fb      	adds	r3, r7, r3
+ 8003fea:	0018      	movs	r0, r3
+ 8003fec:	f7fe ff0e 	bl	8002e0c <HAL_RCC_GetOscConfig>
 		RCC_OscInitStructure.OscillatorType = RCC_OSCILLATORTYPE_HSI14;
- 8003fd4:	2318      	movs	r3, #24
- 8003fd6:	18fb      	adds	r3, r7, r3
- 8003fd8:	2210      	movs	r2, #16
- 8003fda:	601a      	str	r2, [r3, #0]
+ 8003ff0:	2318      	movs	r3, #24
+ 8003ff2:	18fb      	adds	r3, r7, r3
+ 8003ff4:	2210      	movs	r2, #16
+ 8003ff6:	601a      	str	r2, [r3, #0]
 		RCC_OscInitStructure.HSI14CalibrationValue = RCC_HSI14CALIBRATION_DEFAULT;
- 8003fdc:	2318      	movs	r3, #24
- 8003fde:	18fb      	adds	r3, r7, r3
- 8003fe0:	2210      	movs	r2, #16
- 8003fe2:	619a      	str	r2, [r3, #24]
+ 8003ff8:	2318      	movs	r3, #24
+ 8003ffa:	18fb      	adds	r3, r7, r3
+ 8003ffc:	2210      	movs	r2, #16
+ 8003ffe:	619a      	str	r2, [r3, #24]
 		RCC_OscInitStructure.HSI14State = RCC_HSI14_ADC_CONTROL;
- 8003fe4:	2318      	movs	r3, #24
- 8003fe6:	18fb      	adds	r3, r7, r3
- 8003fe8:	2205      	movs	r2, #5
- 8003fea:	4252      	negs	r2, r2
- 8003fec:	615a      	str	r2, [r3, #20]
+ 8004000:	2318      	movs	r3, #24
+ 8004002:	18fb      	adds	r3, r7, r3
+ 8004004:	2205      	movs	r2, #5
+ 8004006:	4252      	negs	r2, r2
+ 8004008:	615a      	str	r2, [r3, #20]
 		HAL_RCC_OscConfig(&RCC_OscInitStructure);
- 8003fee:	2318      	movs	r3, #24
- 8003ff0:	18fb      	adds	r3, r7, r3
- 8003ff2:	0018      	movs	r0, r3
- 8003ff4:	f7fe fa06 	bl	8002404 <HAL_RCC_OscConfig>
+ 800400a:	2318      	movs	r3, #24
+ 800400c:	18fb      	adds	r3, r7, r3
+ 800400e:	0018      	movs	r0, r3
+ 8004010:	f7fe f9f8 	bl	8002404 <HAL_RCC_OscConfig>
 
 		/* Enable clock of DMA associated to the peripheral */
 		__HAL_RCC_DMA1_CLK_ENABLE();
- 8003ff8:	4b31      	ldr	r3, [pc, #196]	; (80040c0 <HAL_ADC_MspInit+0x160>)
- 8003ffa:	4a31      	ldr	r2, [pc, #196]	; (80040c0 <HAL_ADC_MspInit+0x160>)
- 8003ffc:	6952      	ldr	r2, [r2, #20]
- 8003ffe:	2101      	movs	r1, #1
- 8004000:	430a      	orrs	r2, r1
- 8004002:	615a      	str	r2, [r3, #20]
- 8004004:	4b2e      	ldr	r3, [pc, #184]	; (80040c0 <HAL_ADC_MspInit+0x160>)
- 8004006:	695b      	ldr	r3, [r3, #20]
- 8004008:	2201      	movs	r2, #1
- 800400a:	4013      	ands	r3, r2
- 800400c:	60fb      	str	r3, [r7, #12]
- 800400e:	68fb      	ldr	r3, [r7, #12]
+ 8004014:	4b3d      	ldr	r3, [pc, #244]	; (800410c <HAL_ADC_MspInit+0x1a0>)
+ 8004016:	4a3d      	ldr	r2, [pc, #244]	; (800410c <HAL_ADC_MspInit+0x1a0>)
+ 8004018:	6952      	ldr	r2, [r2, #20]
+ 800401a:	2101      	movs	r1, #1
+ 800401c:	430a      	orrs	r2, r1
+ 800401e:	615a      	str	r2, [r3, #20]
+ 8004020:	4b3a      	ldr	r3, [pc, #232]	; (800410c <HAL_ADC_MspInit+0x1a0>)
+ 8004022:	695b      	ldr	r3, [r3, #20]
+ 8004024:	2201      	movs	r2, #1
+ 8004026:	4013      	ands	r3, r2
+ 8004028:	60fb      	str	r3, [r7, #12]
+ 800402a:	68fb      	ldr	r3, [r7, #12]
 
 		/**ADC GPIO Configuration
 		PA0     ------> ADC_IN0
 		VREF    ------> No GPIO
 		*/
-		GPIO_InitStruct.Pin = config.gpio_pin;								/* GPIO_PIN_0											*/
- 8004010:	2360      	movs	r3, #96	; 0x60
- 8004012:	18fb      	adds	r3, r7, r3
- 8004014:	68da      	ldr	r2, [r3, #12]
- 8004016:	234c      	movs	r3, #76	; 0x4c
- 8004018:	18fb      	adds	r3, r7, r3
- 800401a:	601a      	str	r2, [r3, #0]
-		GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
- 800401c:	234c      	movs	r3, #76	; 0x4c
- 800401e:	18fb      	adds	r3, r7, r3
- 8004020:	2203      	movs	r2, #3
- 8004022:	605a      	str	r2, [r3, #4]
-		GPIO_InitStruct.Pull = GPIO_NOPULL;
- 8004024:	234c      	movs	r3, #76	; 0x4c
- 8004026:	18fb      	adds	r3, r7, r3
- 8004028:	2200      	movs	r2, #0
- 800402a:	609a      	str	r2, [r3, #8]
-		HAL_GPIO_Init(config.port, &GPIO_InitStruct);
- 800402c:	2360      	movs	r3, #96	; 0x60
+		GPIO_InitStruct.Pin = config1.gpio_pin;								/* GPIO_PIN_0											*/
+ 800402c:	2370      	movs	r3, #112	; 0x70
  800402e:	18fb      	adds	r3, r7, r3
- 8004030:	685b      	ldr	r3, [r3, #4]
- 8004032:	224c      	movs	r2, #76	; 0x4c
- 8004034:	18ba      	adds	r2, r7, r2
- 8004036:	0011      	movs	r1, r2
- 8004038:	0018      	movs	r0, r3
- 800403a:	f7fe f849 	bl	80020d0 <HAL_GPIO_Init>
+ 8004030:	68da      	ldr	r2, [r3, #12]
+ 8004032:	234c      	movs	r3, #76	; 0x4c
+ 8004034:	18fb      	adds	r3, r7, r3
+ 8004036:	601a      	str	r2, [r3, #0]
+		GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+ 8004038:	234c      	movs	r3, #76	; 0x4c
+ 800403a:	18fb      	adds	r3, r7, r3
+ 800403c:	2203      	movs	r2, #3
+ 800403e:	605a      	str	r2, [r3, #4]
+		GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 8004040:	234c      	movs	r3, #76	; 0x4c
+ 8004042:	18fb      	adds	r3, r7, r3
+ 8004044:	2200      	movs	r2, #0
+ 8004046:	609a      	str	r2, [r3, #8]
+		HAL_GPIO_Init(config1.port, &GPIO_InitStruct);
+ 8004048:	2370      	movs	r3, #112	; 0x70
+ 800404a:	18fb      	adds	r3, r7, r3
+ 800404c:	685b      	ldr	r3, [r3, #4]
+ 800404e:	224c      	movs	r2, #76	; 0x4c
+ 8004050:	18ba      	adds	r2, r7, r2
+ 8004052:	0011      	movs	r1, r2
+ 8004054:	0018      	movs	r0, r3
+ 8004056:	f7fe f83b 	bl	80020d0 <HAL_GPIO_Init>
+
+		GPIO_InitStruct.Pin = config2.gpio_pin;								/* GPIO_PIN_1											*/
+ 800405a:	2360      	movs	r3, #96	; 0x60
+ 800405c:	18fb      	adds	r3, r7, r3
+ 800405e:	68da      	ldr	r2, [r3, #12]
+ 8004060:	234c      	movs	r3, #76	; 0x4c
+ 8004062:	18fb      	adds	r3, r7, r3
+ 8004064:	601a      	str	r2, [r3, #0]
+		GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+ 8004066:	234c      	movs	r3, #76	; 0x4c
+ 8004068:	18fb      	adds	r3, r7, r3
+ 800406a:	2203      	movs	r2, #3
+ 800406c:	605a      	str	r2, [r3, #4]
+		GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 800406e:	234c      	movs	r3, #76	; 0x4c
+ 8004070:	18fb      	adds	r3, r7, r3
+ 8004072:	2200      	movs	r2, #0
+ 8004074:	609a      	str	r2, [r3, #8]
+		HAL_GPIO_Init(config2.port, &GPIO_InitStruct);
+ 8004076:	2360      	movs	r3, #96	; 0x60
+ 8004078:	18fb      	adds	r3, r7, r3
+ 800407a:	685b      	ldr	r3, [r3, #4]
+ 800407c:	224c      	movs	r2, #76	; 0x4c
+ 800407e:	18ba      	adds	r2, r7, r2
+ 8004080:	0011      	movs	r1, r2
+ 8004082:	0018      	movs	r0, r3
+ 8004084:	f7fe f824 	bl	80020d0 <HAL_GPIO_Init>
+
 
 		/*##-3- Configure the DMA ##################################################*/
 		/* Configure DMA parameters */
 		DmaHandle.Instance = DMA1_Channel1;
- 800403e:	4b21      	ldr	r3, [pc, #132]	; (80040c4 <HAL_ADC_MspInit+0x164>)
- 8004040:	4a21      	ldr	r2, [pc, #132]	; (80040c8 <HAL_ADC_MspInit+0x168>)
- 8004042:	601a      	str	r2, [r3, #0]
+ 8004088:	4b21      	ldr	r3, [pc, #132]	; (8004110 <HAL_ADC_MspInit+0x1a4>)
+ 800408a:	4a22      	ldr	r2, [pc, #136]	; (8004114 <HAL_ADC_MspInit+0x1a8>)
+ 800408c:	601a      	str	r2, [r3, #0]
 
 		DmaHandle.Init.Direction           = DMA_PERIPH_TO_MEMORY;
- 8004044:	4b1f      	ldr	r3, [pc, #124]	; (80040c4 <HAL_ADC_MspInit+0x164>)
- 8004046:	2200      	movs	r2, #0
- 8004048:	605a      	str	r2, [r3, #4]
+ 800408e:	4b20      	ldr	r3, [pc, #128]	; (8004110 <HAL_ADC_MspInit+0x1a4>)
+ 8004090:	2200      	movs	r2, #0
+ 8004092:	605a      	str	r2, [r3, #4]
 		DmaHandle.Init.PeriphInc           = DMA_PINC_DISABLE;
- 800404a:	4b1e      	ldr	r3, [pc, #120]	; (80040c4 <HAL_ADC_MspInit+0x164>)
- 800404c:	2200      	movs	r2, #0
- 800404e:	609a      	str	r2, [r3, #8]
+ 8004094:	4b1e      	ldr	r3, [pc, #120]	; (8004110 <HAL_ADC_MspInit+0x1a4>)
+ 8004096:	2200      	movs	r2, #0
+ 8004098:	609a      	str	r2, [r3, #8]
 		DmaHandle.Init.MemInc              = DMA_MINC_ENABLE;
- 8004050:	4b1c      	ldr	r3, [pc, #112]	; (80040c4 <HAL_ADC_MspInit+0x164>)
- 8004052:	2280      	movs	r2, #128	; 0x80
- 8004054:	60da      	str	r2, [r3, #12]
+ 800409a:	4b1d      	ldr	r3, [pc, #116]	; (8004110 <HAL_ADC_MspInit+0x1a4>)
+ 800409c:	2280      	movs	r2, #128	; 0x80
+ 800409e:	60da      	str	r2, [r3, #12]
 		DmaHandle.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;   /* Transfer from ADC by half-word to match with ADC configuration: ADC resolution 10 or 12 bits */
- 8004056:	4b1b      	ldr	r3, [pc, #108]	; (80040c4 <HAL_ADC_MspInit+0x164>)
- 8004058:	2280      	movs	r2, #128	; 0x80
- 800405a:	0052      	lsls	r2, r2, #1
- 800405c:	611a      	str	r2, [r3, #16]
+ 80040a0:	4b1b      	ldr	r3, [pc, #108]	; (8004110 <HAL_ADC_MspInit+0x1a4>)
+ 80040a2:	2280      	movs	r2, #128	; 0x80
+ 80040a4:	0052      	lsls	r2, r2, #1
+ 80040a6:	611a      	str	r2, [r3, #16]
 		DmaHandle.Init.MemDataAlignment    = DMA_MDATAALIGN_HALFWORD;   /* Transfer to memory by half-word to match with buffer variable type: half-word */
- 800405e:	4b19      	ldr	r3, [pc, #100]	; (80040c4 <HAL_ADC_MspInit+0x164>)
- 8004060:	2280      	movs	r2, #128	; 0x80
- 8004062:	00d2      	lsls	r2, r2, #3
- 8004064:	615a      	str	r2, [r3, #20]
+ 80040a8:	4b19      	ldr	r3, [pc, #100]	; (8004110 <HAL_ADC_MspInit+0x1a4>)
+ 80040aa:	2280      	movs	r2, #128	; 0x80
+ 80040ac:	00d2      	lsls	r2, r2, #3
+ 80040ae:	615a      	str	r2, [r3, #20]
 		DmaHandle.Init.Mode                = DMA_CIRCULAR;              /* DMA in circular mode to match with ADC configuration: DMA continuous requests */
- 8004066:	4b17      	ldr	r3, [pc, #92]	; (80040c4 <HAL_ADC_MspInit+0x164>)
- 8004068:	2220      	movs	r2, #32
- 800406a:	619a      	str	r2, [r3, #24]
+ 80040b0:	4b17      	ldr	r3, [pc, #92]	; (8004110 <HAL_ADC_MspInit+0x1a4>)
+ 80040b2:	2220      	movs	r2, #32
+ 80040b4:	619a      	str	r2, [r3, #24]
 		DmaHandle.Init.Priority            = DMA_PRIORITY_HIGH;
- 800406c:	4b15      	ldr	r3, [pc, #84]	; (80040c4 <HAL_ADC_MspInit+0x164>)
- 800406e:	2280      	movs	r2, #128	; 0x80
- 8004070:	0192      	lsls	r2, r2, #6
- 8004072:	61da      	str	r2, [r3, #28]
+ 80040b6:	4b16      	ldr	r3, [pc, #88]	; (8004110 <HAL_ADC_MspInit+0x1a4>)
+ 80040b8:	2280      	movs	r2, #128	; 0x80
+ 80040ba:	0192      	lsls	r2, r2, #6
+ 80040bc:	61da      	str	r2, [r3, #28]
 
 		/* Deinitialize  & Initialize the DMA for new transfer */
 		HAL_DMA_DeInit(&DmaHandle);
- 8004074:	4b13      	ldr	r3, [pc, #76]	; (80040c4 <HAL_ADC_MspInit+0x164>)
- 8004076:	0018      	movs	r0, r3
- 8004078:	f7fd fe7e 	bl	8001d78 <HAL_DMA_DeInit>
+ 80040be:	4b14      	ldr	r3, [pc, #80]	; (8004110 <HAL_ADC_MspInit+0x1a4>)
+ 80040c0:	0018      	movs	r0, r3
+ 80040c2:	f7fd fe59 	bl	8001d78 <HAL_DMA_DeInit>
 		HAL_DMA_Init(&DmaHandle);
- 800407c:	4b11      	ldr	r3, [pc, #68]	; (80040c4 <HAL_ADC_MspInit+0x164>)
- 800407e:	0018      	movs	r0, r3
- 8004080:	f7fd fe26 	bl	8001cd0 <HAL_DMA_Init>
+ 80040c6:	4b12      	ldr	r3, [pc, #72]	; (8004110 <HAL_ADC_MspInit+0x1a4>)
+ 80040c8:	0018      	movs	r0, r3
+ 80040ca:	f7fd fe01 	bl	8001cd0 <HAL_DMA_Init>
 
 		/* Associate the initialized DMA handle to the ADC handle */
 		__HAL_LINKDMA(hadc, DMA_Handle, DmaHandle);
- 8004084:	687b      	ldr	r3, [r7, #4]
- 8004086:	4a0f      	ldr	r2, [pc, #60]	; (80040c4 <HAL_ADC_MspInit+0x164>)
- 8004088:	63da      	str	r2, [r3, #60]	; 0x3c
- 800408a:	4b0e      	ldr	r3, [pc, #56]	; (80040c4 <HAL_ADC_MspInit+0x164>)
- 800408c:	687a      	ldr	r2, [r7, #4]
- 800408e:	625a      	str	r2, [r3, #36]	; 0x24
+ 80040ce:	687b      	ldr	r3, [r7, #4]
+ 80040d0:	4a0f      	ldr	r2, [pc, #60]	; (8004110 <HAL_ADC_MspInit+0x1a4>)
+ 80040d2:	63da      	str	r2, [r3, #60]	; 0x3c
+ 80040d4:	4b0e      	ldr	r3, [pc, #56]	; (8004110 <HAL_ADC_MspInit+0x1a4>)
+ 80040d6:	687a      	ldr	r2, [r7, #4]
+ 80040d8:	625a      	str	r2, [r3, #36]	; 0x24
 
 		/*##-4- Configure the NVIC #################################################*/
 
 		/* NVIC configuration for DMA interrupt (transfer completion or error) */
 		/* Priority: high-priority */
 		HAL_NVIC_SetPriority(DMA1_Ch1_IRQn, 1, 0);
- 8004090:	2200      	movs	r2, #0
- 8004092:	2101      	movs	r1, #1
- 8004094:	2009      	movs	r0, #9
- 8004096:	f7fd fde7 	bl	8001c68 <HAL_NVIC_SetPriority>
+ 80040da:	2200      	movs	r2, #0
+ 80040dc:	2101      	movs	r1, #1
+ 80040de:	2009      	movs	r0, #9
+ 80040e0:	f7fd fdc2 	bl	8001c68 <HAL_NVIC_SetPriority>
 		HAL_NVIC_EnableIRQ(DMA1_Ch1_IRQn);
- 800409a:	2009      	movs	r0, #9
- 800409c:	f7fd fdfa 	bl	8001c94 <HAL_NVIC_EnableIRQ>
+ 80040e4:	2009      	movs	r0, #9
+ 80040e6:	f7fd fdd5 	bl	8001c94 <HAL_NVIC_EnableIRQ>
 
 
 		/* NVIC configuration for ADC interrupt */
 		/* Priority: high-priority */
 		HAL_NVIC_SetPriority(ADC1_COMP_IRQn, 0, 0);
- 80040a0:	2200      	movs	r2, #0
- 80040a2:	2100      	movs	r1, #0
- 80040a4:	200c      	movs	r0, #12
- 80040a6:	f7fd fddf 	bl	8001c68 <HAL_NVIC_SetPriority>
+ 80040ea:	2200      	movs	r2, #0
+ 80040ec:	2100      	movs	r1, #0
+ 80040ee:	200c      	movs	r0, #12
+ 80040f0:	f7fd fdba 	bl	8001c68 <HAL_NVIC_SetPriority>
 		HAL_NVIC_EnableIRQ(ADC1_COMP_IRQn);
- 80040aa:	200c      	movs	r0, #12
- 80040ac:	f7fd fdf2 	bl	8001c94 <HAL_NVIC_EnableIRQ>
+ 80040f4:	200c      	movs	r0, #12
+ 80040f6:	f7fd fdcd 	bl	8001c94 <HAL_NVIC_EnableIRQ>
 		/* USER CODE BEGIN ADC1_MspInit 1 */
 
 		/* USER CODE END ADC1_MspInit 1 */
 	}
 
 }
- 80040b0:	46c0      	nop			; (mov r8, r8)
- 80040b2:	46bd      	mov	sp, r7
- 80040b4:	b01c      	add	sp, #112	; 0x70
- 80040b6:	bd80      	pop	{r7, pc}
- 80040b8:	20000000 	.word	0x20000000
- 80040bc:	40012400 	.word	0x40012400
- 80040c0:	40021000 	.word	0x40021000
- 80040c4:	2000002c 	.word	0x2000002c
- 80040c8:	40020008 	.word	0x40020008
+ 80040fa:	46c0      	nop			; (mov r8, r8)
+ 80040fc:	46bd      	mov	sp, r7
+ 80040fe:	b020      	add	sp, #128	; 0x80
+ 8004100:	bd80      	pop	{r7, pc}
+ 8004102:	46c0      	nop			; (mov r8, r8)
+ 8004104:	20000000 	.word	0x20000000
+ 8004108:	40012400 	.word	0x40012400
+ 800410c:	40021000 	.word	0x40021000
+ 8004110:	2000002c 	.word	0x2000002c
+ 8004114:	40020008 	.word	0x40020008
 
-080040cc <HAL_UART_MspInit>:
+08004118 <HAL_UART_MspInit>:
 * This function configures the hardware resources used in this example
 * @param huart: UART handle pointer
 * @retval None
 */
 void HAL_UART_MspInit(UART_HandleTypeDef* huart)
 {
- 80040cc:	b580      	push	{r7, lr}
- 80040ce:	b08a      	sub	sp, #40	; 0x28
- 80040d0:	af00      	add	r7, sp, #0
- 80040d2:	6078      	str	r0, [r7, #4]
+ 8004118:	b580      	push	{r7, lr}
+ 800411a:	b08a      	sub	sp, #40	; 0x28
+ 800411c:	af00      	add	r7, sp, #0
+ 800411e:	6078      	str	r0, [r7, #4]
 
   GPIO_InitTypeDef GPIO_InitStruct = {0};
- 80040d4:	2314      	movs	r3, #20
- 80040d6:	18fb      	adds	r3, r7, r3
- 80040d8:	0018      	movs	r0, r3
- 80040da:	2314      	movs	r3, #20
- 80040dc:	001a      	movs	r2, r3
- 80040de:	2100      	movs	r1, #0
- 80040e0:	f000 f90c 	bl	80042fc <memset>
+ 8004120:	2314      	movs	r3, #20
+ 8004122:	18fb      	adds	r3, r7, r3
+ 8004124:	0018      	movs	r0, r3
+ 8004126:	2314      	movs	r3, #20
+ 8004128:	001a      	movs	r2, r3
+ 800412a:	2100      	movs	r1, #0
+ 800412c:	f000 f90c 	bl	8004348 <memset>
   if(huart->Instance==USART2)
- 80040e4:	687b      	ldr	r3, [r7, #4]
- 80040e6:	681b      	ldr	r3, [r3, #0]
- 80040e8:	4a1f      	ldr	r2, [pc, #124]	; (8004168 <HAL_UART_MspInit+0x9c>)
- 80040ea:	4293      	cmp	r3, r2
- 80040ec:	d137      	bne.n	800415e <HAL_UART_MspInit+0x92>
+ 8004130:	687b      	ldr	r3, [r7, #4]
+ 8004132:	681b      	ldr	r3, [r3, #0]
+ 8004134:	4a1f      	ldr	r2, [pc, #124]	; (80041b4 <HAL_UART_MspInit+0x9c>)
+ 8004136:	4293      	cmp	r3, r2
+ 8004138:	d137      	bne.n	80041aa <HAL_UART_MspInit+0x92>
   {
   /* USER CODE BEGIN USART2_MspInit 0 */
 
   /* USER CODE END USART2_MspInit 0 */
     /* Peripheral clock enable */
     __HAL_RCC_USART2_CLK_ENABLE();
- 80040ee:	4b1f      	ldr	r3, [pc, #124]	; (800416c <HAL_UART_MspInit+0xa0>)
- 80040f0:	4a1e      	ldr	r2, [pc, #120]	; (800416c <HAL_UART_MspInit+0xa0>)
- 80040f2:	69d2      	ldr	r2, [r2, #28]
- 80040f4:	2180      	movs	r1, #128	; 0x80
- 80040f6:	0289      	lsls	r1, r1, #10
- 80040f8:	430a      	orrs	r2, r1
- 80040fa:	61da      	str	r2, [r3, #28]
- 80040fc:	4b1b      	ldr	r3, [pc, #108]	; (800416c <HAL_UART_MspInit+0xa0>)
- 80040fe:	69da      	ldr	r2, [r3, #28]
- 8004100:	2380      	movs	r3, #128	; 0x80
- 8004102:	029b      	lsls	r3, r3, #10
- 8004104:	4013      	ands	r3, r2
- 8004106:	613b      	str	r3, [r7, #16]
- 8004108:	693b      	ldr	r3, [r7, #16]
+ 800413a:	4b1f      	ldr	r3, [pc, #124]	; (80041b8 <HAL_UART_MspInit+0xa0>)
+ 800413c:	4a1e      	ldr	r2, [pc, #120]	; (80041b8 <HAL_UART_MspInit+0xa0>)
+ 800413e:	69d2      	ldr	r2, [r2, #28]
+ 8004140:	2180      	movs	r1, #128	; 0x80
+ 8004142:	0289      	lsls	r1, r1, #10
+ 8004144:	430a      	orrs	r2, r1
+ 8004146:	61da      	str	r2, [r3, #28]
+ 8004148:	4b1b      	ldr	r3, [pc, #108]	; (80041b8 <HAL_UART_MspInit+0xa0>)
+ 800414a:	69da      	ldr	r2, [r3, #28]
+ 800414c:	2380      	movs	r3, #128	; 0x80
+ 800414e:	029b      	lsls	r3, r3, #10
+ 8004150:	4013      	ands	r3, r2
+ 8004152:	613b      	str	r3, [r7, #16]
+ 8004154:	693b      	ldr	r3, [r7, #16]
   
     __HAL_RCC_GPIOA_CLK_ENABLE();
- 800410a:	4b18      	ldr	r3, [pc, #96]	; (800416c <HAL_UART_MspInit+0xa0>)
- 800410c:	4a17      	ldr	r2, [pc, #92]	; (800416c <HAL_UART_MspInit+0xa0>)
- 800410e:	6952      	ldr	r2, [r2, #20]
- 8004110:	2180      	movs	r1, #128	; 0x80
- 8004112:	0289      	lsls	r1, r1, #10
- 8004114:	430a      	orrs	r2, r1
- 8004116:	615a      	str	r2, [r3, #20]
- 8004118:	4b14      	ldr	r3, [pc, #80]	; (800416c <HAL_UART_MspInit+0xa0>)
- 800411a:	695a      	ldr	r2, [r3, #20]
- 800411c:	2380      	movs	r3, #128	; 0x80
- 800411e:	029b      	lsls	r3, r3, #10
- 8004120:	4013      	ands	r3, r2
- 8004122:	60fb      	str	r3, [r7, #12]
- 8004124:	68fb      	ldr	r3, [r7, #12]
+ 8004156:	4b18      	ldr	r3, [pc, #96]	; (80041b8 <HAL_UART_MspInit+0xa0>)
+ 8004158:	4a17      	ldr	r2, [pc, #92]	; (80041b8 <HAL_UART_MspInit+0xa0>)
+ 800415a:	6952      	ldr	r2, [r2, #20]
+ 800415c:	2180      	movs	r1, #128	; 0x80
+ 800415e:	0289      	lsls	r1, r1, #10
+ 8004160:	430a      	orrs	r2, r1
+ 8004162:	615a      	str	r2, [r3, #20]
+ 8004164:	4b14      	ldr	r3, [pc, #80]	; (80041b8 <HAL_UART_MspInit+0xa0>)
+ 8004166:	695a      	ldr	r2, [r3, #20]
+ 8004168:	2380      	movs	r3, #128	; 0x80
+ 800416a:	029b      	lsls	r3, r3, #10
+ 800416c:	4013      	ands	r3, r2
+ 800416e:	60fb      	str	r3, [r7, #12]
+ 8004170:	68fb      	ldr	r3, [r7, #12]
     /**USART2 GPIO Configuration    
     PA2     ------> USART2_TX
     PA3     ------> USART2_RX 
     */
     GPIO_InitStruct.Pin = USART_TX_Pin|USART_RX_Pin;
- 8004126:	2314      	movs	r3, #20
- 8004128:	18fb      	adds	r3, r7, r3
- 800412a:	220c      	movs	r2, #12
- 800412c:	601a      	str	r2, [r3, #0]
+ 8004172:	2314      	movs	r3, #20
+ 8004174:	18fb      	adds	r3, r7, r3
+ 8004176:	220c      	movs	r2, #12
+ 8004178:	601a      	str	r2, [r3, #0]
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
- 800412e:	2314      	movs	r3, #20
- 8004130:	18fb      	adds	r3, r7, r3
- 8004132:	2202      	movs	r2, #2
- 8004134:	605a      	str	r2, [r3, #4]
+ 800417a:	2314      	movs	r3, #20
+ 800417c:	18fb      	adds	r3, r7, r3
+ 800417e:	2202      	movs	r2, #2
+ 8004180:	605a      	str	r2, [r3, #4]
     GPIO_InitStruct.Pull = GPIO_NOPULL;
- 8004136:	2314      	movs	r3, #20
- 8004138:	18fb      	adds	r3, r7, r3
- 800413a:	2200      	movs	r2, #0
- 800413c:	609a      	str	r2, [r3, #8]
+ 8004182:	2314      	movs	r3, #20
+ 8004184:	18fb      	adds	r3, r7, r3
+ 8004186:	2200      	movs	r2, #0
+ 8004188:	609a      	str	r2, [r3, #8]
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
- 800413e:	2314      	movs	r3, #20
- 8004140:	18fb      	adds	r3, r7, r3
- 8004142:	2200      	movs	r2, #0
- 8004144:	60da      	str	r2, [r3, #12]
+ 800418a:	2314      	movs	r3, #20
+ 800418c:	18fb      	adds	r3, r7, r3
+ 800418e:	2200      	movs	r2, #0
+ 8004190:	60da      	str	r2, [r3, #12]
     GPIO_InitStruct.Alternate = GPIO_AF1_USART2;
- 8004146:	2314      	movs	r3, #20
- 8004148:	18fb      	adds	r3, r7, r3
- 800414a:	2201      	movs	r2, #1
- 800414c:	611a      	str	r2, [r3, #16]
+ 8004192:	2314      	movs	r3, #20
+ 8004194:	18fb      	adds	r3, r7, r3
+ 8004196:	2201      	movs	r2, #1
+ 8004198:	611a      	str	r2, [r3, #16]
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
- 800414e:	2314      	movs	r3, #20
- 8004150:	18fa      	adds	r2, r7, r3
- 8004152:	2390      	movs	r3, #144	; 0x90
- 8004154:	05db      	lsls	r3, r3, #23
- 8004156:	0011      	movs	r1, r2
- 8004158:	0018      	movs	r0, r3
- 800415a:	f7fd ffb9 	bl	80020d0 <HAL_GPIO_Init>
+ 800419a:	2314      	movs	r3, #20
+ 800419c:	18fa      	adds	r2, r7, r3
+ 800419e:	2390      	movs	r3, #144	; 0x90
+ 80041a0:	05db      	lsls	r3, r3, #23
+ 80041a2:	0011      	movs	r1, r2
+ 80041a4:	0018      	movs	r0, r3
+ 80041a6:	f7fd ff93 	bl	80020d0 <HAL_GPIO_Init>
   /* USER CODE BEGIN USART2_MspInit 1 */
 
   /* USER CODE END USART2_MspInit 1 */
   }
 
 }
- 800415e:	46c0      	nop			; (mov r8, r8)
- 8004160:	46bd      	mov	sp, r7
- 8004162:	b00a      	add	sp, #40	; 0x28
- 8004164:	bd80      	pop	{r7, pc}
- 8004166:	46c0      	nop			; (mov r8, r8)
- 8004168:	40004400 	.word	0x40004400
- 800416c:	40021000 	.word	0x40021000
+ 80041aa:	46c0      	nop			; (mov r8, r8)
+ 80041ac:	46bd      	mov	sp, r7
+ 80041ae:	b00a      	add	sp, #40	; 0x28
+ 80041b0:	bd80      	pop	{r7, pc}
+ 80041b2:	46c0      	nop			; (mov r8, r8)
+ 80041b4:	40004400 	.word	0x40004400
+ 80041b8:	40021000 	.word	0x40021000
 
-08004170 <NMI_Handler>:
+080041bc <NMI_Handler>:
 /******************************************************************************/
 /**
   * @brief This function handles Non maskable interrupt.
   */
 void NMI_Handler(void)
 {
- 8004170:	b580      	push	{r7, lr}
- 8004172:	af00      	add	r7, sp, #0
+ 80041bc:	b580      	push	{r7, lr}
+ 80041be:	af00      	add	r7, sp, #0
 
   /* USER CODE END NonMaskableInt_IRQn 0 */
   /* USER CODE BEGIN NonMaskableInt_IRQn 1 */
 
   /* USER CODE END NonMaskableInt_IRQn 1 */
 }
- 8004174:	46c0      	nop			; (mov r8, r8)
- 8004176:	46bd      	mov	sp, r7
- 8004178:	bd80      	pop	{r7, pc}
+ 80041c0:	46c0      	nop			; (mov r8, r8)
+ 80041c2:	46bd      	mov	sp, r7
+ 80041c4:	bd80      	pop	{r7, pc}
 
-0800417a <HardFault_Handler>:
+080041c6 <HardFault_Handler>:
 
 /**
   * @brief This function handles Hard fault interrupt.
   */
 void HardFault_Handler(void)
 {
- 800417a:	b580      	push	{r7, lr}
- 800417c:	af00      	add	r7, sp, #0
+ 80041c6:	b580      	push	{r7, lr}
+ 80041c8:	af00      	add	r7, sp, #0
   /* USER CODE BEGIN HardFault_IRQn 0 */
 
   /* USER CODE END HardFault_IRQn 0 */
   while (1)
- 800417e:	e7fe      	b.n	800417e <HardFault_Handler+0x4>
+ 80041ca:	e7fe      	b.n	80041ca <HardFault_Handler+0x4>
 
-08004180 <SVC_Handler>:
+080041cc <SVC_Handler>:
 
 /**
   * @brief This function handles System service call via SWI instruction.
   */
 void SVC_Handler(void)
 {
- 8004180:	b580      	push	{r7, lr}
- 8004182:	af00      	add	r7, sp, #0
+ 80041cc:	b580      	push	{r7, lr}
+ 80041ce:	af00      	add	r7, sp, #0
 
   /* USER CODE END SVC_IRQn 0 */
   /* USER CODE BEGIN SVC_IRQn 1 */
 
   /* USER CODE END SVC_IRQn 1 */
 }
- 8004184:	46c0      	nop			; (mov r8, r8)
- 8004186:	46bd      	mov	sp, r7
- 8004188:	bd80      	pop	{r7, pc}
+ 80041d0:	46c0      	nop			; (mov r8, r8)
+ 80041d2:	46bd      	mov	sp, r7
+ 80041d4:	bd80      	pop	{r7, pc}
 
-0800418a <PendSV_Handler>:
+080041d6 <PendSV_Handler>:
 
 /**
   * @brief This function handles Pendable request for system service.
   */
 void PendSV_Handler(void)
 {
- 800418a:	b580      	push	{r7, lr}
- 800418c:	af00      	add	r7, sp, #0
+ 80041d6:	b580      	push	{r7, lr}
+ 80041d8:	af00      	add	r7, sp, #0
 
   /* USER CODE END PendSV_IRQn 0 */
   /* USER CODE BEGIN PendSV_IRQn 1 */
 
   /* USER CODE END PendSV_IRQn 1 */
 }
- 800418e:	46c0      	nop			; (mov r8, r8)
- 8004190:	46bd      	mov	sp, r7
- 8004192:	bd80      	pop	{r7, pc}
+ 80041da:	46c0      	nop			; (mov r8, r8)
+ 80041dc:	46bd      	mov	sp, r7
+ 80041de:	bd80      	pop	{r7, pc}
 
-08004194 <SysTick_Handler>:
+080041e0 <SysTick_Handler>:
 
 /**
   * @brief This function handles System tick timer.
   */
 void SysTick_Handler(void)
 {
- 8004194:	b580      	push	{r7, lr}
- 8004196:	af00      	add	r7, sp, #0
+ 80041e0:	b580      	push	{r7, lr}
+ 80041e2:	af00      	add	r7, sp, #0
   /* USER CODE BEGIN SysTick_IRQn 0 */
 
   /* USER CODE END SysTick_IRQn 0 */
   HAL_IncTick();
- 8004198:	f7fc fe7a 	bl	8000e90 <HAL_IncTick>
+ 80041e4:	f7fc fe54 	bl	8000e90 <HAL_IncTick>
   /* USER CODE BEGIN SysTick_IRQn 1 */
 
   /* USER CODE END SysTick_IRQn 1 */
 }
- 800419c:	46c0      	nop			; (mov r8, r8)
- 800419e:	46bd      	mov	sp, r7
- 80041a0:	bd80      	pop	{r7, pc}
+ 80041e8:	46c0      	nop			; (mov r8, r8)
+ 80041ea:	46bd      	mov	sp, r7
+ 80041ec:	bd80      	pop	{r7, pc}
 	...
 
-080041a4 <ADC1_COMP_IRQHandler>:
+080041f0 <ADC1_COMP_IRQHandler>:
   * @param  None
   * @retval None
   * @orig	ADCx_IRQHandler
   */
 void ADC1_COMP_IRQHandler(void)
 {
- 80041a4:	b580      	push	{r7, lr}
- 80041a6:	af00      	add	r7, sp, #0
+ 80041f0:	b580      	push	{r7, lr}
+ 80041f2:	af00      	add	r7, sp, #0
   asm(" nop");
- 80041a8:	46c0      	nop			; (mov r8, r8)
+ 80041f4:	46c0      	nop			; (mov r8, r8)
   HAL_ADC_IRQHandler(&hadc);
- 80041aa:	4b03      	ldr	r3, [pc, #12]	; (80041b8 <ADC1_COMP_IRQHandler+0x14>)
- 80041ac:	0018      	movs	r0, r3
- 80041ae:	f7fd f935 	bl	800141c <HAL_ADC_IRQHandler>
+ 80041f6:	4b03      	ldr	r3, [pc, #12]	; (8004204 <ADC1_COMP_IRQHandler+0x14>)
+ 80041f8:	0018      	movs	r0, r3
+ 80041fa:	f7fd f90f 	bl	800141c <HAL_ADC_IRQHandler>
 }
- 80041b2:	46c0      	nop			; (mov r8, r8)
- 80041b4:	46bd      	mov	sp, r7
- 80041b6:	bd80      	pop	{r7, pc}
- 80041b8:	2000010c 	.word	0x2000010c
+ 80041fe:	46c0      	nop			; (mov r8, r8)
+ 8004200:	46bd      	mov	sp, r7
+ 8004202:	bd80      	pop	{r7, pc}
+ 8004204:	2000010c 	.word	0x2000010c
 
-080041bc <DMA1_Ch1_IRQHandler>:
+08004208 <DMA1_Ch1_IRQHandler>:
 * @param  None
 * @retval None
 * @orig	ADCx_DMA_IRQHandler
 */
 void DMA1_Ch1_IRQHandler(void)
 {
- 80041bc:	b580      	push	{r7, lr}
- 80041be:	af00      	add	r7, sp, #0
+ 8004208:	b580      	push	{r7, lr}
+ 800420a:	af00      	add	r7, sp, #0
   asm(" nop");
- 80041c0:	46c0      	nop			; (mov r8, r8)
+ 800420c:	46c0      	nop			; (mov r8, r8)
   HAL_DMA_IRQHandler(hadc.DMA_Handle);
- 80041c2:	4b04      	ldr	r3, [pc, #16]	; (80041d4 <DMA1_Ch1_IRQHandler+0x18>)
- 80041c4:	6bdb      	ldr	r3, [r3, #60]	; 0x3c
- 80041c6:	0018      	movs	r0, r3
- 80041c8:	f7fd fe79 	bl	8001ebe <HAL_DMA_IRQHandler>
+ 800420e:	4b04      	ldr	r3, [pc, #16]	; (8004220 <DMA1_Ch1_IRQHandler+0x18>)
+ 8004210:	6bdb      	ldr	r3, [r3, #60]	; 0x3c
+ 8004212:	0018      	movs	r0, r3
+ 8004214:	f7fd fe53 	bl	8001ebe <HAL_DMA_IRQHandler>
 }
- 80041cc:	46c0      	nop			; (mov r8, r8)
- 80041ce:	46bd      	mov	sp, r7
- 80041d0:	bd80      	pop	{r7, pc}
- 80041d2:	46c0      	nop			; (mov r8, r8)
- 80041d4:	2000010c 	.word	0x2000010c
+ 8004218:	46c0      	nop			; (mov r8, r8)
+ 800421a:	46bd      	mov	sp, r7
+ 800421c:	bd80      	pop	{r7, pc}
+ 800421e:	46c0      	nop			; (mov r8, r8)
+ 8004220:	2000010c 	.word	0x2000010c
 
-080041d8 <SystemInit>:
+08004224 <SystemInit>:
   *         Initialize the default HSI clock source, vector table location and the PLL configuration is reset.
   * @param  None
   * @retval None
   */
 void SystemInit(void)
 {
- 80041d8:	b580      	push	{r7, lr}
- 80041da:	af00      	add	r7, sp, #0
+ 8004224:	b580      	push	{r7, lr}
+ 8004226:	af00      	add	r7, sp, #0
   /* Reset the RCC clock configuration to the default reset state ------------*/
   /* Set HSION bit */
   RCC->CR |= (uint32_t)0x00000001U;
- 80041dc:	4b1a      	ldr	r3, [pc, #104]	; (8004248 <SystemInit+0x70>)
- 80041de:	4a1a      	ldr	r2, [pc, #104]	; (8004248 <SystemInit+0x70>)
- 80041e0:	6812      	ldr	r2, [r2, #0]
- 80041e2:	2101      	movs	r1, #1
- 80041e4:	430a      	orrs	r2, r1
- 80041e6:	601a      	str	r2, [r3, #0]
+ 8004228:	4b1a      	ldr	r3, [pc, #104]	; (8004294 <SystemInit+0x70>)
+ 800422a:	4a1a      	ldr	r2, [pc, #104]	; (8004294 <SystemInit+0x70>)
+ 800422c:	6812      	ldr	r2, [r2, #0]
+ 800422e:	2101      	movs	r1, #1
+ 8004230:	430a      	orrs	r2, r1
+ 8004232:	601a      	str	r2, [r3, #0]
 #if defined (STM32F051x8) || defined (STM32F058x8)
   /* Reset SW[1:0], HPRE[3:0], PPRE[2:0], ADCPRE and MCOSEL[2:0] bits */
   RCC->CFGR &= (uint32_t)0xF8FFB80CU;
 #else
   /* Reset SW[1:0], HPRE[3:0], PPRE[2:0], ADCPRE, MCOSEL[2:0], MCOPRE[2:0] and PLLNODIV bits */
   RCC->CFGR &= (uint32_t)0x08FFB80CU;
- 80041e8:	4b17      	ldr	r3, [pc, #92]	; (8004248 <SystemInit+0x70>)
- 80041ea:	4a17      	ldr	r2, [pc, #92]	; (8004248 <SystemInit+0x70>)
- 80041ec:	6852      	ldr	r2, [r2, #4]
- 80041ee:	4917      	ldr	r1, [pc, #92]	; (800424c <SystemInit+0x74>)
- 80041f0:	400a      	ands	r2, r1
- 80041f2:	605a      	str	r2, [r3, #4]
+ 8004234:	4b17      	ldr	r3, [pc, #92]	; (8004294 <SystemInit+0x70>)
+ 8004236:	4a17      	ldr	r2, [pc, #92]	; (8004294 <SystemInit+0x70>)
+ 8004238:	6852      	ldr	r2, [r2, #4]
+ 800423a:	4917      	ldr	r1, [pc, #92]	; (8004298 <SystemInit+0x74>)
+ 800423c:	400a      	ands	r2, r1
+ 800423e:	605a      	str	r2, [r3, #4]
 #endif /* STM32F051x8 or STM32F058x8 */
   
   /* Reset HSEON, CSSON and PLLON bits */
   RCC->CR &= (uint32_t)0xFEF6FFFFU;
- 80041f4:	4b14      	ldr	r3, [pc, #80]	; (8004248 <SystemInit+0x70>)
- 80041f6:	4a14      	ldr	r2, [pc, #80]	; (8004248 <SystemInit+0x70>)
- 80041f8:	6812      	ldr	r2, [r2, #0]
- 80041fa:	4915      	ldr	r1, [pc, #84]	; (8004250 <SystemInit+0x78>)
- 80041fc:	400a      	ands	r2, r1
- 80041fe:	601a      	str	r2, [r3, #0]
+ 8004240:	4b14      	ldr	r3, [pc, #80]	; (8004294 <SystemInit+0x70>)
+ 8004242:	4a14      	ldr	r2, [pc, #80]	; (8004294 <SystemInit+0x70>)
+ 8004244:	6812      	ldr	r2, [r2, #0]
+ 8004246:	4915      	ldr	r1, [pc, #84]	; (800429c <SystemInit+0x78>)
+ 8004248:	400a      	ands	r2, r1
+ 800424a:	601a      	str	r2, [r3, #0]
 
   /* Reset HSEBYP bit */
   RCC->CR &= (uint32_t)0xFFFBFFFFU;
- 8004200:	4b11      	ldr	r3, [pc, #68]	; (8004248 <SystemInit+0x70>)
- 8004202:	4a11      	ldr	r2, [pc, #68]	; (8004248 <SystemInit+0x70>)
- 8004204:	6812      	ldr	r2, [r2, #0]
- 8004206:	4913      	ldr	r1, [pc, #76]	; (8004254 <SystemInit+0x7c>)
- 8004208:	400a      	ands	r2, r1
- 800420a:	601a      	str	r2, [r3, #0]
+ 800424c:	4b11      	ldr	r3, [pc, #68]	; (8004294 <SystemInit+0x70>)
+ 800424e:	4a11      	ldr	r2, [pc, #68]	; (8004294 <SystemInit+0x70>)
+ 8004250:	6812      	ldr	r2, [r2, #0]
+ 8004252:	4913      	ldr	r1, [pc, #76]	; (80042a0 <SystemInit+0x7c>)
+ 8004254:	400a      	ands	r2, r1
+ 8004256:	601a      	str	r2, [r3, #0]
 
   /* Reset PLLSRC, PLLXTPRE and PLLMUL[3:0] bits */
   RCC->CFGR &= (uint32_t)0xFFC0FFFFU;
- 800420c:	4b0e      	ldr	r3, [pc, #56]	; (8004248 <SystemInit+0x70>)
- 800420e:	4a0e      	ldr	r2, [pc, #56]	; (8004248 <SystemInit+0x70>)
- 8004210:	6852      	ldr	r2, [r2, #4]
- 8004212:	4911      	ldr	r1, [pc, #68]	; (8004258 <SystemInit+0x80>)
- 8004214:	400a      	ands	r2, r1
- 8004216:	605a      	str	r2, [r3, #4]
+ 8004258:	4b0e      	ldr	r3, [pc, #56]	; (8004294 <SystemInit+0x70>)
+ 800425a:	4a0e      	ldr	r2, [pc, #56]	; (8004294 <SystemInit+0x70>)
+ 800425c:	6852      	ldr	r2, [r2, #4]
+ 800425e:	4911      	ldr	r1, [pc, #68]	; (80042a4 <SystemInit+0x80>)
+ 8004260:	400a      	ands	r2, r1
+ 8004262:	605a      	str	r2, [r3, #4]
 
   /* Reset PREDIV[3:0] bits */
   RCC->CFGR2 &= (uint32_t)0xFFFFFFF0U;
- 8004218:	4b0b      	ldr	r3, [pc, #44]	; (8004248 <SystemInit+0x70>)
- 800421a:	4a0b      	ldr	r2, [pc, #44]	; (8004248 <SystemInit+0x70>)
- 800421c:	6ad2      	ldr	r2, [r2, #44]	; 0x2c
- 800421e:	210f      	movs	r1, #15
- 8004220:	438a      	bics	r2, r1
- 8004222:	62da      	str	r2, [r3, #44]	; 0x2c
+ 8004264:	4b0b      	ldr	r3, [pc, #44]	; (8004294 <SystemInit+0x70>)
+ 8004266:	4a0b      	ldr	r2, [pc, #44]	; (8004294 <SystemInit+0x70>)
+ 8004268:	6ad2      	ldr	r2, [r2, #44]	; 0x2c
+ 800426a:	210f      	movs	r1, #15
+ 800426c:	438a      	bics	r2, r1
+ 800426e:	62da      	str	r2, [r3, #44]	; 0x2c
 #elif defined (STM32F071xB)
   /* Reset USART2SW[1:0], USART1SW[1:0], I2C1SW, CECSW and ADCSW bits */
   RCC->CFGR3 &= (uint32_t)0xFFFFCEACU;
 #elif defined (STM32F091xC) || defined (STM32F098xx)
   /* Reset USART3SW[1:0], USART2SW[1:0], USART1SW[1:0], I2C1SW, CECSW and ADCSW bits */
   RCC->CFGR3 &= (uint32_t)0xFFF0FEACU;
- 8004224:	4b08      	ldr	r3, [pc, #32]	; (8004248 <SystemInit+0x70>)
- 8004226:	4a08      	ldr	r2, [pc, #32]	; (8004248 <SystemInit+0x70>)
- 8004228:	6b12      	ldr	r2, [r2, #48]	; 0x30
- 800422a:	490c      	ldr	r1, [pc, #48]	; (800425c <SystemInit+0x84>)
- 800422c:	400a      	ands	r2, r1
- 800422e:	631a      	str	r2, [r3, #48]	; 0x30
+ 8004270:	4b08      	ldr	r3, [pc, #32]	; (8004294 <SystemInit+0x70>)
+ 8004272:	4a08      	ldr	r2, [pc, #32]	; (8004294 <SystemInit+0x70>)
+ 8004274:	6b12      	ldr	r2, [r2, #48]	; 0x30
+ 8004276:	490c      	ldr	r1, [pc, #48]	; (80042a8 <SystemInit+0x84>)
+ 8004278:	400a      	ands	r2, r1
+ 800427a:	631a      	str	r2, [r3, #48]	; 0x30
 #else
  #warning "No target selected"
 #endif
 
   /* Reset HSI14 bit */
   RCC->CR2 &= (uint32_t)0xFFFFFFFEU;
- 8004230:	4b05      	ldr	r3, [pc, #20]	; (8004248 <SystemInit+0x70>)
- 8004232:	4a05      	ldr	r2, [pc, #20]	; (8004248 <SystemInit+0x70>)
- 8004234:	6b52      	ldr	r2, [r2, #52]	; 0x34
- 8004236:	2101      	movs	r1, #1
- 8004238:	438a      	bics	r2, r1
- 800423a:	635a      	str	r2, [r3, #52]	; 0x34
+ 800427c:	4b05      	ldr	r3, [pc, #20]	; (8004294 <SystemInit+0x70>)
+ 800427e:	4a05      	ldr	r2, [pc, #20]	; (8004294 <SystemInit+0x70>)
+ 8004280:	6b52      	ldr	r2, [r2, #52]	; 0x34
+ 8004282:	2101      	movs	r1, #1
+ 8004284:	438a      	bics	r2, r1
+ 8004286:	635a      	str	r2, [r3, #52]	; 0x34
 
   /* Disable all interrupts */
   RCC->CIR = 0x00000000U;
- 800423c:	4b02      	ldr	r3, [pc, #8]	; (8004248 <SystemInit+0x70>)
- 800423e:	2200      	movs	r2, #0
- 8004240:	609a      	str	r2, [r3, #8]
+ 8004288:	4b02      	ldr	r3, [pc, #8]	; (8004294 <SystemInit+0x70>)
+ 800428a:	2200      	movs	r2, #0
+ 800428c:	609a      	str	r2, [r3, #8]
 
 }
- 8004242:	46c0      	nop			; (mov r8, r8)
- 8004244:	46bd      	mov	sp, r7
- 8004246:	bd80      	pop	{r7, pc}
- 8004248:	40021000 	.word	0x40021000
- 800424c:	08ffb80c 	.word	0x08ffb80c
- 8004250:	fef6ffff 	.word	0xfef6ffff
- 8004254:	fffbffff 	.word	0xfffbffff
- 8004258:	ffc0ffff 	.word	0xffc0ffff
- 800425c:	fff0feac 	.word	0xfff0feac
+ 800428e:	46c0      	nop			; (mov r8, r8)
+ 8004290:	46bd      	mov	sp, r7
+ 8004292:	bd80      	pop	{r7, pc}
+ 8004294:	40021000 	.word	0x40021000
+ 8004298:	08ffb80c 	.word	0x08ffb80c
+ 800429c:	fef6ffff 	.word	0xfef6ffff
+ 80042a0:	fffbffff 	.word	0xfffbffff
+ 80042a4:	ffc0ffff 	.word	0xffc0ffff
+ 80042a8:	fff0feac 	.word	0xfff0feac
 
-08004260 <Reset_Handler>:
+080042ac <Reset_Handler>:
 
   .section .text.Reset_Handler
   .weak Reset_Handler
   .type Reset_Handler, %function
 Reset_Handler:
   ldr   r0, =_estack
- 8004260:	480d      	ldr	r0, [pc, #52]	; (8004298 <LoopForever+0x2>)
+ 80042ac:	480d      	ldr	r0, [pc, #52]	; (80042e4 <LoopForever+0x2>)
   mov   sp, r0          /* set stack pointer */
- 8004262:	4685      	mov	sp, r0
+ 80042ae:	4685      	mov	sp, r0
 
 /* Copy the data segment initializers from flash to SRAM */
   ldr r0, =_sdata
- 8004264:	480d      	ldr	r0, [pc, #52]	; (800429c <LoopForever+0x6>)
+ 80042b0:	480d      	ldr	r0, [pc, #52]	; (80042e8 <LoopForever+0x6>)
   ldr r1, =_edata
- 8004266:	490e      	ldr	r1, [pc, #56]	; (80042a0 <LoopForever+0xa>)
+ 80042b2:	490e      	ldr	r1, [pc, #56]	; (80042ec <LoopForever+0xa>)
   ldr r2, =_sidata
- 8004268:	4a0e      	ldr	r2, [pc, #56]	; (80042a4 <LoopForever+0xe>)
+ 80042b4:	4a0e      	ldr	r2, [pc, #56]	; (80042f0 <LoopForever+0xe>)
   movs r3, #0
- 800426a:	2300      	movs	r3, #0
+ 80042b6:	2300      	movs	r3, #0
   b LoopCopyDataInit
- 800426c:	e002      	b.n	8004274 <LoopCopyDataInit>
+ 80042b8:	e002      	b.n	80042c0 <LoopCopyDataInit>
 
-0800426e <CopyDataInit>:
+080042ba <CopyDataInit>:
 
 CopyDataInit:
   ldr r4, [r2, r3]
- 800426e:	58d4      	ldr	r4, [r2, r3]
+ 80042ba:	58d4      	ldr	r4, [r2, r3]
   str r4, [r0, r3]
- 8004270:	50c4      	str	r4, [r0, r3]
+ 80042bc:	50c4      	str	r4, [r0, r3]
   adds r3, r3, #4
- 8004272:	3304      	adds	r3, #4
+ 80042be:	3304      	adds	r3, #4
 
-08004274 <LoopCopyDataInit>:
+080042c0 <LoopCopyDataInit>:
 
 LoopCopyDataInit:
   adds r4, r0, r3
- 8004274:	18c4      	adds	r4, r0, r3
+ 80042c0:	18c4      	adds	r4, r0, r3
   cmp r4, r1
- 8004276:	428c      	cmp	r4, r1
+ 80042c2:	428c      	cmp	r4, r1
   bcc CopyDataInit
- 8004278:	d3f9      	bcc.n	800426e <CopyDataInit>
+ 80042c4:	d3f9      	bcc.n	80042ba <CopyDataInit>
   
 /* Zero fill the bss segment. */
   ldr r2, =_sbss
- 800427a:	4a0b      	ldr	r2, [pc, #44]	; (80042a8 <LoopForever+0x12>)
+ 80042c6:	4a0b      	ldr	r2, [pc, #44]	; (80042f4 <LoopForever+0x12>)
   ldr r4, =_ebss
- 800427c:	4c0b      	ldr	r4, [pc, #44]	; (80042ac <LoopForever+0x16>)
+ 80042c8:	4c0b      	ldr	r4, [pc, #44]	; (80042f8 <LoopForever+0x16>)
   movs r3, #0
- 800427e:	2300      	movs	r3, #0
+ 80042ca:	2300      	movs	r3, #0
   b LoopFillZerobss
- 8004280:	e001      	b.n	8004286 <LoopFillZerobss>
+ 80042cc:	e001      	b.n	80042d2 <LoopFillZerobss>
 
-08004282 <FillZerobss>:
+080042ce <FillZerobss>:
 
 FillZerobss:
   str  r3, [r2]
- 8004282:	6013      	str	r3, [r2, #0]
+ 80042ce:	6013      	str	r3, [r2, #0]
   adds r2, r2, #4
- 8004284:	3204      	adds	r2, #4
+ 80042d0:	3204      	adds	r2, #4
 
-08004286 <LoopFillZerobss>:
+080042d2 <LoopFillZerobss>:
 
 LoopFillZerobss:
   cmp r2, r4
- 8004286:	42a2      	cmp	r2, r4
+ 80042d2:	42a2      	cmp	r2, r4
   bcc FillZerobss
- 8004288:	d3fb      	bcc.n	8004282 <FillZerobss>
+ 80042d4:	d3fb      	bcc.n	80042ce <FillZerobss>
 
 /* Call the clock system intitialization function.*/
   bl  SystemInit
- 800428a:	f7ff ffa5 	bl	80041d8 <SystemInit>
+ 80042d6:	f7ff ffa5 	bl	8004224 <SystemInit>
 /* Call static constructors */
   bl __libc_init_array
- 800428e:	f000 f811 	bl	80042b4 <__libc_init_array>
+ 80042da:	f000 f811 	bl	8004300 <__libc_init_array>
 /* Call the application's entry point.*/
   bl main
- 8004292:	f7ff fb31 	bl	80038f8 <main>
+ 80042de:	f7ff fb0b 	bl	80038f8 <main>
 
-08004296 <LoopForever>:
+080042e2 <LoopForever>:
 
 LoopForever:
     b LoopForever
- 8004296:	e7fe      	b.n	8004296 <LoopForever>
+ 80042e2:	e7fe      	b.n	80042e2 <LoopForever>
   ldr   r0, =_estack
- 8004298:	20008000 	.word	0x20008000
+ 80042e4:	20008000 	.word	0x20008000
   ldr r0, =_sdata
- 800429c:	20000000 	.word	0x20000000
+ 80042e8:	20000000 	.word	0x20000000
   ldr r1, =_edata
- 80042a0:	2000000c 	.word	0x2000000c
+ 80042ec:	2000000c 	.word	0x2000000c
   ldr r2, =_sidata
- 80042a4:	08004424 	.word	0x08004424
+ 80042f0:	08004470 	.word	0x08004470
   ldr r2, =_sbss
- 80042a8:	20000010 	.word	0x20000010
+ 80042f4:	20000010 	.word	0x20000010
   ldr r4, =_ebss
- 80042ac:	20000158 	.word	0x20000158
+ 80042f8:	20000158 	.word	0x20000158
 
-080042b0 <CEC_CAN_IRQHandler>:
+080042fc <CEC_CAN_IRQHandler>:
  * @retval : None
 */
     .section .text.Default_Handler,"ax",%progbits
 Default_Handler:
 Infinite_Loop:
   b Infinite_Loop
- 80042b0:	e7fe      	b.n	80042b0 <CEC_CAN_IRQHandler>
+ 80042fc:	e7fe      	b.n	80042fc <CEC_CAN_IRQHandler>
 	...
 
-080042b4 <__libc_init_array>:
- 80042b4:	b570      	push	{r4, r5, r6, lr}
- 80042b6:	2600      	movs	r6, #0
- 80042b8:	4d0c      	ldr	r5, [pc, #48]	; (80042ec <__libc_init_array+0x38>)
- 80042ba:	4c0d      	ldr	r4, [pc, #52]	; (80042f0 <__libc_init_array+0x3c>)
- 80042bc:	1b64      	subs	r4, r4, r5
- 80042be:	10a4      	asrs	r4, r4, #2
- 80042c0:	42a6      	cmp	r6, r4
- 80042c2:	d109      	bne.n	80042d8 <__libc_init_array+0x24>
- 80042c4:	2600      	movs	r6, #0
- 80042c6:	f000 f821 	bl	800430c <_init>
- 80042ca:	4d0a      	ldr	r5, [pc, #40]	; (80042f4 <__libc_init_array+0x40>)
- 80042cc:	4c0a      	ldr	r4, [pc, #40]	; (80042f8 <__libc_init_array+0x44>)
- 80042ce:	1b64      	subs	r4, r4, r5
- 80042d0:	10a4      	asrs	r4, r4, #2
- 80042d2:	42a6      	cmp	r6, r4
- 80042d4:	d105      	bne.n	80042e2 <__libc_init_array+0x2e>
- 80042d6:	bd70      	pop	{r4, r5, r6, pc}
- 80042d8:	00b3      	lsls	r3, r6, #2
- 80042da:	58eb      	ldr	r3, [r5, r3]
- 80042dc:	4798      	blx	r3
- 80042de:	3601      	adds	r6, #1
- 80042e0:	e7ee      	b.n	80042c0 <__libc_init_array+0xc>
- 80042e2:	00b3      	lsls	r3, r6, #2
- 80042e4:	58eb      	ldr	r3, [r5, r3]
- 80042e6:	4798      	blx	r3
- 80042e8:	3601      	adds	r6, #1
- 80042ea:	e7f2      	b.n	80042d2 <__libc_init_array+0x1e>
- 80042ec:	0800441c 	.word	0x0800441c
- 80042f0:	0800441c 	.word	0x0800441c
- 80042f4:	0800441c 	.word	0x0800441c
- 80042f8:	08004420 	.word	0x08004420
+08004300 <__libc_init_array>:
+ 8004300:	b570      	push	{r4, r5, r6, lr}
+ 8004302:	2600      	movs	r6, #0
+ 8004304:	4d0c      	ldr	r5, [pc, #48]	; (8004338 <__libc_init_array+0x38>)
+ 8004306:	4c0d      	ldr	r4, [pc, #52]	; (800433c <__libc_init_array+0x3c>)
+ 8004308:	1b64      	subs	r4, r4, r5
+ 800430a:	10a4      	asrs	r4, r4, #2
+ 800430c:	42a6      	cmp	r6, r4
+ 800430e:	d109      	bne.n	8004324 <__libc_init_array+0x24>
+ 8004310:	2600      	movs	r6, #0
+ 8004312:	f000 f821 	bl	8004358 <_init>
+ 8004316:	4d0a      	ldr	r5, [pc, #40]	; (8004340 <__libc_init_array+0x40>)
+ 8004318:	4c0a      	ldr	r4, [pc, #40]	; (8004344 <__libc_init_array+0x44>)
+ 800431a:	1b64      	subs	r4, r4, r5
+ 800431c:	10a4      	asrs	r4, r4, #2
+ 800431e:	42a6      	cmp	r6, r4
+ 8004320:	d105      	bne.n	800432e <__libc_init_array+0x2e>
+ 8004322:	bd70      	pop	{r4, r5, r6, pc}
+ 8004324:	00b3      	lsls	r3, r6, #2
+ 8004326:	58eb      	ldr	r3, [r5, r3]
+ 8004328:	4798      	blx	r3
+ 800432a:	3601      	adds	r6, #1
+ 800432c:	e7ee      	b.n	800430c <__libc_init_array+0xc>
+ 800432e:	00b3      	lsls	r3, r6, #2
+ 8004330:	58eb      	ldr	r3, [r5, r3]
+ 8004332:	4798      	blx	r3
+ 8004334:	3601      	adds	r6, #1
+ 8004336:	e7f2      	b.n	800431e <__libc_init_array+0x1e>
+ 8004338:	08004468 	.word	0x08004468
+ 800433c:	08004468 	.word	0x08004468
+ 8004340:	08004468 	.word	0x08004468
+ 8004344:	0800446c 	.word	0x0800446c
 
-080042fc <memset>:
- 80042fc:	0003      	movs	r3, r0
- 80042fe:	1882      	adds	r2, r0, r2
- 8004300:	4293      	cmp	r3, r2
- 8004302:	d100      	bne.n	8004306 <memset+0xa>
- 8004304:	4770      	bx	lr
- 8004306:	7019      	strb	r1, [r3, #0]
- 8004308:	3301      	adds	r3, #1
- 800430a:	e7f9      	b.n	8004300 <memset+0x4>
+08004348 <memset>:
+ 8004348:	0003      	movs	r3, r0
+ 800434a:	1882      	adds	r2, r0, r2
+ 800434c:	4293      	cmp	r3, r2
+ 800434e:	d100      	bne.n	8004352 <memset+0xa>
+ 8004350:	4770      	bx	lr
+ 8004352:	7019      	strb	r1, [r3, #0]
+ 8004354:	3301      	adds	r3, #1
+ 8004356:	e7f9      	b.n	800434c <memset+0x4>
 
-0800430c <_init>:
- 800430c:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
- 800430e:	46c0      	nop			; (mov r8, r8)
- 8004310:	bcf8      	pop	{r3, r4, r5, r6, r7}
- 8004312:	bc08      	pop	{r3}
- 8004314:	469e      	mov	lr, r3
- 8004316:	4770      	bx	lr
+08004358 <_init>:
+ 8004358:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 800435a:	46c0      	nop			; (mov r8, r8)
+ 800435c:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 800435e:	bc08      	pop	{r3}
+ 8004360:	469e      	mov	lr, r3
+ 8004362:	4770      	bx	lr
 
-08004318 <_fini>:
- 8004318:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
- 800431a:	46c0      	nop			; (mov r8, r8)
- 800431c:	bcf8      	pop	{r3, r4, r5, r6, r7}
- 800431e:	bc08      	pop	{r3}
- 8004320:	469e      	mov	lr, r3
- 8004322:	4770      	bx	lr
+08004364 <_fini>:
+ 8004364:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 8004366:	46c0      	nop			; (mov r8, r8)
+ 8004368:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 800436a:	bc08      	pop	{r3}
+ 800436c:	469e      	mov	lr, r3
+ 800436e:	4770      	bx	lr

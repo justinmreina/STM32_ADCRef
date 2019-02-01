@@ -87,24 +87,20 @@ extern AdcChannelConfig adc_getChannelConfig(uint32_t channel);
 
 /* USER CODE END EFP */
 
-/* Exported variables ---------------------------------------------*/
-extern ADC_HandleTypeDef hadc;
-
-extern uint32_t adc_channels[2];
-
 /* Private defines -----------------------------------------------------------*/
-#define B1_Pin GPIO_PIN_13
-#define B1_GPIO_Port GPIOC
-#define USART_TX_Pin GPIO_PIN_2
-#define USART_TX_GPIO_Port GPIOA
-#define USART_RX_Pin GPIO_PIN_3
-#define USART_RX_GPIO_Port GPIOA
-#define LD2_Pin GPIO_PIN_5
-#define LD2_GPIO_Port GPIOA
-#define TMS_Pin GPIO_PIN_13
-#define TMS_GPIO_Port GPIOA
-#define TCK_Pin GPIO_PIN_14
-#define TCK_GPIO_Port GPIOA
+#define B1_Pin 					(GPIO_PIN_13)
+#define B1_GPIO_Port 			(GPIOC)
+#define USART_TX_Pin 			(GPIO_PIN_2)
+#define USART_TX_GPIO_Port 		(GPIOA)
+#define USART_RX_Pin 			(GPIO_PIN_3)
+#define USART_RX_GPIO_Port 		(GPIOA)
+#define LD2_Pin 				(GPIO_PIN_5)
+#define LD2_GPIO_Port 			(GPIOA)
+#define TMS_Pin 				(GPIO_PIN_13)
+#define TMS_GPIO_Port 			(GPIOA)
+#define TCK_Pin 				(GPIO_PIN_14)
+#define TCK_GPIO_Port 			(GPIOA)
+#define ADC_NUM_CHANNELS		(13)
 
 /* USER CODE BEGIN Private defines */
 
@@ -112,12 +108,15 @@ extern uint32_t adc_channels[2];
 #define ADC_RANGE				(4095)										/* 12-bit ADC resolution								*/
 #define ADC_POLL_TIMEOUT_MS		(1000)
 
-#define DEMO_ADC_CHANNEL1		(ADC_CHANNEL_0)
-#define DEMO_ADC_CHANNEL2		(ADC_CHANNEL_1)
-
 #define _nop()					asm(" nop");
 
 /* USER CODE END Private defines */
+
+/* Exported variables ---------------------------------------------*/
+extern ADC_HandleTypeDef hadc;
+
+extern uint32_t adc_channels[ADC_NUM_CHANNELS];
+
 
 #ifdef __cplusplus
 }

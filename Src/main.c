@@ -78,13 +78,15 @@ UART_HandleTypeDef huart2;
 
 HAL_StatusTypeDef result;
 
-uint32_t vals[2];																/* adc measurement value								*/
+uint32_t vals[ADC_NUM_CHANNELS];											/* adc measurement values								*/
 
 /* Variable containing ADC conversions results */
-uint32_t adc_channels[2] = {DEMO_ADC_CHANNEL1, DEMO_ADC_CHANNEL2};
+uint32_t adc_channels[ADC_NUM_CHANNELS] = {ADC_CHANNEL_0,  ADC_CHANNEL_1,  ADC_CHANNEL_4,  ADC_CHANNEL_6,  ADC_CHANNEL_7,
+										   ADC_CHANNEL_8,  ADC_CHANNEL_9,  ADC_CHANNEL_10, ADC_CHANNEL_11, ADC_CHANNEL_12,
+										   ADC_CHANNEL_13, ADC_CHANNEL_14,	ADC_CHANNEL_15};
 
-uint32_t adc_vals[2];
-double   volt_vals[2];
+uint32_t adc_vals[ADC_NUM_CHANNELS];
+double   volt_vals[ADC_NUM_CHANNELS];
 
 /* USER CODE BEGIN PV */
 
@@ -160,7 +162,7 @@ int main(void) {
 	for(;;) {
 
 		//For each channel
-		for(int i=0; i<2; i++) {
+		for(int i=0; i<ADC_NUM_CHANNELS; i++) {
 
 			//Sample Channel
 			result = HAL_ADC_Start(&hadc);
@@ -281,7 +283,7 @@ static void MX_ADC_Init(void) {
 	}
 
 	//Setup Sequencer
-	for(int i=0; i<2; i++) {
+	for(int i=0; i<ADC_NUM_CHANNELS; i++) {
 
 		/**Configure channel #1 for the selected ADC regular channel to be converted. */
 		sConfig.Channel = adc_channels[i];

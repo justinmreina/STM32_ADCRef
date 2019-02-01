@@ -109,22 +109,22 @@ void HAL_MspInit(void)
 void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc) {
 
 	//Locals
-	AdcChannelConfig config1, config2;										/* ADC Channel to use for demo							*/
+	AdcChannelConfig config;												/* ADC Channel under selection							*/
 	GPIO_InitTypeDef GPIO_InitStruct;
 	static DMA_HandleTypeDef  DmaHandle;
 	RCC_OscInitTypeDef        RCC_OscInitStructure;
 
-
 	//Init
 	memset(&GPIO_InitStruct, 0, sizeof(GPIO_InitStruct));
-	config1 = adc_getChannelConfig(adc_channels[0]);
-	config2 = adc_getChannelConfig(adc_channels[1]);
+
 
 	if(hadc->Instance==ADC1) {
 
 		/* Peripheral clock enable */
 		__HAL_RCC_ADC1_CLK_ENABLE();
-		__HAL_RCC_GPIOA_CLK_ENABLE();											/* @todo 	all gpio clocks for adc						*/
+		__HAL_RCC_GPIOA_CLK_ENABLE();										/* Init GPIO clocks for all used ADC pins				*/
+		__HAL_RCC_GPIOB_CLK_ENABLE();
+		__HAL_RCC_GPIOC_CLK_ENABLE();
 
 		/* Note: In case of usage of asynchronous clock derived from ADC dedicated  */
 		/*       HSI RC oscillator 14MHz, with ADC setting                          */
@@ -143,21 +143,18 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc) {
 		/* Enable clock of DMA associated to the peripheral */
 		__HAL_RCC_DMA1_CLK_ENABLE();
 
+		/**ADC GPIO Configuration */
+		for(int i=0; i<ADC_NUM_CHANNELS; i++) {
 
-		/**ADC GPIO Configuration
-		PA0     ------> ADC_IN0
-		VREF    ------> No GPIO
-		*/
-		GPIO_InitStruct.Pin = config1.gpio_pin;								/* GPIO_PIN_0											*/
-		GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
-		GPIO_InitStruct.Pull = GPIO_NOPULL;
-		HAL_GPIO_Init(config1.port, &GPIO_InitStruct);
+			//Grab Config
+			config = adc_getChannelConfig(adc_channels[i]);
 
-		GPIO_InitStruct.Pin = config2.gpio_pin;								/* GPIO_PIN_1											*/
-		GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
-		GPIO_InitStruct.Pull = GPIO_NOPULL;
-		HAL_GPIO_Init(config2.port, &GPIO_InitStruct);
-
+			//Init Pin
+			GPIO_InitStruct.Pin = config.gpio_pin;							/* e.g. "GPIO_PIN_N0									*/
+			GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+			GPIO_InitStruct.Pull = GPIO_NOPULL;
+			HAL_GPIO_Init(config.port, &GPIO_InitStruct);
+		}
 
 		/*##-3- Configure the DMA ##################################################*/
 		/* Configure DMA parameters */

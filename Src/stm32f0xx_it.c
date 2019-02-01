@@ -146,6 +146,30 @@ void SysTick_Handler(void)
   /* USER CODE END SysTick_IRQn 1 */
 }
 
+/**
+  * @brief  This function handles ADC interrupt request.
+  * @param  None
+  * @retval None
+  * @orig	ADCx_IRQHandler
+  */
+void ADC1_COMP_IRQHandler(void)
+{
+  asm(" nop");
+  HAL_ADC_IRQHandler(&hadc);
+}
+
+/**
+* @brief  This function handles DMA interrupt request.
+* @param  None
+* @retval None
+* @orig	ADCx_DMA_IRQHandler
+*/
+void DMA1_Ch1_IRQHandler(void)
+{
+  asm(" nop");
+  HAL_DMA_IRQHandler(hadc.DMA_Handle);
+}
+
 /******************************************************************************/
 /* STM32F0xx Peripheral Interrupt Handlers                                    */
 /* Add here the Interrupt Handlers for the used peripherals.                  */

@@ -87,6 +87,9 @@ extern AdcChannelConfig adc_getChannelConfig(uint32_t channel);
 
 /* USER CODE END EFP */
 
+/* Exported variables ---------------------------------------------*/
+extern ADC_HandleTypeDef hadc;
+
 /* Private defines -----------------------------------------------------------*/
 #define B1_Pin GPIO_PIN_13
 #define B1_GPIO_Port GPIOC
@@ -107,7 +110,7 @@ extern AdcChannelConfig adc_getChannelConfig(uint32_t channel);
 #define ADC_RANGE			(4095)											/* 12-bit ADC resolution								*/
 #define ADC_POLL_TIMEOUT_MS	(1000)
 
-#define DEMO_ADC_CHANNEL	(ADC_CHANNEL_1)
+#define DEMO_ADC_CHANNEL	(ADC_CHANNEL_0)
 
 /* USER CODE END Private defines */
 

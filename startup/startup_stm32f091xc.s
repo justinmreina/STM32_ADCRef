@@ -233,17 +233,11 @@ g_pfnVectors:
   .weak      TSC_IRQHandler
   .thumb_set TSC_IRQHandler,Default_Handler
 
-  .weak      DMA1_Ch1_IRQHandler
-  .thumb_set DMA1_Ch1_IRQHandler,Default_Handler
-
   .weak      DMA1_Ch2_3_DMA2_Ch1_2_IRQHandler
   .thumb_set DMA1_Ch2_3_DMA2_Ch1_2_IRQHandler,Default_Handler
 
   .weak      DMA1_Ch4_7_DMA2_Ch3_5_IRQHandler
   .thumb_set DMA1_Ch4_7_DMA2_Ch3_5_IRQHandler,Default_Handler
-
-  .weak      ADC1_COMP_IRQHandler
-  .thumb_set ADC1_COMP_IRQHandler,Default_Handler
 
   .weak      TIM1_BRK_UP_TRG_COM_IRQHandler
   .thumb_set TIM1_BRK_UP_TRG_COM_IRQHandler,Default_Handler

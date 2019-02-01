@@ -111,29 +111,82 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc) {
 	//Locals
 	AdcChannelConfig config;												/* ADC Channel to use for demo							*/
 	GPIO_InitTypeDef GPIO_InitStruct;
+	static DMA_HandleTypeDef  DmaHandle;
+	RCC_OscInitTypeDef        RCC_OscInitStructure;
 
-  //Init
-  memset(&GPIO_InitStruct, 0, sizeof(GPIO_InitStruct));
-  config = adc_getChannelConfig(DEMO_ADC_CHANNEL);
 
-  if(hadc->Instance==ADC1) {
+	//Init
+	memset(&GPIO_InitStruct, 0, sizeof(GPIO_InitStruct));
+	config = adc_getChannelConfig(DEMO_ADC_CHANNEL);
 
-    /* Peripheral clock enable */
-    __HAL_RCC_ADC1_CLK_ENABLE();
-    __HAL_RCC_GPIOA_CLK_ENABLE();											/* @todo 	all gpio clocks for adc						*/
+	if(hadc->Instance==ADC1) {
 
-    /**ADC GPIO Configuration    
-    	PA0     ------> ADC_IN0
-    */
-    GPIO_InitStruct.Pin = config.gpio_pin;									/* GPIO_PIN_0											*/
-    GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    HAL_GPIO_Init(config.port, &GPIO_InitStruct);
+		/* Peripheral clock enable */
+		__HAL_RCC_ADC1_CLK_ENABLE();
+		__HAL_RCC_GPIOA_CLK_ENABLE();											/* @todo 	all gpio clocks for adc						*/
 
-  /* USER CODE BEGIN ADC1_MspInit 1 */
+		/* Note: In case of usage of asynchronous clock derived from ADC dedicated  */
+		/*       HSI RC oscillator 14MHz, with ADC setting                          */
+		/*       "AdcHandle.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV1",            */
+		/*       the clock source has to be enabled at RCC top level using function */
+		/*       "HAL_RCC_OscConfig()" (see comments in stm32f0_hal_adc.c header)   */
 
-  /* USER CODE END ADC1_MspInit 1 */
-  }
+		/* Enable asynchronous clock source of ADCx */
+		/* (place oscillator HSI14 under control of the ADC) */
+		HAL_RCC_GetOscConfig(&RCC_OscInitStructure);
+		RCC_OscInitStructure.OscillatorType = RCC_OSCILLATORTYPE_HSI14;
+		RCC_OscInitStructure.HSI14CalibrationValue = RCC_HSI14CALIBRATION_DEFAULT;
+		RCC_OscInitStructure.HSI14State = RCC_HSI14_ADC_CONTROL;
+		HAL_RCC_OscConfig(&RCC_OscInitStructure);
+
+		/* Enable clock of DMA associated to the peripheral */
+		__HAL_RCC_DMA1_CLK_ENABLE();
+
+
+		/**ADC GPIO Configuration
+		PA0     ------> ADC_IN0
+		*/
+		GPIO_InitStruct.Pin = config.gpio_pin;									/* GPIO_PIN_0											*/
+		GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+		GPIO_InitStruct.Pull = GPIO_NOPULL;
+		HAL_GPIO_Init(config.port, &GPIO_InitStruct);
+
+		/*##-3- Configure the DMA ##################################################*/
+		/* Configure DMA parameters */
+		DmaHandle.Instance = DMA1_Channel1;
+
+		DmaHandle.Init.Direction           = DMA_PERIPH_TO_MEMORY;
+		DmaHandle.Init.PeriphInc           = DMA_PINC_DISABLE;
+		DmaHandle.Init.MemInc              = DMA_MINC_ENABLE;
+		DmaHandle.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;   /* Transfer from ADC by half-word to match with ADC configuration: ADC resolution 10 or 12 bits */
+		DmaHandle.Init.MemDataAlignment    = DMA_MDATAALIGN_HALFWORD;   /* Transfer to memory by half-word to match with buffer variable type: half-word */
+		DmaHandle.Init.Mode                = DMA_CIRCULAR;              /* DMA in circular mode to match with ADC configuration: DMA continuous requests */
+		DmaHandle.Init.Priority            = DMA_PRIORITY_HIGH;
+
+		/* Deinitialize  & Initialize the DMA for new transfer */
+		HAL_DMA_DeInit(&DmaHandle);
+		HAL_DMA_Init(&DmaHandle);
+
+		/* Associate the initialized DMA handle to the ADC handle */
+		__HAL_LINKDMA(hadc, DMA_Handle, DmaHandle);
+
+		/*##-4- Configure the NVIC #################################################*/
+
+		/* NVIC configuration for DMA interrupt (transfer completion or error) */
+		/* Priority: high-priority */
+		HAL_NVIC_SetPriority(DMA1_Ch1_IRQn, 1, 0);
+		HAL_NVIC_EnableIRQ(DMA1_Ch1_IRQn);
+
+
+		/* NVIC configuration for ADC interrupt */
+		/* Priority: high-priority */
+		HAL_NVIC_SetPriority(ADC1_COMP_IRQn, 0, 0);
+		HAL_NVIC_EnableIRQ(ADC1_COMP_IRQn);
+
+		/* USER CODE BEGIN ADC1_MspInit 1 */
+
+		/* USER CODE END ADC1_MspInit 1 */
+	}
 
 }
 
@@ -144,27 +197,37 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc) {
 * @retval None
 */
 
-void HAL_ADC_MspDeInit(ADC_HandleTypeDef* hadc)
-{
+void HAL_ADC_MspDeInit(ADC_HandleTypeDef* hadc) {
 
-  if(hadc->Instance==ADC1)
-  {
-  /* USER CODE BEGIN ADC1_MspDeInit 0 */
+	if(hadc->Instance==ADC1) {
+		/* USER CODE BEGIN ADC1_MspDeInit 0 */
 
-  /* USER CODE END ADC1_MspDeInit 0 */
-    /* Peripheral clock disable */
-    __HAL_RCC_ADC1_CLK_DISABLE();
-  
-    /**ADC GPIO Configuration    
-    PA0     ------> ADC_IN0 
-    */
-    HAL_GPIO_DeInit(GPIOA, GPIO_PIN_0);
+		/* USER CODE END ADC1_MspDeInit 0 */
+		/* Peripheral clock disable */
+		__HAL_RCC_ADC1_CLK_DISABLE();
 
-  /* USER CODE BEGIN ADC1_MspDeInit 1 */
+		/**ADC GPIO Configuration
+		PA0     ------> ADC_IN0
+		*/
+		HAL_GPIO_DeInit(GPIOA, GPIO_PIN_0);
 
-  /* USER CODE END ADC1_MspDeInit 1 */
-  }
+		/*##-3- Disable the DMA ####################################################*/
+		/* De-Initialize the DMA associated to the peripheral */
+		if(hadc->DMA_Handle != NULL) {
+			HAL_DMA_DeInit(hadc->DMA_Handle);
+		}
 
+		/*##-4- Disable the NVIC ###################################################*/
+		/* Disable the NVIC configuration for DMA interrupt */
+		HAL_NVIC_DisableIRQ(DMA1_Ch1_IRQn);
+
+		/* Disable the NVIC configuration for ADC interrupt */
+		HAL_NVIC_DisableIRQ(ADC1_COMP_IRQn);
+
+		/* USER CODE BEGIN ADC1_MspDeInit 1 */
+
+		/* USER CODE END ADC1_MspDeInit 1 */
+	}
 }
 
 /**

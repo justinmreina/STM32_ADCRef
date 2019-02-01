@@ -54,7 +54,7 @@
 
 /* Private define ------------------------------------------------------------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define ADCCONVERTEDVALUES_BUFFER_SIZE ((uint32_t)    3)    /* Size of array containing ADC converted values: set to ADC sequencer number of ranks converted, to have a rank in each address */
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------------------------------------------------------------*/
@@ -70,6 +70,9 @@ UART_HandleTypeDef huart2;
 HAL_StatusTypeDef result;
 
 uint32_t val;																/* adc measurement value								*/
+
+/* Variable containing ADC conversions results */
+__IO uint16_t   aADCxConvertedValues[ADCCONVERTEDVALUES_BUFFER_SIZE];
 
 double voltage;																/* adc measurement in units of Volts					*/
 /* USER CODE BEGIN PV */
@@ -126,6 +129,16 @@ int main(void) {
 	MX_ADC_Init();
 
 	/* USER CODE BEGIN 2 */
+
+	  /*## Start ADC conversions #################################################*/
+
+	/* Start ADC conversion on regular group with transfer by DMA */
+	result = HAL_ADC_Start_DMA(&hadc, (uint32_t *)aADCxConvertedValues, ADCCONVERTEDVALUES_BUFFER_SIZE);
+
+	if(result != HAL_OK) {
+		/* Start Error */
+		Error_Handler();
+	}
 
 	/* USER CODE END 2 */
 
@@ -228,51 +241,57 @@ Error_Handler();
 * @param None
 * @retval None
 */
-static void MX_ADC_Init(void)
-{
+static void MX_ADC_Init(void) {
 
-/* USER CODE BEGIN ADC_Init 0 */
+	/* USER CODE BEGIN ADC_Init 0 */
 
-/* USER CODE END ADC_Init 0 */
+	/* USER CODE END ADC_Init 0 */
 
-ADC_ChannelConfTypeDef sConfig = {0};
+	ADC_ChannelConfTypeDef sConfig = {0};
 
-/* USER CODE BEGIN ADC_Init 1 */
+	/* USER CODE BEGIN ADC_Init 1 */
 
-/* USER CODE END ADC_Init 1 */
-/**Configure the global features of the ADC (Clock, Resolution, Data Alignment and number of conversion)
-*/
-hadc.Instance = ADC1;
-hadc.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV1;
-hadc.Init.Resolution = ADC_RESOLUTION_12B;
-hadc.Init.DataAlign = ADC_DATAALIGN_RIGHT;
-hadc.Init.ScanConvMode = ADC_SCAN_DIRECTION_FORWARD;
-hadc.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
-hadc.Init.LowPowerAutoWait = DISABLE;
-hadc.Init.LowPowerAutoPowerOff = DISABLE;
-hadc.Init.ContinuousConvMode = DISABLE;
-hadc.Init.DiscontinuousConvMode = DISABLE;
-hadc.Init.ExternalTrigConv = ADC_SOFTWARE_START;
-hadc.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
-hadc.Init.DMAContinuousRequests = DISABLE;
-hadc.Init.Overrun = ADC_OVR_DATA_PRESERVED;
-if (HAL_ADC_Init(&hadc) != HAL_OK)
-{
-Error_Handler();
-}
-/**Configure for the selected ADC regular channel to be converted.
-*/
-sConfig.Channel = DEMO_ADC_CHANNEL;
-sConfig.Rank = ADC_RANK_CHANNEL_NUMBER;
-sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
-if (HAL_ADC_ConfigChannel(&hadc, &sConfig) != HAL_OK)
-{
-Error_Handler();
-}
-/* USER CODE BEGIN ADC_Init 2 */
+	/* USER CODE END ADC_Init 1 */
+	/**Configure the global features of the ADC (Clock, Resolution, Data Alignment and number of conversion)
+	*/
+	hadc.Instance = ADC1;
+	hadc.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV1;
+	hadc.Init.Resolution = ADC_RESOLUTION_12B;
+	hadc.Init.DataAlign = ADC_DATAALIGN_RIGHT;
+	hadc.Init.ScanConvMode = ADC_SCAN_DIRECTION_FORWARD;
+	hadc.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
+	hadc.Init.LowPowerAutoWait = DISABLE;
+	hadc.Init.LowPowerAutoPowerOff = DISABLE;
+	hadc.Init.ContinuousConvMode = DISABLE;
+	hadc.Init.DiscontinuousConvMode = ENABLE;
+	hadc.Init.ExternalTrigConv = ADC_SOFTWARE_START;
+	hadc.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
+	hadc.Init.DMAContinuousRequests = ENABLE;
+	hadc.Init.Overrun = ADC_OVR_DATA_PRESERVED;
+	/* Note: Set long sampling time due to internal channels (VrefInt,          */
+	/*       temperature sensor) constraints. Refer to device datasheet for     */
+	/*       min/typ/max values.                                                */
+	hadc.Init.SamplingTimeCommon    = ADC_SAMPLETIME_239CYCLES_5;
 
-/* USER CODE END ADC_Init 2 */
+	if (HAL_ADC_Init(&hadc) != HAL_OK) {
+		Error_Handler();
+	}
 
+	/**Configure for the selected ADC regular channel to be converted.
+	*/
+	sConfig.Channel = DEMO_ADC_CHANNEL;
+	sConfig.Rank = ADC_RANK_CHANNEL_NUMBER;
+	sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+
+	if (HAL_ADC_ConfigChannel(&hadc, &sConfig) != HAL_OK) {
+		Error_Handler();
+	}
+
+	/* USER CODE BEGIN ADC_Init 2 */
+
+	/* USER CODE END ADC_Init 2 */
+
+	return;
 }
 
 /**

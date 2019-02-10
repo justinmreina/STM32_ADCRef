@@ -40,13 +40,68 @@
 #define __MAIN_H
 
 /* Includes ------------------------------------------------------------------*/
+#include "stm32f0xx_hal_conf.h"
+#include "stm32f0xx_hal_dma.h"
 #include "stm32f0xx_hal.h"
 #include "stm32f0xx_nucleo.h"
+#include "stm32f0xx_hal_adc.h"
+#include "stm32f0xx_hal_adc_ex.h"
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
+/* Exported variables ------------------------------------------------------- */
+extern ADC_HandleTypeDef AdcHandle;
+
+/* ## Definition of ADC related resources ################################### */
+/* Definition of ADCx clock resources */
+#define ADCx                            ADC1
+#define ADCx_CLK_ENABLE()               __HAL_RCC_ADC1_CLK_ENABLE()
+
+#define ADCx_FORCE_RESET()              __HAL_RCC_ADC1_FORCE_RESET()
+#define ADCx_RELEASE_RESET()            __HAL_RCC_ADC1_RELEASE_RESET()
+
+/* Definition of ADCx channels & pins*/
+#define ADCx_CHANNELa                   ADC_CHANNEL_0
+#define ADCx_CHANNELa_GPIO_CLK_ENABLE() __HAL_RCC_GPIOA_CLK_ENABLE()
+#define ADCx_CHANNELa_GPIO_PORT         GPIOA
+#define ADCx_CHANNELa_PIN               GPIO_PIN_0
+
+#define ADCx_CHANNELb                   ADC_CHANNEL_1
+#define ADCx_CHANNELb_GPIO_CLK_ENABLE() __HAL_RCC_GPIOA_CLK_ENABLE()
+#define ADCx_CHANNELb_GPIO_PORT         GPIOA
+#define ADCx_CHANNELb_PIN               GPIO_PIN_1
+
+#define ADCx_CHANNELc                   ADC_CHANNEL_8
+#define ADCx_CHANNELc_GPIO_CLK_ENABLE() __HAL_RCC_GPIOB_CLK_ENABLE()
+#define ADCx_CHANNELc_GPIO_PORT         GPIOB
+#define ADCx_CHANNELc_PIN               GPIO_PIN_0
+
+#define ADCx_CHANNELd                   ADC_CHANNEL_9
+#define ADCx_CHANNELd_GPIO_CLK_ENABLE() __HAL_RCC_GPIOB_CLK_ENABLE()
+#define ADCx_CHANNELd_GPIO_PORT         GPIOB
+#define ADCx_CHANNELd_PIN               GPIO_PIN_1
+
+#define ADCx_CHANNELe                   ADC_CHANNEL_14
+#define ADCx_CHANNELe_GPIO_CLK_ENABLE() __HAL_RCC_GPIOC_CLK_ENABLE()
+#define ADCx_CHANNELe_GPIO_PORT         GPIOC
+#define ADCx_CHANNELe_PIN               GPIO_PIN_4
+
+#define ADCx_CHANNELf                   ADC_CHANNEL_15
+#define ADCx_CHANNELf_GPIO_CLK_ENABLE() __HAL_RCC_GPIOC_CLK_ENABLE()
+#define ADCx_CHANNELf_GPIO_PORT         GPIOC
+#define ADCx_CHANNELf_PIN               GPIO_PIN_5
+
+/* Definition of ADCx DMA resources */
+#define ADCx_DMA_CLK_ENABLE()           __HAL_RCC_DMA1_CLK_ENABLE()
+#define ADCx_DMA                        DMA1_Channel1
+#define ADCx_DMA_IRQn                   DMA1_Ch1_IRQn
+#define ADCx_DMA_IRQHandler             DMA1_Ch1_IRQHandler
+
+/* Definition of ADCx NVIC resources */
+#define ADCx_IRQn                       ADC1_COMP_IRQn
+#define ADCx_IRQHandler                 ADC1_COMP_IRQHandler
 
 #endif /* __MAIN_H */
 

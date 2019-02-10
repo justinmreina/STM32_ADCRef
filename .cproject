@@ -19,7 +19,7 @@
 							<option id="com.atollic.truestudio.toolchain_options.mcu.40522879" name="Microcontroller" superClass="com.atollic.truestudio.toolchain_options.mcu" value="STM32F091RC" valueType="string"/>
 							<option id="com.atollic.truestudio.toolchain_options.vendor.910546778" name="Vendor name" superClass="com.atollic.truestudio.toolchain_options.vendor" value="STMicroelectronics" valueType="string"/>
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="com.atollic.truestudio.exe.debug.toolchain.platform.786843269" isAbstract="false" name="Debug platform" osList="all" superClass="com.atollic.truestudio.exe.debug.toolchain.platform"/>
-							<builder buildPath="${workspace_loc:/STM32_ADCRef}/Debug" id="com.atollic.truestudio.mbs.builder1.783020670" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT Internal Builder" superClass="com.atollic.truestudio.mbs.builder1"/>
+							<builder buildPath="${workspace_loc:/STM32_ADCRef}/Debug" customBuilderProperties="toolChainpathType=1|toolChainpathString=C:\\Program Files (x86)\\Atollic\\TrueSTUDIO for STM32 9.0.1\\ARMTools\\bin|" id="com.atollic.truestudio.mbs.builder1.783020670" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT Internal Builder" superClass="com.atollic.truestudio.mbs.builder1"/>
 							<tool id="com.atollic.truestudio.exe.debug.toolchain.as.1110290234" name="Assembler" superClass="com.atollic.truestudio.exe.debug.toolchain.as">
 								<option id="com.atollic.truestudio.common_options.target.endianess.1802980384" name="Endianess" superClass="com.atollic.truestudio.common_options.target.endianess"/>
 								<option id="com.atollic.truestudio.common_options.target.mcpu.1017749379" name="Microcontroller" superClass="com.atollic.truestudio.common_options.target.mcpu" value="STM32F091RC" valueType="enumerated"/>
@@ -69,7 +69,7 @@
 								<option id="com.atollic.truestudio.common_options.target.fpucore.779958153" name="FPU" superClass="com.atollic.truestudio.common_options.target.fpucore" value="com.atollic.truestudio.common_options.target.fpucore.None" valueType="enumerated"/>
 								<option id="com.atollic.truestudio.common_options.target.fpu.582755730" name="Floating point" superClass="com.atollic.truestudio.common_options.target.fpu"/>
 								<option id="com.atollic.truestudio.ld.general.scriptfile.305513033" name="Linker script" superClass="com.atollic.truestudio.ld.general.scriptfile" value="../stm32_flash.ld" valueType="string"/>
-								<option id="com.atollic.truestudio.ld.optimization.do_garbage.1429999894" name="Dead code removal " superClass="com.atollic.truestudio.ld.optimization.do_garbage" value="true" valueType="boolean"/>
+								<option id="com.atollic.truestudio.ld.optimization.do_garbage.1429999894" name="Dead code removal " superClass="com.atollic.truestudio.ld.optimization.do_garbage" useByScannerDiscovery="false" value="false" valueType="boolean"/>
 								<inputType id="com.atollic.truestudio.ld.input.1048077906" name="Input" superClass="com.atollic.truestudio.ld.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>

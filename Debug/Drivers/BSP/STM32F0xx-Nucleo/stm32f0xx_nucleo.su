@@ -7,3 +7,10 @@ stm32f0xx_nucleo.c:234:6:BSP_LED_Toggle	16	static
 stm32f0xx_nucleo.c:258:6:BSP_PB_Init	40	static
 stm32f0xx_nucleo.c:297:6:BSP_PB_DeInit	40	static
 stm32f0xx_nucleo.c:312:10:BSP_PB_GetState	16	static
+stm32f0xx_nucleo.c:730:13:ADCx_MspInit	48	static
+stm32f0xx_nucleo.c:753:13:ADCx_MspDeInit	40	static
+stm32f0xx_nucleo.c:773:26:ADCx_Init	8	static
+stm32f0xx_nucleo.c:819:13:ADCx_DeInit	8	static
+stm32f0xx_nucleo.c:834:9:BSP_JOY_Init	8	static
+stm32f0xx_nucleo.c:854:6:BSP_JOY_DeInit	8	static
+stm32f0xx_nucleo.c:871:18:BSP_JOY_GetState	16	static

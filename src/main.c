@@ -57,6 +57,8 @@ static GPIO_InitTypeDef  GPIO_InitStruct;
 static void SystemClock_Config(void);
 static void Error_Handler(void);
 
+void gpio_led2_init(void);
+
 /* Private functions ---------------------------------------------------------*/
 
 /**
@@ -64,8 +66,8 @@ static void Error_Handler(void);
   * @param  None
   * @retval None
   */
-int main(void)
-{
+int main(void) {
+
   /* This sample code shows how to use GPIO HAL API to toggle LED2 IOs
     in an infinite loop. */
 
@@ -82,18 +84,10 @@ int main(void)
 
   /* Configure the system clock to 48 MHz */
   SystemClock_Config();
-  
-  /* -1- Enable each GPIO Clock (to be able to program the configuration registers) */
-  LED2_GPIO_CLK_ENABLE();
 
-  /* -2- Configure IOs in output push-pull mode to drive external LEDs */
-  GPIO_InitStruct.Mode  = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull  = GPIO_PULLUP;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+  /* enable led2 gpio */
+  gpio_led2_init();
 
-  GPIO_InitStruct.Pin = LED2_PIN;
-  HAL_GPIO_Init(LED2_GPIO_PORT, &GPIO_InitStruct);
- 
   /* -3- Toggle IOs in an infinite loop */
   while (1)
   {
@@ -159,33 +153,26 @@ static void Error_Handler(void)
   }
 }
 
-#ifdef  USE_FULL_ASSERT
 
 /**
-  * @brief  Reports the name of the source file and the source line number
-  *         where the assert_param error has occurred.
-  * @param  file: pointer to the source file name
-  * @param  line: assert_param error line source number
+  * @fcn 	void gpio_led2_init(void)
+  * @brief  Initialize the LED2 GPIO pin
+  * @param  None
   * @retval None
   */
-void assert_failed(uint8_t *file, uint32_t line)
-{
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+void gpio_led2_init(void) {
 
-  /* Infinite loop */
-  while (1)
-  {
-  }
+	/* -1- Enable each GPIO Clock (to be able to program the configuration registers) */
+	LED2_GPIO_CLK_ENABLE();
+
+	/* -2- Configure IOs in output push-pull mode to drive external LEDs */
+	GPIO_InitStruct.Mode  = GPIO_MODE_OUTPUT_PP;
+	GPIO_InitStruct.Pull  = GPIO_PULLUP;
+	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+
+	GPIO_InitStruct.Pin = LED2_PIN;
+	HAL_GPIO_Init(LED2_GPIO_PORT, &GPIO_InitStruct);
+
+	return;
 }
-#endif
 
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

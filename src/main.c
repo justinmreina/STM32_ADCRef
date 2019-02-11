@@ -41,102 +41,87 @@
 #include "stm32f0xx_hal_adc.h"
 #include "stm32f0xx_hal_adc_ex.h"
 
-/** @addtogroup STM32F0xx_HAL_Examples
-  * @{
-  */
+/* Private typedef -----------------------------------------------------------------------------------------------------------------*/
+#define ADC_NUM_CHANNELS 	(5)    											/* number of adc channels under adc sequencer sequence	*/
+#define _nop()				asm(" nop")										/* nop instruction using standard convention			*/
 
-/** @addtogroup GPIO_IOToggle
-  * @{
-  */
 
-/* Private typedef -----------------------------------------------------------*/
-/* Private define ------------------------------------------------------------*/
-
-/* ADC parameters */
-#define ADCCONVERTEDVALUES_BUFFER_SIZE ((uint32_t)    5)    /* Size of array containing ADC converted values: set to ADC sequencer number of ranks converted, to have a rank in each address */
-
-/* Private macro -------------------------------------------------------------*/
-/* Private variables ---------------------------------------------------------*/
-static GPIO_InitTypeDef  GPIO_InitStruct;
+/* Private variables ---------------------------------------------------------------------------------------------------------------*/
 
 //ADC
 ADC_HandleTypeDef AdcHandle;												/* ADC handler declaration 								*/
-volatile uint16_t aADCxConvertedValues[ADCCONVERTEDVALUES_BUFFER_SIZE];		/* Variable containing ADC conversions results 			*/
+uint16_t adc_vals[ADC_NUM_CHANNELS];										/* Variable containing ADC conversions results 			*/
+
+//General
+HAL_StatusTypeDef result;													/* used for HAL operation results review				*/
+uint8_t sample_num;															/* active ADC sample in progress						*/
 
 
-/* Private function prototypes -----------------------------------------------*/
+/* Private function prototypes -----------------------------------------------------------------------------------------------------*/
 static void SystemClock_Config(void);
 static void Error_Handler(void);
 
 void gpio_led2_init(void);
 void ADC_Config(void);
+void _check(HAL_StatusTypeDef result);
 
-/* Private functions ---------------------------------------------------------*/
+/* Private functions ---------------------------------------------------------------------------------------------------------------*/
 
 /**
   * @brief  Main program
   * @param  None
   * @retval None
+  *
+  * @note 	Uses simple delay for sample completion, consider use of polling for improved design
   */
 int main(void) {
 
-  /* This sample code shows how to use GPIO HAL API to toggle LED2 IOs
-    in an infinite loop. */
+	//Init Vars
+	sample_num = 0;
 
-  /* STM32F0xx HAL library initialization:
-       - Configure the Flash prefetch
-       - Systick timer is configured by default as source of time base, but user 
-         can eventually implement his proper time base source (a general purpose 
-         timer for example or other time source), keeping in mind that Time base 
-         duration should be kept 1ms since PPP_TIMEOUT_VALUEs are defined and 
-         handled in milliseconds basis.
-       - Low Level Initialization
-     */
-  HAL_Init();
+	//Boot
+	HAL_Init();
+	SystemClock_Config();													/* Configure the system clock to 48 MHz 				*/
+	gpio_led2_init();														/* enable led2 gpio 									*/
+	ADC_Config();															/* initialize the ADC 									*/
 
-  /* Configure the system clock to 48 MHz */
-  SystemClock_Config();
+	result = HAL_ADCEx_Calibration_Start(&AdcHandle);						/* Run the ADC calibration 								*/
+	_check(result);
 
-  /* enable led2 gpio */
-  gpio_led2_init();
+	//Boot Delay
+	HAL_Delay(100);															/* periodic instability observed w/o boot delay			*/
 
-  /* initialize the ADC */
-  ADC_Config();
 
-	/* Run the ADC calibration */
-	if (HAL_ADCEx_Calibration_Start(&AdcHandle) != HAL_OK) {
-		Error_Handler();    												/* Calibration Error 									*/
-	}
+	//******************************************************************************************************************************//
+	//														START DMA SEQUENCE														//
+	// @brief 	Start ADC conversion on regular group with transfer by DMA 															//
+	//******************************************************************************************************************************//
+	result = HAL_ADC_Start_DMA(&AdcHandle, (uint32_t *)adc_vals, ADC_NUM_CHANNELS);
+	_check(result);
 
-	/*## Enable peripherals ####################################################*/
-	/*## Start ADC conversions #################################################*/
-
-	/* Start ADC conversion on regular group with transfer by DMA */
-	if (HAL_ADC_Start_DMA(&AdcHandle, (uint32_t *)aADCxConvertedValues, ADCCONVERTEDVALUES_BUFFER_SIZE) != HAL_OK) {
-		Error_Handler();													/* Start Error 											*/
-	}
-
-	/* -3- Toggle IOs in an infinite loop */
+	//Sample ADC
 	for(;;) {
 
-		//READ ADC
-		if (HAL_ADC_Start(&AdcHandle) != HAL_OK) {
-			Error_Handler();
+		//**************************************************************************************************************************//
+		//													SAMPLE NEXT CHANNEL														//
+		//**************************************************************************************************************************//
+
+		//Read ADC
+		result = HAL_ADC_Start(&AdcHandle);
+		_check(result);
+
+		//Update Count
+		sample_num = (sample_num+1)%ADC_NUM_CHANNELS;
+
+		//Wait for Completion of Sample
+		HAL_Delay(1);														/* Wait for conversion completion 						*/
+
+		if(!sample_num) {
+			_nop();															/* User breakpoint loc									*/
 		}
-
-		/* Wait for conversion completion */
-		/* Note: A fixed wait time of 1ms is used for the purpose of this example: ADC conversions are decomposed between each rank
-		 *  	 of the ADC sequencer. Function "HAL_ADC_PollForConversion(&AdcHandle, 1)" could be used, instead of wait time, but
-		 *  	 with a different configuration (this function cannot be used if ADC configured in DMA mode and polling for end of
-		 *  	 each conversion): a possible configuration is ADC polling for the entire sequence (ADC init parameter "EOCSelection"
-		 *  	 set to ADC_EOC_SEQ_CONV) (this also induces that ADC discontinuous mode must be disabled).           				*/
-		HAL_Delay(1);
-
-    //Loop Delay
-	HAL_GPIO_TogglePin(LED2_GPIO_PORT, LED2_PIN);
-    HAL_Delay(100);															/* Insert delay 100 ms 									*/
-  }
+	}
 }
+
 
 /**
   * @brief  System Clock Configuration
@@ -153,8 +138,8 @@ int main(void) {
   * @param  None
   * @retval None
   */
-static void SystemClock_Config(void)
-{
+static void SystemClock_Config(void) {
+
   RCC_ClkInitTypeDef RCC_ClkInitStruct;
   RCC_OscInitTypeDef RCC_OscInitStruct;
   
@@ -165,20 +150,18 @@ static void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI48;
   RCC_OscInitStruct.PLL.PREDIV = RCC_PREDIV_DIV2;
   RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL2;
-  if (HAL_RCC_OscConfig(&RCC_OscInitStruct)!= HAL_OK)
-  {
-    Error_Handler();
-  }
+
+  result = HAL_RCC_OscConfig(&RCC_OscInitStruct);
+  _check(result);
 
   /* Select PLL as system clock source and configure the HCLK and PCLK1 clocks dividers */
   RCC_ClkInitStruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1);
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1)!= HAL_OK)
-  {
-    Error_Handler();
-  }
+
+  result = HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1);
+  _check(result);
 }
 
 
@@ -187,12 +170,8 @@ static void SystemClock_Config(void)
   * @param  None
   * @retval None
   */
-static void Error_Handler(void)
-{
-  /* User may add here some code to deal with this error */
-  while(1)
-  {
-  }
+static void Error_Handler(void) {
+  for(;;);																	/* User may add here some code to deal with this error	*/
 }
 
 
@@ -204,14 +183,18 @@ static void Error_Handler(void)
   */
 void gpio_led2_init(void) {
 
-	/* -1- Enable each GPIO Clock (to be able to program the configuration registers) */
-	LED2_GPIO_CLK_ENABLE();
+	//Locals
+	GPIO_InitTypeDef  GPIO_InitStruct;
 
-	/* -2- Configure IOs in output push-pull mode to drive external LEDs */
+	//Init Clocks
+	LED2_GPIO_CLK_ENABLE();													/* Enable each GPIO Clock 								*/
+
+	//Configure IO
 	GPIO_InitStruct.Mode  = GPIO_MODE_OUTPUT_PP;
 	GPIO_InitStruct.Pull  = GPIO_PULLUP;
 	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
 
+	//Init
 	GPIO_InitStruct.Pin = LED2_PIN;
 	HAL_GPIO_Init(LED2_GPIO_PORT, &GPIO_InitStruct);
 
@@ -224,89 +207,86 @@ void gpio_led2_init(void) {
   * @param  None
   * @retval None
   */
-void ADC_Config(void)
-{
-  ADC_ChannelConfTypeDef   sConfig;
+void ADC_Config(void) {
 
-  /* Configuration of AdcHandle init structure: ADC parameters and regular group */
-  AdcHandle.Instance = ADCx;
+	//Locals
+	ADC_ChannelConfTypeDef   sConfig;
 
-  if (HAL_ADC_DeInit(&AdcHandle) != HAL_OK)
-  {
-    /* ADC initialization error */
-    Error_Handler();
-  }
+	/* Configuration of AdcHandle init structure: ADC parameters and regular group */
+	AdcHandle.Instance = ADCx;
 
-  AdcHandle.Init.ClockPrescaler        = ADC_CLOCK_ASYNC_DIV1;
-  AdcHandle.Init.Resolution            = ADC_RESOLUTION_12B;
-  AdcHandle.Init.DataAlign             = ADC_DATAALIGN_RIGHT;
-  AdcHandle.Init.ScanConvMode          = ADC_SCAN_DIRECTION_FORWARD;    /* Sequencer will convert the number of channels configured below, successively from the lowest to the highest channel number */
-  AdcHandle.Init.EOCSelection          = ADC_EOC_SINGLE_CONV;
-  AdcHandle.Init.LowPowerAutoWait      = DISABLE;
-  AdcHandle.Init.LowPowerAutoPowerOff  = DISABLE;
-  AdcHandle.Init.ContinuousConvMode    = DISABLE;                       /* Continuous mode disabled to have only 1 rank converted at each conversion trig, and because discontinuous mode is enabled */
-  AdcHandle.Init.DiscontinuousConvMode = ENABLE;                        /* Sequencer of regular group will convert the sequence in several sub-divided sequences */
-  AdcHandle.Init.ExternalTrigConv      = ADC_SOFTWARE_START;            /* Software start to trig the 1st conversion manually, without external event */
-  AdcHandle.Init.ExternalTrigConvEdge  = ADC_EXTERNALTRIGCONVEDGE_NONE; /* Parameter discarded because trig of conversion by software start (no external event) */
-  AdcHandle.Init.DMAContinuousRequests = ENABLE;                        /* ADC-DMA continuous requests to match with DMA configured in circular mode */
-  AdcHandle.Init.Overrun               = ADC_OVR_DATA_OVERWRITTEN;
-  /* Note: Set long sampling time due to internal channels (VrefInt,          */
-  /*       temperature sensor) constraints. Refer to device datasheet for     */
-  /*       min/typ/max values.                                                */
-  AdcHandle.Init.SamplingTimeCommon    = ADC_SAMPLETIME_239CYCLES_5;
+	result = HAL_ADC_DeInit(&AdcHandle);
+	_check(result);
 
-  if (HAL_ADC_Init(&AdcHandle) != HAL_OK)
-  {
-    /* ADC initialization error */
-    Error_Handler();
-  }
+	AdcHandle.Init.ClockPrescaler        = ADC_CLOCK_ASYNC_DIV1;
+	AdcHandle.Init.Resolution            = ADC_RESOLUTION_12B;
+	AdcHandle.Init.DataAlign             = ADC_DATAALIGN_RIGHT;
+	AdcHandle.Init.ScanConvMode          = ADC_SCAN_DIRECTION_FORWARD;    /* Sequencer will convert the number of channels configured below, successively from the lowest to the highest channel number */
+	AdcHandle.Init.EOCSelection          = ADC_EOC_SINGLE_CONV;
+	AdcHandle.Init.LowPowerAutoWait      = DISABLE;
+	AdcHandle.Init.LowPowerAutoPowerOff  = DISABLE;
+	AdcHandle.Init.ContinuousConvMode    = DISABLE;                       /* Continuous mode disabled to have only 1 rank converted at each conversion trig, and because discontinuous mode is enabled */
+	AdcHandle.Init.DiscontinuousConvMode = ENABLE;                        /* Sequencer of regular group will convert the sequence in several sub-divided sequences */
+	AdcHandle.Init.ExternalTrigConv      = ADC_SOFTWARE_START;            /* Software start to trig the 1st conversion manually, without external event */
+	AdcHandle.Init.ExternalTrigConvEdge  = ADC_EXTERNALTRIGCONVEDGE_NONE; /* Parameter discarded because trig of conversion by software start (no external event) */
+	AdcHandle.Init.DMAContinuousRequests = ENABLE;                        /* ADC-DMA continuous requests to match with DMA configured in circular mode */
+	AdcHandle.Init.Overrun               = ADC_OVR_DATA_OVERWRITTEN;
+	/* Note: Set long sampling time due to internal channels (VrefInt, temperature sensor) constraints. Refer to device datasheet	*/
+	/* 		 for min/typ/max values.                                                												*/
+	AdcHandle.Init.SamplingTimeCommon    = ADC_SAMPLETIME_239CYCLES_5;
 
-  /* Configuration of channel on ADCx regular group on sequencer rank 1 */
-  /* Note: Considering IT occurring after each ADC conversion (IT by DMA end  */
-  /*       of transfer), select sampling time and ADC clock with sufficient   */
-  /*       duration to not create an overhead situation in IRQHandler.        */
-  sConfig.Channel      = ADCx_CHANNELa;
-  sConfig.Rank         = ADC_RANK_CHANNEL_NUMBER;
+	result = HAL_ADC_Init(&AdcHandle);
+	_check(result);
 
-  if (HAL_ADC_ConfigChannel(&AdcHandle, &sConfig) != HAL_OK)
-  {
-    /* Channel Configuration Error */
-    Error_Handler();
-  }
+	/* Configuration of channel on ADCx regular group on sequencer rank 1 */
+	/* Note: Considering IT occurring after each ADC conversion (IT by DMA end of transfer), select sampling time and ADC clock		*/
+	/* 		 with sufficient duration to not create an overhead situation in IRQHandler.        									*/
+	sConfig.Channel      = ADCx_CHANNELa;
+	sConfig.Rank         = ADC_RANK_CHANNEL_NUMBER;
 
-  /* Configuration of channel on ADCx regular group on sequencer rank 2 */
-  /* Replicate previous rank settings, change only channel */
-  /* Note: On STM32F0xx, rank is defined by channel number. ADC Channel       */
-  /*       ADC_CHANNEL_TEMPSENSOR is on ADC channel 16, there is 1 other      */
-  /*       channel enabled with lower channel number. Therefore,              */
-  /*       ADC_CHANNEL_TEMPSENSOR will be converted by the sequencer as the   */
-  /*       2nd rank.                                                          */
-  sConfig.Channel      = ADCx_CHANNELb;
+	result = HAL_ADC_ConfigChannel(&AdcHandle, &sConfig);
+	_check(result);
 
-  if (HAL_ADC_ConfigChannel(&AdcHandle, &sConfig) != HAL_OK)
-  {
-    /* Channel Configuration Error */
-    Error_Handler();
-  }
+	/* Configuration of channel on ADCx regular group on sequencer rank 2 Replicate previous rank settings, change only channel 	*/
+	/* Note: On STM32F0xx, rank is defined by channel number. ADC Channel ADC_CHANNEL_TEMPSENSOR is on ADC channel 16, there is 1 	*/
+	/*		 other channel enabled with lower channel number. Therefore, ADC_CHANNEL_TEMPSENSOR will be converted by the sequencer	*/
+	/*		 as the 2nd rank.                                                          												*/
+	sConfig.Channel      = ADCx_CHANNELb;
 
-  //Channel 3
-  sConfig.Channel      = ADCx_CHANNELc;
-  if (HAL_ADC_ConfigChannel(&AdcHandle, &sConfig) != HAL_OK) {
-    Error_Handler();									/* Channel Configuration Error 				*/
-  }
+	result = HAL_ADC_ConfigChannel(&AdcHandle, &sConfig);
+	_check(result);
 
-  //Channel 4
-  sConfig.Channel      = ADCx_CHANNELd;
-  if (HAL_ADC_ConfigChannel(&AdcHandle, &sConfig) != HAL_OK) {
-    Error_Handler();									/* Channel Configuration Error 				*/
-  }
+	//Channel 3
+	sConfig.Channel      = ADCx_CHANNELc;
+	result = HAL_ADC_ConfigChannel(&AdcHandle, &sConfig);
+	_check(result);
 
-  //Channel 4
-  sConfig.Channel      = ADCx_CHANNELe;
-  if (HAL_ADC_ConfigChannel(&AdcHandle, &sConfig) != HAL_OK) {
-    Error_Handler();									/* Channel Configuration Error 				*/
-  }
+	//Channel 4
+	sConfig.Channel      = ADCx_CHANNELd;
+	result = HAL_ADC_ConfigChannel(&AdcHandle, &sConfig);
+	_check(result);
+
+	//Channel 4
+	sConfig.Channel      = ADCx_CHANNELe;
+	result = HAL_ADC_ConfigChannel(&AdcHandle, &sConfig);
+	_check(result);
 
 	return;
 }
 
+
+/**
+  * @brief  Check for HAL errors
+  * @param  None
+  * @retval None
+  * @warn 	Spins on !HAL_OK
+  */
+void _check(HAL_StatusTypeDef result) {
+
+	//Check result
+	if (result != HAL_OK) {
+		Error_Handler();    												/* Calibration Error 									*/
+	}
+
+	return;
+}
